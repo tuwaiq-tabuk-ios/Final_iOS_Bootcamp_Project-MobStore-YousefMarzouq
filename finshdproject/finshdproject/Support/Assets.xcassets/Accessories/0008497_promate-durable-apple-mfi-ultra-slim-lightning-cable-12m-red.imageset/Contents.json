@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "0008497_promate-durable-apple-mfi-ultra-slim-lightning-cable-12m-red.jpeg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
