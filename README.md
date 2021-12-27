@@ -1,4 +1,4 @@
-# Final_iOS_Bootcamp_Project-Mudaris-YousefMarzouq
+# Final_iOS_Bootcamp_Project-MobStore-YousefMarzouq
 An app for buying and selling mobile phones and accessories
 
 ## Motivation
