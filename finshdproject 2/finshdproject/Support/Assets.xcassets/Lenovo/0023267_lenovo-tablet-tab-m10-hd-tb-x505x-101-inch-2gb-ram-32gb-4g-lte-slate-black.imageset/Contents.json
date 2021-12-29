@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "0023267_lenovo-tablet-tab-m10-hd-tb-x505x-101-inch-2gb-ram-32gb-4g-lte-slate-black.jpeg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

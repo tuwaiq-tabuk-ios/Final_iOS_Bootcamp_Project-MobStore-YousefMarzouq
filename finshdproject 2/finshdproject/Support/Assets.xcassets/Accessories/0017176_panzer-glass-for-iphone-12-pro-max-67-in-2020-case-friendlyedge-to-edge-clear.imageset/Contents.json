@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "0017176_panzer-glass-for-iphone-12-pro-max-67-in-2020-case-friendlyedge-to-edge-clear.jpeg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

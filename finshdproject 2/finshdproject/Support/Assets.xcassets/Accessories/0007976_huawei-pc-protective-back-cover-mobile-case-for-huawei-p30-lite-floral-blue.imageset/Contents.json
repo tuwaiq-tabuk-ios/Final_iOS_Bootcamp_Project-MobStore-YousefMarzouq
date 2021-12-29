@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "0007976_huawei-pc-protective-back-cover-mobile-case-for-huawei-p30-lite-floral-blue.jpeg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
