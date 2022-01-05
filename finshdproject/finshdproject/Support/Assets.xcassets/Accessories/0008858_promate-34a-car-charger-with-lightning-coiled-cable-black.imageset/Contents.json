@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "0008858_promate-34a-car-charger-with-lightning-coiled-cable-black.jpeg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
