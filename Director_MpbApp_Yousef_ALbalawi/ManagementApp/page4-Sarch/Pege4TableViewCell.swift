@@ -8,6 +8,7 @@
 import UIKit
 
 class Pege4TableViewCell: UITableViewCell {
+ 
   @IBOutlet weak var labe: UILabel!
   
     override func awakeFromNib() {

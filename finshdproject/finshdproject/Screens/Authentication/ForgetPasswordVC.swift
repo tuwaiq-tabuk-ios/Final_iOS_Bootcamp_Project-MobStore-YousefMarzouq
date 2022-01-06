@@ -16,26 +16,24 @@ class ForgetPasswordVC: UIViewController {
   
   
   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
+  }
+  
   
   @IBAction func forgitPressd(_ sender: UIButton) {
     let auth = Auth.auth()
-            auth.sendPasswordReset(withEmail: forGetLb.text!) { (error) in
-                if let error = error {
-                    let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                    self.present(alert, animated: true, completion: nil)
-                    return
-                }
-                let alert = UIAlertController(title: "Succesfully", message: "A password reset email has been sent!", preferredStyle: UIAlertController.Style.alert)
-                self.present(alert, animated: true, completion: nil)
-            }
-        }
-
-  
+    auth.sendPasswordReset(withEmail: forGetLb.text!) { (error) in
+      if let error = error {
+        let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+        self.present(alert, animated: true, completion: nil)
+        return
+      }
+      let alert = UIAlertController(title: "Succesfully", message: "A password reset email has been sent!", preferredStyle: UIAlertController.Style.alert)
+      self.present(alert, animated: true, completion: nil)
+    }
+  }
   
   
   @IBAction func goTosingin(_ sender: Any) {
@@ -49,5 +47,5 @@ class ForgetPasswordVC: UIViewController {
   @IBAction func closPege(_ sender: Any) {
     dismiss(animated: true, completion: nil);
   }
-
+  
 }

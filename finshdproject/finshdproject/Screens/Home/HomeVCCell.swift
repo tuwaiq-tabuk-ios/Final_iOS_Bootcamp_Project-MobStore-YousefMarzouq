@@ -11,4 +11,6 @@ class HomeVCCell: UICollectionViewCell {
 
   
   @IBOutlet weak var imig: UIImageView!
+  
+  
 }

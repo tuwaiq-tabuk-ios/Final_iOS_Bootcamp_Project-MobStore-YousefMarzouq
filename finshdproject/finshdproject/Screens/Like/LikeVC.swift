@@ -21,38 +21,36 @@ class LikeVC: UIViewController,
   var productsLike: [Product]! = [Product]()
   var dataCollection: CollectionReference!
   
+  
   @IBOutlet weak var likeCView: UICollectionView!
+  
   
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     likeCView.delegate = self
     likeCView.dataSource = self
-    
     let db = Firestore.firestore()
     dataCollection = db.collection("ProdectsFavorite")
-    //getData()
+    
     
   }
-  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.likeCView.reloadData()
     getData()
   }
   
+  
   func getData() {
     let db = Firestore.firestore()
     productsLike.removeAll()
     dataCollection.getDocuments { snapsot, error in
       if error != nil {
-        
       } else {
         for document in snapsot!.documents {
           let data = document.data()
           let dataCollection2 = db.collection("Prodects").document(data["id"] as! String)
-          
           dataCollection2.getDocument { snapshotData, error in
             if error != nil {
               print("~~ error: \(String(describing: error?.localizedDescription))")
@@ -74,7 +72,6 @@ class LikeVC: UIViewController,
                 } else {
                   return false
                 }
-                
               }) {
                 self.productsLike.append(prodects)
                 self.likeCView.reloadData()
@@ -91,15 +88,14 @@ class LikeVC: UIViewController,
   
   @IBAction func deleteButtonTapped(_ sender: UIButton) {
     let index = sender.tag
-    
     let db = Firestore.firestore()
-      db.collection("Prodects").document(productsLike[index].id).setData(["isFavorite":false], merge: true)
-      if let index1 = products.firstIndex(of: productsLike[index]) {
-        products[index1].isFavorite = false
-        productsLike[index].isFavorite = false
-      }
-      db.collection("ProdectsFavorite").document(productsLike[index].id).delete()
-        productsLike.remove(at: index)
+    db.collection("Prodects").document(productsLike[index].id).setData(["isFavorite":false], merge: true)
+    if let index1 = products.firstIndex(of: productsLike[index]) {
+      products[index1].isFavorite = false
+      productsLike[index].isFavorite = false
+    }
+    db.collection("ProdectsFavorite").document(productsLike[index].id).delete()
+    productsLike.remove(at: index)
     likeCView.reloadData()
   }
   
@@ -120,6 +116,7 @@ class LikeVC: UIViewController,
 
 extension LikeVC: UICollectionViewDataSource {
   
+  
   func collectionView(
     _ collectionView: UICollectionView,
     numberOfItemsInSection section: Int
@@ -134,24 +131,14 @@ extension LikeVC: UICollectionViewDataSource {
     cellForItemAt indexPath: IndexPath
   ) -> UICollectionViewCell {
     let cell = likeCView.dequeueReusableCell(withReuseIdentifier: "likeSho", for: indexPath) as! likeCollectionVCell
-    
-    
     let array = productsLike[indexPath.row]
     let animatedImage = SDAnimatedImage(contentsOfFile: "\(Bundle.main.bundlePath)/Loader1.gif")
-    
     cell.imgFibrtcll.sd_setImage(with: URL(string: array.image), placeholderImage:animatedImage)
-    
-    
-    
     cell.ditelsFibrt.text = array.info
     cell.pricFibrt.text = "\(array.price)"
     cell.deleteButton.tag = indexPath.row
-    
     return cell
     
   }
-  
-  
-  
 }
 

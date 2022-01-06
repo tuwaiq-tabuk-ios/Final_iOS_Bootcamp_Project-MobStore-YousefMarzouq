@@ -7,8 +7,11 @@
 
 import UIKit
 
-class Paeg4VC: UIViewController, UITableViewDelegate,UITableViewDataSource,  UISearchBarDelegate {
- 
+class Paeg4VC: UIViewController,
+               UITableViewDelegate,
+               UITableViewDataSource,
+               UISearchBarDelegate {
+  
   
   @IBOutlet weak var serchBar: UISearchBar!
   
@@ -20,24 +23,27 @@ class Paeg4VC: UIViewController, UITableViewDelegate,UITableViewDataSource,  UIS
   
   
   override func viewDidLoad() {
-        super.viewDidLoad()
+    super.viewDidLoad()
     Paeg4Table.delegate = self
     Paeg4Table.dataSource = self
     serchBar.delegate = self
-
-    }
     
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  }
+  
+  func tableView(_ tableView: UITableView,
+                 numberOfRowsInSection section: Int) -> Int {
     return arr.count
   }
   
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+  func tableView(_ tableView: UITableView,
+                 cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-    let cll = tableView.dequeueReusableCell(withIdentifier: "Paeg4Table",for: indexPath) as! Pege4TableViewCell
+    let cll = tableView.dequeueReusableCell(withIdentifier: "Paeg4Table",
+                                            for: indexPath) as! Pege4TableViewCell
     cll.labe.text = arr[indexPath.row]
     
     return cll
   }
-
-    
+  
+  
 }

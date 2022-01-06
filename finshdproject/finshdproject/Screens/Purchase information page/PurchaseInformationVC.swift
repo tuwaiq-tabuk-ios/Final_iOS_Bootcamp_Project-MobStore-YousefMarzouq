@@ -7,7 +7,7 @@
 
 import UIKit
 import SDWebImage
-
+import Firebase
 
 
 
@@ -16,13 +16,25 @@ class PurchaseInformationVC: UIViewController ,
                              UITableViewDelegate {
   
   
+  var arri3:[Cart]!
+  var totlprice:Double = 0
+
+  var billingAddress : [Double] = [Double]()
+  var shippingAddress : [Double] = [Double]()
+  
+  
+  
+  
   
   var conter = 1
   
   @IBOutlet weak var tabelView: UITableView!
   @IBOutlet weak var cllColleViewPInfo: UICollectionView!
   
-  
+  @IBOutlet weak var subTotalLabel: UILabel!
+  @IBOutlet weak var deliveryLabel: UILabel!
+  @IBOutlet weak var taxLabel: UILabel!
+  @IBOutlet weak var totalLabel: UILabel!
   
   
   struct purchase {
@@ -30,8 +42,7 @@ class PurchaseInformationVC: UIViewController ,
     let button : String
   }
   
-  //   var tag1:data1 = [purchase]
-  //
+
   let data1 : [purchase] = [
     purchase(labul: "Shipping Address",
              button: "Selection"),
@@ -39,8 +50,8 @@ class PurchaseInformationVC: UIViewController ,
              button: "Selection"),
     purchase(labul: "Payment method",
              button: "Selection"),
-    purchase(labul: "Shipping way",
-             button: "Selection"),
+//    purchase(labul: "Purchase information",
+//             button: "Selection"),
   ]
   
   override func viewDidLoad() {
@@ -51,21 +62,143 @@ class PurchaseInformationVC: UIViewController ,
     cllColleViewPInfo.dataSource = self
     
   }
+
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    for prodct in arri3 {
+    totlprice +=  Double(prodct.count) * Double(prodct.product.price)
+    subTotalLabel.text = "\(totlprice)"
+    
+    taxLabel.text = "\(totlprice * 0.15)"
+    deliveryLabel.text = "20"
+    let sum = Double(taxLabel.text!)! + Double(deliveryLabel.text!)!
+    totalLabel.text = "\( sum + totlprice)"
+    }
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(billingAddressReceive), name: Notification.Name("billingAddress"), object: nil)
+    
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(shippingAddressReceive), name: Notification.Name("shippingAddress"), object: nil)
+
+    
+    
+    
+  }
+  
+  @objc func billingAddressReceive(notification: Notification) {
+    
+    let data = notification.userInfo!
+    
+    let latitude = data["latitude"] as! Double
+    let longitude = data["longitude"] as! Double
+    billingAddress = [latitude,longitude]
+    
+  }
+  
+  
+  @objc func shippingAddressReceive(notification: Notification) {
+    
+    let data = notification.userInfo!
+    
+    let latitude = data["latitude"] as! Double
+    let longitude = data["longitude"] as! Double
+    shippingAddress = [latitude,longitude]
+    
+  }
+  
+  @IBAction func comfirmButtonPreased(_ sender: UIButton) {
+    
+    
+    
+    var array = [[String:Any]]()
+    
+    for cart in arri3 {
+      array.append(["count" : cart.count,"id":cart.product.id])
+    }
+    let db = Firestore.firestore()
+    let auth = Auth.auth().currentUser!
+    
+    db.collection("users").document(auth.uid).getDocument { document, error in
+      
+      guard error == nil else {
+        print("~~ 1 \(error?.localizedDescription)")
+        return
+      }
+      let userdata = document!.data()!
+      
+      let customerName = "\(String(describing: userdata["firstname"])) \(String(describing: userdata["lastname"]))"
+      db.collection("Orders").document("ordersCount").getDocument { document, error in
+        guard error == nil else {
+          print("~~ 2 \(error?.localizedDescription)")
+
+          return
+        }
+        
+       
+        
+        let ordersCountData = document?.data()
+        let orderNumber = ordersCountData?["count"] as! Int
+        let sum = orderNumber + 1
+        
+        db.collection("Orders").document("ordersCount").setData(["count":sum], merge: true)
+        
+        db.collection("Orders").document(auth.uid).setData(["\(sum)":[
+          "customerName": customerName,
+          "customerPhone":userdata["phone"] ?? "",
+          "orderNumber":sum,
+          "orderState":"Order sent",
+          "billingAddress":self.billingAddress,
+          "shippingAddress":self.shippingAddress,
+          "totalAmount":self.totalLabel.text!,
+          "orders":array,
+        ]], merge: true) { error in
+          guard error == nil else {
+            print("~~ 3 \(error?.localizedDescription)")
+            return
+          }
+          
+      
+          // للحذف راح انسخ هذي و اغير ديكومنت
+          
+          /*
+           let index = sendrt.tag
+           Carts => Prodects
+           auth.uid => ARRAY_NAME[index].id
+           
+           
+           */
+          db.collection("Carts").document(auth.uid).delete()
+          
+        }
+        
+      }
+      
+    
+      
+      
+      
+    }
+    
+
+
+    
+    
+    
+  }
   
   @IBAction func presdButton(_ sender: UIButton) {
     
-    
-    print("~~ \(sender.tag)")
     if sender.tag == 0 {
       let storyboard = UIStoryboard(name: "Main", bundle: nil)
-      let vc = storyboard.instantiateViewController(withIdentifier: "billingAddress")
+      let vc = storyboard.instantiateViewController(withIdentifier: "ShippingAddress")
       vc.modalPresentationStyle = .overFullScreen
       present(vc, animated: true)
       
     } else if sender.tag == 1{
       let storyboard = UIStoryboard(name: "Main", bundle: nil)
-      let vc = storyboard.instantiateViewController(withIdentifier: "ShippingAddress")
+      let vc = storyboard.instantiateViewController(withIdentifier: "billingAddress")
       vc.modalPresentationStyle = .overFullScreen
       present(vc, animated: true)
       
@@ -75,31 +208,35 @@ class PurchaseInformationVC: UIViewController ,
       vc.modalPresentationStyle = .overFullScreen
       present(vc, animated: true)
       
-    }else {
-      let storyboard = UIStoryboard(name: "Main", bundle: nil)
-      let vc = storyboard.instantiateViewController(withIdentifier: "ShippingWay")
-      vc.modalPresentationStyle = .overFullScreen
-      present(vc, animated: true)
-      
-      
     }
+    
   }
   
-  
-  
-  
-  
-  
-  
-  
-  
-  @IBAction func plasBT(_ sender: Any) {
+
+  @IBAction func rmoveBT(_ sender: UIButton) {
+    let index = sender.tag
+    let db = Firestore.firestore()
+    let auth = Auth.auth().currentUser!
+    let document = db.collection("Carts").document(auth.uid)
+    document.setData( ["carts": FieldValue.arrayRemove([arri3[index].product.id])], merge: true)
+    
+    totlprice -= Double(arri3[index].count) * Double(arri3[index].product.price)
+    subTotalLabel.text = "\(totlprice)"
+    taxLabel.text = "\(totlprice * 0.15)"
+    deliveryLabel.text = "20"
+    let sum = Double(taxLabel.text!)! + Double(deliveryLabel.text!)!
+    totalLabel.text = "\( sum + totlprice)"
+    
+    arri3.remove(at: index)
+    
+    cllColleViewPInfo.reloadData()
+    
+    
   }
-  @IBAction func minusBT(_ sender: Any) {
-  }
-  @IBAction func rmoveBT(_ sender: Any) {
-  }
-  @IBAction func addLike(_ sender: Any) {
+  
+  @IBAction func addLike(_ sender: UIButton) {
+  
+  
   }
   
   
@@ -134,8 +271,9 @@ class PurchaseInformationVC: UIViewController ,
     
   }
   
-  var arri3:Product!
 }
+
+
 
 extension PurchaseInformationVC: UICollectionViewDelegate, UICollectionViewDataSource {
   
@@ -143,44 +281,26 @@ extension PurchaseInformationVC: UICollectionViewDelegate, UICollectionViewDataS
   
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 2
+    return arri3.count
     
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
     let cll1 = collectionView.dequeueReusableCell(withReuseIdentifier: "CCll", for: indexPath) as! PurchaseInformationCellVC
+    
     let animatedImage = SDAnimatedImage(contentsOfFile: "\(Bundle.main.bundlePath)/Loader1.gif")
     
    
-//    cll1.imageCellPurchase.sd_setImage(with: URL(string: arri3.images[indexPath.row]), placeholderImage:animatedImage)
-
-    cll1.plasButton.tag = indexPath.row
-    cll1.mensButton.tag = indexPath.row
-    cll1.countPurchase.text = "1"
-    cll1.infoPurchase.text = "dfdsdfgdhdgfsafghjgfedwergt" //arri3.info
-    cll1.praicPurchase.text =  "32456"//"\(arri3.price) SR"
+    cll1.imageCellPurchase.sd_setImage(with: URL(string: arri3[indexPath.row].product.image), placeholderImage:animatedImage)
     
+    cll1.infoPurchase.text =  arri3[indexPath.row].product.info
+    cll1.praicPurchase.text = "\(arri3[indexPath.row].product.price) SR"
+
     
     return cll1
   }
   
-  @IBAction func plasButton(_ sender: UIButton) {
-    let cll1 = cllColleViewPInfo!.cellForItem(at: IndexPath(row: sender.tag, section: 0)) as! PurchaseInformationCellVC
-    var conter = Int(cll1.countPurchase.text!)
-    conter! += 1
-    cll1.countPurchase.text = conter?.description
-  }
-  
-  
-  @IBAction func minusButton(_ sender: UIButton) {
-    let cell = cllColleViewPInfo!.cellForItem(at: IndexPath(row: sender.tag, section: 0)) as! PurchaseInformationCellVC
-    var conter = Int(cell.countPurchase.text!)
-    if conter != 0 {
-      conter! -= 1
-      cell.countPurchase.text = conter?.description
-    }
-  }
   
   @IBAction func rmoveCollch(_ sender: UIButton) {
   }

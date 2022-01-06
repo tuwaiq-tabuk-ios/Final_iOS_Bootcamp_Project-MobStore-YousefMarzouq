@@ -22,6 +22,8 @@ class ViewController: UIViewController , UICollectionViewDelegate, UICollectionV
   var arrBrand:[String] = ["All"]
   var filterData:[Product]!
   
+  
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     collall.delegate = self

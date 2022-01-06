@@ -193,14 +193,14 @@
                                 </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Paeg4Table" id="fSp-l4-Mff" customClass="Pege4TableViewCell" customModule="ManagementApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="68.5" width="375" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="68.5" width="375" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fSp-l4-Mff" id="cxB-jV-3XX">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKO-c4-vco">
-                                                    <rect key="frame" x="16" y="11" width="41.5" height="21.5"/>
+                                                    <rect key="frame" x="16" y="11" width="41.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -691,7 +691,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name itme" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAe-AB-xof">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="count" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAe-AB-xof">
                                                                 <rect key="frame" x="0.0" y="68" width="116" height="34"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                 <nil key="textColor"/>
@@ -715,7 +715,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d1P-kM-5dO">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="taup" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d1P-kM-5dO">
                                                                 <rect key="frame" x="0.0" y="204" width="116" height="34"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                 <nil key="textColor"/>
@@ -778,13 +778,14 @@
                         <outlet property="CollP3" destination="s0T-Bo-YPr" id="CAQ-fq-kFl"/>
                         <outlet property="brand" destination="j9m-eK-S9i" id="sXG-nv-1TP"/>
                         <outlet property="brandLabel" destination="Tdo-AG-dZk" id="5Xp-yA-2Nz"/>
+                        <outlet property="countItme" destination="9i4-hQ-ppv" id="IAZ-tQ-0Ed"/>
                         <outlet property="countLabel" destination="MCi-ss-DKe" id="bHK-3d-fKe"/>
                         <outlet property="info" destination="r7A-Lp-Xbs" id="C2s-so-0YI"/>
                         <outlet property="infoLabel" destination="RqJ-tk-EVL" id="ro7-Ya-43w"/>
-                        <outlet property="nameItme" destination="9i4-hQ-ppv" id="IAZ-tQ-0Ed"/>
                         <outlet property="praice" destination="Bcd-rW-X2Y" id="pZk-NH-PDH"/>
                         <outlet property="priceLabel" destination="67r-Dx-Pu1" id="9Q5-U5-Xxn"/>
                         <outlet property="productImage" destination="lLI-Nf-7rW" id="7xN-uC-TaF"/>
+                        <outlet property="tayp" destination="mW8-Al-nRj" id="HhM-21-f3S"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F6f-Fr-7nm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -961,6 +962,9 @@
                                                                 <rect key="frame" x="0.0" y="204" width="235" height="34"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
+                                                                <connections>
+                                                                    <action selector="tayp:" destination="HGu-q6-7hn" eventType="editingDidEnd" id="Q4x-zM-3Qh"/>
+                                                                </connections>
                                                             </textField>
                                                         </subviews>
                                                     </stackView>
@@ -979,7 +983,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name itme" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMO-Ja-nFx">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="count" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMO-Ja-nFx">
                                                                 <rect key="frame" x="0.0" y="68" width="116" height="34"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                 <nil key="textColor"/>
@@ -1003,7 +1007,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J7i-RH-U7K">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tayp" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J7i-RH-U7K">
                                                                 <rect key="frame" x="0.0" y="204" width="116" height="34"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                 <nil key="textColor"/>
@@ -1044,6 +1048,9 @@
                                 <state key="normal" title="Add">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
+                                <connections>
+                                    <action selector="addButtonPreased:" destination="9CQ-05-e4Y" eventType="touchUpInside" id="npM-eS-jmB"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7BS-3Z-uNg"/>
@@ -1062,12 +1069,15 @@
                     <connections>
                         <outlet property="brand" destination="9Yf-hx-RjT" id="RxI-XS-WQg"/>
                         <outlet property="collP2" destination="KCk-yx-xxN" id="F1Y-Wu-yPY"/>
+                        <outlet property="countItme" destination="CTP-1u-l9Z" id="zum-qS-XsW"/>
                         <outlet property="info" destination="v44-GQ-L3d" id="QJi-gQ-yrU"/>
-                        <outlet property="nameItme" destination="CTP-1u-l9Z" id="zum-qS-XsW"/>
                         <outlet property="praice" destination="Ksp-ZN-K7I" id="4gm-ee-ePS"/>
+                        <outlet property="productImage" destination="ZMU-Z0-WS3" id="lfH-MY-qKS"/>
+                        <outlet property="tayp" destination="d2U-gP-ru4" id="Oem-4N-ESW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yyJ-Tf-HuW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="HGu-q6-7hn" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-316" y="-637.33133433283365"/>
         </scene>

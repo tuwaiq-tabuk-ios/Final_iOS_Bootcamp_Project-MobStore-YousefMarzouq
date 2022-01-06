@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		CA01B6DD2781D07F0022439D /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA01B6DC2781D07F0022439D /* CardViewController.swift */; };
-		CA01B6F4278579A40022439D /* LogOutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA01B6F3278579A40022439D /* LogOutVC.swift */; };
 		CA16C1132768B147000EC012 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA16C1112768B147000EC012 /* Main.storyboard */; };
 		CA16C1152768B149000EC012 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA16C1142768B149000EC012 /* Assets.xcassets */; };
 		CA16C1182768B149000EC012 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA16C1162768B149000EC012 /* LaunchScreen.storyboard */; };
@@ -44,6 +43,8 @@
 		CAB21A4F2779CC1C0088C6D6 /* PurchaseInformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB21A4E2779CC1C0088C6D6 /* PurchaseInformationVC.swift */; };
 		CAB21A532779CC920088C6D6 /* PurchaseInformationCellVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB21A522779CC920088C6D6 /* PurchaseInformationCellVC.swift */; };
 		CAB21A552779E42B0088C6D6 /* PurchaseInformationCellVCTablewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB21A542779E42B0088C6D6 /* PurchaseInformationCellVCTablewCell.swift */; };
+		CAC3755C2785D15C0093A9F6 /* customerinformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC3755B2785D15C0093A9F6 /* customerinformationVC.swift */; };
+		CAC3755E2786098A0093A9F6 /* Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC3755D2786098A0093A9F6 /* Cart.swift */; };
 		CADD889D2780C4CC003FBC12 /* billingAddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADD889C2780C4CC003FBC12 /* billingAddressVC.swift */; };
 		CADD889F2780C4EB003FBC12 /* ShippingAddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADD889E2780C4EB003FBC12 /* ShippingAddressVC.swift */; };
 		CAEB55B82770028B00E4A894 /* EndTransactionCollectionVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEB55B72770028B00E4A894 /* EndTransactionCollectionVCell.swift */; };
@@ -54,7 +55,6 @@
 
 /* Begin PBXFileReference section */
 		CA01B6DC2781D07F0022439D /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
-		CA01B6F3278579A40022439D /* LogOutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutVC.swift; sourceTree = "<group>"; };
 		CA16C1082768B147000EC012 /* finshdproject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = finshdproject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA16C1122768B147000EC012 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CA16C1142768B149000EC012 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -87,6 +87,8 @@
 		CAB21A4E2779CC1C0088C6D6 /* PurchaseInformationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseInformationVC.swift; sourceTree = "<group>"; };
 		CAB21A522779CC920088C6D6 /* PurchaseInformationCellVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseInformationCellVC.swift; sourceTree = "<group>"; };
 		CAB21A542779E42B0088C6D6 /* PurchaseInformationCellVCTablewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseInformationCellVCTablewCell.swift; sourceTree = "<group>"; };
+		CAC3755B2785D15C0093A9F6 /* customerinformationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customerinformationVC.swift; sourceTree = "<group>"; };
+		CAC3755D2786098A0093A9F6 /* Cart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cart.swift; sourceTree = "<group>"; };
 		CADD889C2780C4CC003FBC12 /* billingAddressVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = billingAddressVC.swift; sourceTree = "<group>"; };
 		CADD889E2780C4EB003FBC12 /* ShippingAddressVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingAddressVC.swift; sourceTree = "<group>"; };
 		CAEB55B72770028B00E4A894 /* EndTransactionCollectionVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndTransactionCollectionVCell.swift; sourceTree = "<group>"; };
@@ -259,7 +261,6 @@
 				CA9613F5276EA50700386935 /* ForgetPasswordVC.swift */,
 				CA9613F7276EA52500386935 /* LoginVC.swift */,
 				CA9613F9276EB09E00386935 /* SocialMediaVC.swift */,
-				CA01B6F3278579A40022439D /* LogOutVC.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -281,6 +282,7 @@
 				CADD889E2780C4EB003FBC12 /* ShippingAddressVC.swift */,
 				CADD889C2780C4CC003FBC12 /* billingAddressVC.swift */,
 				CA01B6DC2781D07F0022439D /* CardViewController.swift */,
+				CAC3755B2785D15C0093A9F6 /* customerinformationVC.swift */,
 			);
 			path = "New Group";
 			sourceTree = "<group>";
@@ -299,6 +301,7 @@
 				CA16C1402768B1B4000EC012 /* Product.swift */,
 				CAF626262778A8E500B25F7C /* Phone.swift */,
 				CAF626282778A93D00B25F7C /* Brand.swift */,
+				CAC3755D2786098A0093A9F6 /* Cart.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -398,11 +401,11 @@
 				CA16C1482768B1B4000EC012 /* Product.swift in Sources */,
 				CADD889D2780C4CC003FBC12 /* billingAddressVC.swift in Sources */,
 				CA5CFB3C2771BC9F000F6B03 /* CartVC.swift in Sources */,
+				CAC3755C2785D15C0093A9F6 /* customerinformationVC.swift in Sources */,
 				CA16C1432768B1B4000EC012 /* PhoneDetailsCVCell.swift in Sources */,
 				CA16C1492768B1B4000EC012 /* ViewControllerTest.swift in Sources */,
 				CAF626272778A8E500B25F7C /* Phone.swift in Sources */,
 				CAB21A552779E42B0088C6D6 /* PurchaseInformationCellVCTablewCell.swift in Sources */,
-				CA01B6F4278579A40022439D /* LogOutVC.swift in Sources */,
 				CA9613F6276EA50700386935 /* ForgetPasswordVC.swift in Sources */,
 				CA16C14E2769D42C000EC012 /* BrandHeadersCVCell.swift in Sources */,
 				CA16C1232768B18D000EC012 /* DisplayProductsVC.swift in Sources */,
@@ -422,6 +425,7 @@
 				CA16C1372768B19F000EC012 /* ProductsCVCell.swift in Sources */,
 				CAF626292778A93D00B25F7C /* Brand.swift in Sources */,
 				CADD889F2780C4EB003FBC12 /* ShippingAddressVC.swift in Sources */,
+				CAC3755E2786098A0093A9F6 /* Cart.swift in Sources */,
 				CA16C1392768B19F000EC012 /* SceneDelegate.swift in Sources */,
 				CA9613FA276EB09E00386935 /* SocialMediaVC.swift in Sources */,
 				CAEB55BA2770035A00E4A894 /* EndTransactionVC.swift in Sources */,

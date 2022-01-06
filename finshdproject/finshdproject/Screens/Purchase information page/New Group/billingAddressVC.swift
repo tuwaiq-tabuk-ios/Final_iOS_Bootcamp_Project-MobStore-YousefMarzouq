@@ -35,7 +35,15 @@ class billingAddressVC: UIViewController ,  CLLocationManagerDelegate {
     manger.startUpdatingLocation()
   }
   
+  
   @IBAction func buttonAdd(_ sender: UIButton) {
+    
+    let latitude = manger.location!.coordinate.latitude
+    
+    let longitude = manger.location!.coordinate.longitude
+    
+    NotificationCenter.default.post(name: Notification.Name("billingAddress"), object: nil, userInfo: ["latitude":Double(latitude), "longitude":Double(longitude) ])
+      cius("")
   }
   
   

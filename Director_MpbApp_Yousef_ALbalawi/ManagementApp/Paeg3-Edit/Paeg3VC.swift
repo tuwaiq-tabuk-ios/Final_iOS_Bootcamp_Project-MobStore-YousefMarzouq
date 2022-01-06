@@ -9,13 +9,29 @@ import UIKit
 import PhotosUI
 import Firebase
 
-class Paeg3VC: UIViewController , PHPickerViewControllerDelegate, UINavigationControllerDelegate , UICollectionViewDelegate, UICollectionViewDataSource {
+class Paeg3VC: UIViewController ,
+               PHPickerViewControllerDelegate,
+               UINavigationControllerDelegate ,
+               UICollectionViewDelegate,
+               UICollectionViewDataSource,
+               UIPickerViewDataSource ,
+               UIPickerViewAccessibilityDelegate,
+               UITextFieldDelegate{
   
   
+  var carntindX = 0
+  let pickerTayp = UIPickerView()
+  var arryTayp = ["Tablet","Phone","Accessories","CardGame"]
   
+  func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    return 1
+  }
+  
+  
+  @IBOutlet weak var tayp: UITextField!
   
   @IBOutlet weak var CollP3: UICollectionView!
-  @IBOutlet weak var nameItme: UITextField!
+  @IBOutlet weak var countItme: UITextField!
   @IBOutlet weak var brand: UITextField!
   @IBOutlet weak var info: UITextField!
   @IBOutlet weak var praice: UITextField!
@@ -30,11 +46,25 @@ class Paeg3VC: UIViewController , PHPickerViewControllerDelegate, UINavigationCo
   var prodectImage = false
   var ID:String!
   var images:[UIImage] = [UIImage]()
+  
+  
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    let toolbar = UIToolbar ()
+    toolbar.sizeToFit()
+    let dane = UIBarButtonItem(title: "Done",
+                               style: .plain,
+                               target: self,
+                               action: #selector(clus))
+    toolbar.setItems([dane], animated: true)
+    tayp.inputView = pickerTayp
+    pickerTayp.delegate = self
+    pickerTayp.dataSource = self
     CollP3.delegate = self
     CollP3.dataSource = self
+    tayp.inputAccessoryView = toolbar
     
     
     
@@ -52,9 +82,17 @@ class Paeg3VC: UIViewController , PHPickerViewControllerDelegate, UINavigationCo
     getData()
   }
   
+  @objc func clus () {
+    tayp.text = arryTayp[carntindX]
+    
+    view.endEditing(true)
+    
+  }
+  
   func getData() {
-    productImage.sd_setImage(with: URL(string: prodect?.image ?? ""), placeholderImage: UIImage(named: ""))
-    nameItme.text = prodect?.info
+    productImage.sd_setImage(with: URL(string: prodect?.image ?? ""),
+                             placeholderImage: UIImage(named: ""))
+    countItme.text = "0"
     brand.text = prodect?.brand
     info.text = prodect?.info
     praice.text = "\(prodect?.price ?? 0)"
@@ -62,13 +100,15 @@ class Paeg3VC: UIViewController , PHPickerViewControllerDelegate, UINavigationCo
     priceLabel.text = praice.text
     countLabel.text = "5"
     brandLabel.text = brand.text
+    tayp.text = prodect?.type
     ID = prodect?.id
     
     self.images.removeAll()
     if prodect?.images.count ?? 0 > 0 {
       for image in prodect!.images {
         let imageView = UIImageView()
-        imageView.sd_setImage(with: URL(string: image)) { image, error, cache, url in
+        imageView.sd_setImage(with: URL(string: image)) { image, error,
+                                                          cache, url in
           self.images.append(image!)
           self.CollP3.reloadData()
           
@@ -82,13 +122,17 @@ class Paeg3VC: UIViewController , PHPickerViewControllerDelegate, UINavigationCo
       self.prodect = nil
     }
   }
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  func collectionView(_ collectionView: UICollectionView,
+                      numberOfItemsInSection section: Int) -> Int {
     return images.count ?? 0
   }
   
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+  func collectionView(_ collectionView: UICollectionView,
+                      cellForItemAt indexPath: IndexPath
+  ) -> UICollectionViewCell {
     
-    let cll3 = CollP3.dequeueReusableCell(withReuseIdentifier: "P3", for: indexPath) as! P3CollectionViewCell
+    let cll3 = CollP3.dequeueReusableCell(withReuseIdentifier: "P3",
+                                          for: indexPath) as! P3CollectionViewCell
     cll3.deleteButton.tag = indexPath.row
     cll3.imgP3.image = images[indexPath.row]
     return cll3
@@ -106,13 +150,10 @@ class Paeg3VC: UIViewController , PHPickerViewControllerDelegate, UINavigationCo
     addFoto ()
   }
   
-  
   @IBAction func deleteButtonTapped(_ sender: UIButton) {
     images.remove(at: sender.tag)
     CollP3.reloadData()
   }
-  
-  
   
   @IBAction func editButtonTapped(_ sender: Any) {
     editDatabase()
@@ -124,9 +165,7 @@ class Paeg3VC: UIViewController , PHPickerViewControllerDelegate, UINavigationCo
     
     let db = Firestore.firestore()
     let storeage = Storage.storage()
-    
     let documentID = ID!
-    
     let uploadMetadata = StorageMetadata()
     uploadMetadata.contentType = "image/jpeg"
     
@@ -134,6 +173,8 @@ class Paeg3VC: UIViewController , PHPickerViewControllerDelegate, UINavigationCo
       "info": self.info.text! ,
       "price": Double(self.praice.text!) ?? 0,
       "brand": self.brand.text!,
+      "type":self.tayp.text!,
+      "count":Int(self.countItme.text!)
     ], merge: true)
     
     var imageID = ""
@@ -142,17 +183,12 @@ class Paeg3VC: UIViewController , PHPickerViewControllerDelegate, UINavigationCo
     }
     
     let storeageRF = storeage.reference().child(documentID).child(imageID)
-    
     let imageData = productImage.image?.jpegData(compressionQuality: 0.5)
-    
     storeageRF.putData(imageData!, metadata: uploadMetadata) { metadata, error in
       if error != nil {
-        
       } else {
-        
         storeageRF.downloadURL { url, error in
           if error != nil {
-            
           } else {
             db.collection("Prodects").document(documentID).setData([
               "image": url!.absoluteString
@@ -166,34 +202,31 @@ class Paeg3VC: UIViewController , PHPickerViewControllerDelegate, UINavigationCo
     
     var imagesData = [Data]()
     for image in images {
-     let data = image.jpegData(compressionQuality: 0.5)
+      let data = image.jpegData(compressionQuality: 0.5)
       imagesData.append(data!)
     }
-    
     var imagesURL = [String]()
     for data in imagesData {
       imageID = UUID().uuidString
-    let storeageRF = storeage.reference().child(documentID).child(imageID)
-
-    storeageRF.putData(data, metadata: uploadMetadata) { metadata, error in
-      if error != nil {
-        
-      } else {
-        
-        storeageRF.downloadURL { url, error in
-          if error != nil {
-            
-          } else {
-            imagesURL.append(url!.absoluteString)
-            db.collection("Prodects").document(documentID).setData([
-              "images": imagesURL
-            ], merge: true)
+      let storeageRF = storeage.reference().child(documentID).child(imageID)
+      storeageRF.putData(data, metadata: uploadMetadata) { metadata, error in
+        if error != nil {
+        } else {
+          storeageRF.downloadURL { url, error in
+            if error != nil {
+            } else {
+              imagesURL.append(url!.absoluteString)
+              db.collection("Prodects").document(documentID).setData([
+                "images": imagesURL
+              ], merge: true)
+            }
           }
+          
         }
-        
       }
+      
     }
-    }
+    
     
     
     
@@ -208,17 +241,24 @@ class Paeg3VC: UIViewController , PHPickerViewControllerDelegate, UINavigationCo
   
   
   func addFoto() {
-    let alert = UIAlertController(title: "Take Poto From", message: nil, preferredStyle: .actionSheet)
-    alert.addAction(UIAlertAction(title: "Camera", style: .default,handler: { action in self.getimage(type: .camera)
-      
-      
-    }))
-    alert.addAction(UIAlertAction(title: "photo Library", style: .default,handler: { action in self.getimage(type: .photoLibrary)
-      
-      
-    }))
-    alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
-    present(alert, animated: true, completion: nil)
+    let alert = UIAlertController(title: "Take Poto From",
+                                  message: nil,
+                                  preferredStyle: .actionSheet)
+    alert.addAction(UIAlertAction(title: "Camera",
+                                  style: .default,
+                                  handler: { action in self.getimage(type: .camera)
+                                    
+                                    
+                                  }))
+    alert.addAction(UIAlertAction(title: "photo Library",
+                                  style: .default,handler: { action in self.getimage(type: .photoLibrary)
+                                    
+                                    
+                                  }))
+    alert.addAction(UIAlertAction(title: "cancel",
+                                  style: .cancel, handler: nil))
+    present(alert, animated: true,
+            completion: nil)
   }
   
   
@@ -236,8 +276,10 @@ class Paeg3VC: UIViewController , PHPickerViewControllerDelegate, UINavigationCo
     
   }
   
-  func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-    dismiss(animated: true, completion: nil)
+  func picker(_ picker: PHPickerViewController,
+              didFinishPicking results: [PHPickerResult]) {
+    dismiss(animated: true,
+            completion: nil)
     if prodectImage {
       if let result = results.first, result.itemProvider.canLoadObject(ofClass: UIImage.self) {
         result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
@@ -268,6 +310,27 @@ class Paeg3VC: UIViewController , PHPickerViewControllerDelegate, UINavigationCo
       }
     }
     
+  }
+  
+  func pickerView(_ pickerView: UIPickerView,
+                  numberOfRowsInComponent component: Int) -> Int {
+    
+    return arryTayp.count
+  }
+  func pickerView(_ pickerView: UIPickerView,
+                  titleForRow row: Int, forComponent component: Int) -> String? {
+    return arryTayp[row]
+  }
+  
+  func pickerView(_ pickerView: UIPickerView,
+                  didSelectRow row: Int, inComponent component: Int) {
+    carntindX = row
+    tayp.text = arryTayp[row]
+  }
+  
+  override func touchesBegan(_ touches: Set<UITouch>,
+                             with event: UIEvent?) {
+    view.endEditing(true)
   }
   
   

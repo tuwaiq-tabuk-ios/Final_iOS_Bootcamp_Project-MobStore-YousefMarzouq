@@ -156,9 +156,9 @@ class DisplayProductsVC: UIViewController,
       return
     }
     
-    let document = db.collection("Orders").document(auth.uid)
+    let document = db.collection("Carts").document(auth.uid)
                                                     
-      document.setData( ["orders": FieldValue.arrayUnion([arrSeleced[index].id])], merge: true)
+      document.setData( ["carts": FieldValue.arrayUnion([arrSeleced[index].id])], merge: true)
       
     
     

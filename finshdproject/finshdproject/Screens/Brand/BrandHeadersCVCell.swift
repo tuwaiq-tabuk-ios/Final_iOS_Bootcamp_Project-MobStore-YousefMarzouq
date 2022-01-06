@@ -8,6 +8,8 @@
 import UIKit
 
 class BrandHeadersCVCell: UICollectionViewCell {
+  
+  
   @IBOutlet weak var name: UILabel!
   
 }
