@@ -13,6 +13,7 @@ class ShippingAddressVC: UIViewController ,
                          CLLocationManagerDelegate {
 
   
+  
  var manger = CLLocationManager()
   
   @IBOutlet weak var mapView: MKMapView!
@@ -22,7 +23,6 @@ class ShippingAddressVC: UIViewController ,
         super.viewDidLoad()
 
     }
-  
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
@@ -37,6 +37,17 @@ class ShippingAddressVC: UIViewController ,
     
   }
   
+  @IBAction func selectionButtonPreased(_ sender: UIButton) {
+    
+    let latitude = manger.location!.coordinate.latitude
+    
+    let longitude = manger.location!.coordinate.longitude
+    
+    NotificationCenter.default.post(name: Notification.Name("shippingAddress"), object: nil, userInfo: ["latitude":Double(latitude), "longitude":Double(longitude)])
+      cius("")
+  }
+  
+  
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     if let location = locations.first {
     manger.accuracyAuthorization
@@ -44,6 +55,9 @@ class ShippingAddressVC: UIViewController ,
     render(location)
   }
 }
+  
+  
+  
   func render (_ location:CLLocation) {
    
     let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)

@@ -14,9 +14,9 @@ class ProductsCVCell: UICollectionViewCell {
   @IBOutlet weak var infoProdect: UILabel!
   @IBOutlet weak var priceProdect: UILabel!
   
+  
   func Setupcell (photo:String , price:Double, DisCrbsion:String){
     let animatedImage = SDAnimatedImage(contentsOfFile: "\(Bundle.main.bundlePath)/Loader1.gif")
-    
     imageProdect.sd_setImage(with: URL(string: photo), placeholderImage: animatedImage)
     priceProdect.text = "\(price) SAR"
     infoProdect.text = DisCrbsion

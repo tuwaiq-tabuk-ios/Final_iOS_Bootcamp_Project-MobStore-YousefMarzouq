@@ -8,17 +8,10 @@
 import UIKit
 
 class likeCollectionVCell: UICollectionViewCell {
-    
-  
   
   @IBOutlet weak var imgFibrtcll: UIImageView!
-  
-  
   @IBOutlet weak var ditelsFibrt: UILabel!
-  
   @IBOutlet weak var deleteButton: UIButton!
-  
-  
   @IBOutlet weak var pricFibrt: UILabel!
   
 }

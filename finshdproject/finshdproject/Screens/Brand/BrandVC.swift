@@ -12,23 +12,19 @@ class BrandVC: UIViewController,
                UICollectionViewDataSource {
   
   
-  @IBOutlet weak var collchinBrandView: UICollectionView!
-  
-  
-  
-  
   
   var arryPhone = [Phone] ()
+  var arrProdects:[Product] = Product.getProducts()
+  var selectedBrand:String!
   
   
+  @IBOutlet weak var collchinBrandView: UICollectionView!
   
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     collchinBrandView.delegate = self
     collchinBrandView.dataSource = self
-    
     
     arryPhone.append(Phone(photo: UIImage(named: "Apple_brand")!,brand:"Apple"))
     arryPhone.append(Phone(photo: UIImage(named: "Honor-Logo")!,
@@ -51,39 +47,22 @@ class BrandVC: UIViewController,
                            brand:"Vivo"))
     arryPhone.append(Phone(photo: UIImage(named: "xiaomi_brand")!,
                            brand:"Xiaomi"))
-    
-    
     configureSize(numOfHorizontsalCells: 2, marginBetweenCells: 0)
-    
-    
   }
   
   
-  //  var arrBrand = [UIImage(named: "apple")!,
-  //                  UIImage(named: "apple")!]
-  //
-  var arrProdects:[Product] = Product.getProducts()
-  
-  
-  
-  var selectedBrand:String!
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return arryPhone.count
-    
   }
   
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    
-    
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Brandd", for: indexPath) as! BrandVCCell
-    
     let data = arryPhone[indexPath.row]
     cell.imageBrand.image = data.photo
     return cell
-    
-    
   }
+  
   
   func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
     selectedBrand = arryPhone[indexPath.row].brand
@@ -98,16 +77,12 @@ class BrandVC: UIViewController,
         vc.selectedType = ""
         vc.page = "Brand"
         vc.selectedBrand = selectedBrand
-        
       }
     default:
       print("default")
     }
-    
-    
   }
   
-
   
   func collectionView(
     _ collectionView: UICollectionView,
@@ -122,34 +97,20 @@ class BrandVC: UIViewController,
   }
   
   
-  
   func configureSize(numOfHorizontsalCells:CGFloat,
                      marginBetweenCells:CGFloat) {
     print("\n \(#function)")
-    
     let layout = UICollectionViewFlowLayout()
-    
     let totalMarginBetweenCells:CGFloat = marginBetweenCells * (numOfHorizontsalCells - 1)
-    
-    
     let marginPerCell: CGFloat = totalMarginBetweenCells / numOfHorizontsalCells
-    
-    
     let frameWidth = view.frame.width
-    
     let cellWidth = frameWidth / numOfHorizontsalCells - marginPerCell
-    
     let cellHight = frameWidth / numOfHorizontsalCells
     layout.minimumLineSpacing = marginPerCell
     layout.minimumInteritemSpacing = marginPerCell
-    
     layout.estimatedItemSize = .zero
-    
     layout.itemSize = CGSize(width: cellWidth, height: cellHight)
     collchinBrandView.collectionViewLayout = layout
-   
-    
-    
   }
   
 }

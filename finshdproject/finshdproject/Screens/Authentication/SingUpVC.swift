@@ -47,32 +47,23 @@ class SingUpVC: UIViewController {
   @IBAction func singin(_ sender: Any) {
     let storyboratd = UIStoryboard(name: "Main", bundle: nil)
     let vc = storyboard?.instantiateViewController(identifier: "Login")
-    
     vc?.modalPresentationStyle = .overFullScreen
     present(vc!, animated: true)
-    
   }
   
   func sigUp () {
-    
     let fristName = fristName.text!.trimmingCharacters(in: .whitespacesAndNewlines)
     let lastname = familyName.text!.trimmingCharacters(in: .whitespacesAndNewlines)
     let email = email.text!.trimmingCharacters(in: .whitespacesAndNewlines)
     let password = password.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-    
-    
     Auth.auth().createUser(withEmail: email, password: password) {  (authResult ,error) in
-      
       if error != nil {
         self.errorLabel.alpha = 1
         self.errorLabel.text = error?.localizedDescription
-        
       } else {
         let db = Firestore.firestore()
-        
-        db.collection("users").addDocument(data: ["firstname":fristName,"lastname":lastname,"uid":authResult!.user.uid]) {
+        db.collection("users").document(authResult!.user.uid).setData(  ["firstname":fristName,"lastname":lastname,"uid":authResult!.user.uid],merge:true) {
           (error) in
-          
           if error != nil {
             self.errorLabel.alpha = 1
             self.errorLabel.text = error?.localizedDescription
@@ -81,10 +72,7 @@ class SingUpVC: UIViewController {
             self.dismiss(animated: true, completion: nil)
           }
         }
-        
-        
       }
-      
     }
   }
   
@@ -92,10 +80,7 @@ class SingUpVC: UIViewController {
   func checkUoserInfo () {
     let storyboratd = UIStoryboard(name: "Main", bundle: nil)
     let vc = storyboard?.instantiateViewController(withIdentifier: "NewUser")
-    
     vc?.modalPresentationStyle = .overFullScreen
     present(vc!, animated: true)
-    
   }
-  
 }

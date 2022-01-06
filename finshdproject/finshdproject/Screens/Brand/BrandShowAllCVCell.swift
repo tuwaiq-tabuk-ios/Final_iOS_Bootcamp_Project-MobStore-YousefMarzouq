@@ -12,6 +12,7 @@ class BrandShowAllCVCell: UICollectionViewCell {
   
   @IBOutlet weak var brandImagee: UIImageView!
   
+  
   override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

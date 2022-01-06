@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 
 class LoginVC: UIViewController {
-
+  
   
   @IBOutlet weak var email: UITextField!
   @IBOutlet weak var password: UITextField!
@@ -17,11 +17,11 @@ class LoginVC: UIViewController {
   
   
   override func viewDidLoad() {
-        super.viewDidLoad()
+    super.viewDidLoad()
     errorLabel.alpha = 0
-        // Do any additional setup after loading the view.
-    }
-    
+    // Do any additional setup after loading the view.
+  }
+  
   
   @IBAction func forgetPassword(_ sender: Any) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -37,22 +37,17 @@ class LoginVC: UIViewController {
   
   
   @IBAction func login(_ sender: Any) {
-   let emailClear = email.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+    let emailClear = email.text!.trimmingCharacters(in: .whitespacesAndNewlines)
     let passwordClear = password.text!.trimmingCharacters(in: .whitespacesAndNewlines)
     Auth.auth().signIn(withEmail: emailClear, password: passwordClear) { (result,error) in
-      
       if error != nil {
         self.errorLabel.alpha = 1
         self.errorLabel.text = error?.localizedDescription
       } else {
-        
         self.dismiss(animated: true, completion: nil);
       }
     }
-    
   }
-  
-  
   
   
   @IBAction func singUp(_ sender: Any) {
@@ -60,11 +55,7 @@ class LoginVC: UIViewController {
     let vc = storyboard.instantiateViewController(identifier: "SingUp")
     vc.modalPresentationStyle = .overFullScreen
     present(vc, animated: true)
-    
   }
-  
   func validateFileds () {
-    
   }
-
 }

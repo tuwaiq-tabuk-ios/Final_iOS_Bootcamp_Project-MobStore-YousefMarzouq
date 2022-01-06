@@ -126,25 +126,22 @@ class HomeVC: UIViewController,
         self.brandCollectionView2.reloadData()
       }
     }
-    
   }
   
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
   }
-  
-  
-  
+
   
   func startTimer () {
-    
     timer = Timer.scheduledTimer(timeInterval: 2.5,
                                  target: self,
                                  selector: #selector(moveToNextIndix),
                                  userInfo: nil,
                                  repeats: true)
   }
+  
   
   @objc func moveToNextIndix () {
     if crandcellIndix < arrProducPhotos.count - 1 {
@@ -166,7 +163,6 @@ class HomeVC: UIViewController,
   func collectionView(_ collectionView: UICollectionView,
                       cellForItemAt indexPath: IndexPath
   ) -> UICollectionViewCell {
-    
     if (collectionView == brandCollectionView) {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "brandCell",
                                                     for: indexPath ) as! BrandShowAllCVCell
@@ -179,17 +175,13 @@ class HomeVC: UIViewController,
       cell.Setupcell(photo: arrOffers[indexPath.row].image,
                      price: arrOffers[indexPath.row].price,
                      DisCrbsion: arrOffers[indexPath.row].info)
-      
       return cell
-      
     } else {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCollectionViewCell",
                                                     for: indexPath ) as! HomeVCCell
       cell.imig.image = arrProducPhotos[indexPath.row]
-      
       return cell
     }
-    
   }
   
   func collectionView(_ collectionView: UICollectionView,
@@ -209,7 +201,6 @@ class HomeVC: UIViewController,
       return 30
     } else if (collectionView == brandCollectionView2){
       return 20
-      
     } else {
       return 0
     }
