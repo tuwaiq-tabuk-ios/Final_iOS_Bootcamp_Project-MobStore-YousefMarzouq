@@ -42,6 +42,13 @@ class SocialMediaVC: UIViewController {
       UserDefaults.standard.removeObject(forKey: "email")
       UserDefaults.standard.removeObject(forKey: "password")
       UserDefaults.standard.synchronize()
+      
+      let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      let vc = storyboard.instantiateViewController(identifier: "Home")
+      vc.modalPresentationStyle = .overFullScreen
+      present(vc, animated: true)
+      
+      
       snapButton.isHidden = false
       viewadd.isHidden = true
     } catch let signOutError {

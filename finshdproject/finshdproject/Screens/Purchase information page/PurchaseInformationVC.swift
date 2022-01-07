@@ -123,7 +123,6 @@ class PurchaseInformationVC: UIViewController ,
     db.collection("users").document(auth.uid).getDocument { document, error in
       
       guard error == nil else {
-        print("~~ 1 \(error?.localizedDescription)")
         return
       }
       let userdata = document!.data()!
@@ -131,7 +130,6 @@ class PurchaseInformationVC: UIViewController ,
       let customerName = "\(String(describing: userdata["firstname"])) \(String(describing: userdata["lastname"]))"
       db.collection("Orders").document("ordersCount").getDocument { document, error in
         guard error == nil else {
-          print("~~ 2 \(error?.localizedDescription)")
 
           return
         }
@@ -155,7 +153,7 @@ class PurchaseInformationVC: UIViewController ,
           "orders":array,
         ]], merge: true) { error in
           guard error == nil else {
-            print("~~ 3 \(error?.localizedDescription)")
+           
             return
           }
           
@@ -303,6 +301,18 @@ extension PurchaseInformationVC: UICollectionViewDelegate, UICollectionViewDataS
   
   
   @IBAction func rmoveCollch(_ sender: UIButton) {
+    
+    
+    
+    /*
+     let index = sendrt.tag
+     Carts => Prodects
+     auth.uid => ARRAY_NAME[index].id
+     
+     
+     */
+    
+    //db.collection("Carts").document(auth.uid).delete()
   }
   
   

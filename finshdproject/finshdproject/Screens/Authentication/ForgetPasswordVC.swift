@@ -29,9 +29,16 @@ class ForgetPasswordVC: UIViewController {
         let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
         self.present(alert, animated: true, completion: nil)
         return
+          alert.addAction((UIAlertAction(title: "OK", style: .default,handler: nil)))
+          
+          self.present(alert, animated: true, completion: nil)
       }
       let alert = UIAlertController(title: "Succesfully", message: "A password reset email has been sent!", preferredStyle: UIAlertController.Style.alert)
+      
+      alert.addAction((UIAlertAction(title: "OK", style: .default,handler: nil)))
+      
       self.present(alert, animated: true, completion: nil)
+      
     }
   }
   

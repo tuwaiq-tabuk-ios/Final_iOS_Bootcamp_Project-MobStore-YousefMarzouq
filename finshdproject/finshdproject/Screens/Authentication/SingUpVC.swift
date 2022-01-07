@@ -13,6 +13,7 @@ class SingUpVC: UIViewController {
   
   @IBOutlet weak var fristName: UITextField!
   @IBOutlet weak var familyName: UITextField!
+  @IBOutlet weak var customerPhone1: UITextField!
   @IBOutlet weak var email: UITextField!
   @IBOutlet weak var password: UITextField!
   @IBOutlet weak var errorLabel: UILabel!
@@ -34,8 +35,10 @@ class SingUpVC: UIViewController {
     if password.text?.isEmpty == true{
       print("no")
       return
+      
     }
     sigUp()
+    
   }
   
   
@@ -54,6 +57,7 @@ class SingUpVC: UIViewController {
   func sigUp () {
     let fristName = fristName.text!.trimmingCharacters(in: .whitespacesAndNewlines)
     let lastname = familyName.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+    let customerPhone = customerPhone1.text!.trimmingCharacters(in: .whitespacesAndNewlines)
     let email = email.text!.trimmingCharacters(in: .whitespacesAndNewlines)
     let password = password.text!.trimmingCharacters(in: .whitespacesAndNewlines)
     Auth.auth().createUser(withEmail: email, password: password) {  (authResult ,error) in
@@ -62,14 +66,16 @@ class SingUpVC: UIViewController {
         self.errorLabel.text = error?.localizedDescription
       } else {
         let db = Firestore.firestore()
-        db.collection("users").document(authResult!.user.uid).setData(  ["firstname":fristName,"lastname":lastname,"uid":authResult!.user.uid],merge:true) {
+        db.collection("users").document(authResult!.user.uid).setData(  ["firstname":fristName,"lastname":lastname,"phone":self.customerPhone1.text!,"uid":authResult!.user.uid],merge:true) {
           (error) in
           if error != nil {
             self.errorLabel.alpha = 1
             self.errorLabel.text = error?.localizedDescription
           }else {
             //          self.checkUoserInfo()
+            
             self.dismiss(animated: true, completion: nil)
+            
           }
         }
       }

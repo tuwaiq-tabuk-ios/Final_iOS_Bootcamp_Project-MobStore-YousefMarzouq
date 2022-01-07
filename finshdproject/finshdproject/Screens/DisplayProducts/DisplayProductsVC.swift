@@ -149,18 +149,23 @@ class DisplayProductsVC: UIViewController,
   
   @IBAction func tollyForPay(_ sender: UIButton) {
     
+    sender.setImage(UIImage(systemName: "cart.fill"),
+                    for: .normal)
+    
     let index = sender.tag
     let db = Firestore.firestore()
     guard let auth = Auth.auth().currentUser else {
-      print("~~~~~ Alert Please SignIn")
+      
       return
     }
     
     let document = db.collection("Carts").document(auth.uid)
                                                     
       document.setData( ["carts": FieldValue.arrayUnion([arrSeleced[index].id])], merge: true)
-      
     
+    
+    //cart
+    //cart.fill
     
   }
   
