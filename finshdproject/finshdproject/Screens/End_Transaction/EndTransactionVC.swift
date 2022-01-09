@@ -25,14 +25,9 @@ class EndTransactionVC: UIViewController,
  
 
   @IBOutlet weak var textContty: UITextField!
-  
   @IBOutlet weak var brandButton: UIButton!
-
   @IBOutlet weak var ditelsLebul: UILabel!
-
-
   @IBOutlet weak var collcionLast: UICollectionView!
-
   @IBOutlet weak var prisButoon: UILabel!
 
  
@@ -55,59 +50,42 @@ class EndTransactionVC: UIViewController,
   }
   
   
-
   @IBAction func plasPessd(_ sender: UIButton) {
     addOneToCounter ()
   }
+  
+  
   @IBAction func munasPressd(_ sender: UIButton) {
     discont ()
   }
+  
+  
   @IBAction func addCart(_ sender: UIButton) {
-    
     let db = Firestore.firestore()
     guard let auth = Auth.auth().currentUser else {
       print("~~~~~ Alert Please SignIn")
       return
     }
-    
     let document = db.collection("Carts").document(auth.uid)
-                                                    
       document.setData( ["carts": FieldValue.arrayUnion([arri1.id])], merge: true)
-    
-      
-    
-
   }
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
   return arri1.images.count
-    
-   
   }
  
   
-  
-  
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
    let cll = collectionView.dequeueReusableCell(withReuseIdentifier: "lastpershn", for: indexPath) as! EndTransactionCollectionVCell
-   
-    
-    
-  
     let animatedImage = SDAnimatedImage(contentsOfFile: "\(Bundle.main.bundlePath)/Loader1.gif")
-    
     cll.imgLast.sd_setImage(with: URL(string: arri1.images[indexPath.row]), placeholderImage:animatedImage)
-
     return cll
   }
-  
   
 
   func addOneToCounter () {
     conter += 1
     textContty.text = conter .description
-    
   }
   
   
@@ -115,10 +93,13 @@ class EndTransactionVC: UIViewController,
     if conter != 0 {
       conter -= 1
       textContty.text = conter.description
-      
     }
-    
   }
  
+  
+  
+ 
+  
+  
   
 }
