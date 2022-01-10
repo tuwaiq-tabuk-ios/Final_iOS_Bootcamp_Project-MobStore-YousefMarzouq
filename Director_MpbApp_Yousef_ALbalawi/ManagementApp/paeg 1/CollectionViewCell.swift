@@ -18,5 +18,6 @@ class CollectionViewCell: UICollectionViewCell {
 
   @IBOutlet weak var btPric: UILabel!
   
- 
+  @IBOutlet weak var dletBT: UIButton!
+  
 }

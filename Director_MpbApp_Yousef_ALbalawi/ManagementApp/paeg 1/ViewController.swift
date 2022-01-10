@@ -8,7 +8,9 @@
 import UIKit
 import Firebase
 import SDWebImage
-class ViewController: UIViewController , UICollectionViewDelegate, UICollectionViewDataSource {
+class ViewController: UIViewController ,
+                      UICollectionViewDelegate,
+                      UICollectionViewDataSource {
   
   @IBOutlet weak var collall: UICollectionView!
   
@@ -42,6 +44,18 @@ class ViewController: UIViewController , UICollectionViewDelegate, UICollectionV
     getData()
   }
   
+  
+  
+  @IBAction func deleatButton(_ sender: UIButton) {
+      
+      let index = sender.tag
+     let ind = filterData.firstIndex(of: filterData[index])
+      let db = Firestore.firestore()
+      db.collection("Prodects").document(filterData[index].id).delete()
+    filterData.remove(at: ind!)
+    collall.reloadData()
+
+    }
   
   func getData() {
     arrProdects.removeAll()
@@ -83,7 +97,8 @@ class ViewController: UIViewController , UICollectionViewDelegate, UICollectionV
   }
   
   
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  func collectionView(_ collectionView: UICollectionView,
+                      numberOfItemsInSection section: Int) -> Int {
     if collectionView == brandColl {
       return arrBrand.count
     } else {
@@ -91,16 +106,21 @@ class ViewController: UIViewController , UICollectionViewDelegate, UICollectionV
     }
   }
   
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+  func collectionView(_ collectionView: UICollectionView,
+                      cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     if collectionView == collall {
-      let cll = collall.dequeueReusableCell(withReuseIdentifier: "collall", for: indexPath) as! CollectionViewCell
+      let cll = collall.dequeueReusableCell(withReuseIdentifier: "collall",
+                                            for: indexPath) as! CollectionViewCell
       if filterData.count != 0 {
-        cll.img.sd_setImage(with: URL(string: filterData[indexPath.row].image), placeholderImage: UIImage(named: ""))
+        cll.img.sd_setImage(with: URL(string: filterData[indexPath.row].image),
+                            placeholderImage: UIImage(named: ""))
         cll.btinfo.text = filterData[indexPath.row].info
         cll.btPric.text = "\(filterData[indexPath.row].price) SR"
+        cll.dletBT.tag = indexPath.row
       } else {
       
-      cll.img.sd_setImage(with: URL(string: arrProdects[indexPath.row].image), placeholderImage: UIImage(named: ""))
+      cll.img.sd_setImage(with: URL(string: arrProdects[indexPath.row].image),
+                          placeholderImage: UIImage(named: ""))
       
       cll.btinfo.text = arrProdects[indexPath.row].info
       cll.btPric.text = "\(arrProdects[indexPath.row].price) SR"
@@ -113,7 +133,8 @@ class ViewController: UIViewController , UICollectionViewDelegate, UICollectionV
     }
   }
   
-  func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+  func collectionView(_ collectionView: UICollectionView,
+                      shouldSelectItemAt indexPath: IndexPath) -> Bool {
     if collectionView == collall {
     selectedPreodect = filterData[indexPath.row]
       var editVC = Paeg3VC()

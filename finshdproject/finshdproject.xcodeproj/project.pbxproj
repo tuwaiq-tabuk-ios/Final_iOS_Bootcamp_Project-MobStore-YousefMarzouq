@@ -269,7 +269,6 @@
 			isa = PBXGroup;
 			children = (
 				CADD889B2780C3D8003FBC12 /* New Group */,
-				CAB21A4E2779CC1C0088C6D6 /* PurchaseInformationVC.swift */,
 				CAB21A522779CC920088C6D6 /* PurchaseInformationCellVC.swift */,
 				CAB21A542779E42B0088C6D6 /* PurchaseInformationCellVCTablewCell.swift */,
 			);
@@ -279,6 +278,7 @@
 		CADD889B2780C3D8003FBC12 /* New Group */ = {
 			isa = PBXGroup;
 			children = (
+				CAB21A4E2779CC1C0088C6D6 /* PurchaseInformationVC.swift */,
 				CADD889E2780C4EB003FBC12 /* ShippingAddressVC.swift */,
 				CADD889C2780C4CC003FBC12 /* billingAddressVC.swift */,
 				CA01B6DC2781D07F0022439D /* CardViewController.swift */,

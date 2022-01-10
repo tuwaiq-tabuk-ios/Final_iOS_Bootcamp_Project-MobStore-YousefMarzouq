@@ -77,10 +77,16 @@ class PurchaseInformationVC: UIViewController ,
     totalLabel.text = "\( sum + totlprice)"
     }
     
-    NotificationCenter.default.addObserver(self, selector: #selector(billingAddressReceive), name: Notification.Name("billingAddress"), object: nil)
+    NotificationCenter.default.addObserver(self,
+        selector: #selector(billingAddressReceive),
+              name: Notification.Name("billingAddress"),
+                          object: nil)
     
     
-    NotificationCenter.default.addObserver(self, selector: #selector(shippingAddressReceive), name: Notification.Name("shippingAddress"), object: nil)
+    NotificationCenter.default.addObserver(self,
+        selector: #selector(shippingAddressReceive),
+        name: Notification.Name("shippingAddress"),
+        object: nil)
 
     
     
@@ -115,12 +121,14 @@ class PurchaseInformationVC: UIViewController ,
     var array = [[String:Any]]()
     
     for cart in arri3 {
-      array.append(["count" : cart.count,"id":cart.product.id])
+      array.append(["count" : cart.count,
+                    "id":cart.product.id])
     }
     let db = Firestore.firestore()
     let auth = Auth.auth().currentUser!
     
-    db.collection("users").document(auth.uid).getDocument { document, error in
+    db.collection("users").document(auth.uid).getDocument { document,
+                                                            error in
       
       guard error == nil else {
         return
@@ -273,7 +281,8 @@ class PurchaseInformationVC: UIViewController ,
 
 
 
-extension PurchaseInformationVC: UICollectionViewDelegate, UICollectionViewDataSource {
+extension PurchaseInformationVC: UICollectionViewDelegate,
+                                 UICollectionViewDataSource {
   
   
   

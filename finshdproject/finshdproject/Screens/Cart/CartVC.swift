@@ -41,10 +41,6 @@ class CartVC: UIViewController,
     totlprice = 0
   }
   
-  //  override func viewWillAppear(_ animated: Bool) {   //-
-  //    super.viewWillAppear(animated)
-  //
-  //  }
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
@@ -132,8 +128,9 @@ class CartVC: UIViewController,
     }
   }
   
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//    totlprice = 0
+  func collectionView(_ collectionView: UICollectionView,
+                      numberOfItemsInSection section: Int) -> Int {
+
     return arri2.count
   }
   
@@ -141,11 +138,6 @@ class CartVC: UIViewController,
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CaSho", for: indexPath) as! CartCollectionVCell
     cell.imgShoCr.sd_setImage(with: URL(string: arri2[indexPath.row].product.image), placeholderImage: UIImage(named: ""))
-    
-    
-//    totlprice += Double (arri2[indexPath.row].product.price)
-//    totllAount.text = "\(totlprice)"
-    
     cell.plasPressd.tag = indexPath.row
     cell.muensPressd.tag = indexPath.row
     cell.conttiCrSho.tag = indexPath.row

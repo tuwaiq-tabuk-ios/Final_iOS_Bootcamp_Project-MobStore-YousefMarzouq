@@ -12,14 +12,24 @@ import FirebaseAuth
 
 class SocialMediaVC: UIViewController {
   
+  
+  let db = Firestore.firestore()
+  let auth = Auth.auth().currentUser!
+  
+  
+  
+  let newName = UserInfo.self
+  
   @IBOutlet weak var snapButton: UIButton!
   @IBOutlet weak var viewadd: UIView!
   
+  @IBOutlet weak var textLB: UILabel!
   
   
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    textLB.text = "auth"
   }
   
   

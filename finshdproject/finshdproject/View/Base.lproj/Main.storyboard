@@ -1574,6 +1574,7 @@
                     </tabBarItem>
                     <connections>
                         <outlet property="snapButton" destination="7Cz-w1-dNO" id="xmX-tl-LC9"/>
+                        <outlet property="textLB" destination="lBL-eM-Ha5" id="v0c-0t-x0Y"/>
                         <outlet property="viewadd" destination="cvg-kz-vNF" id="z2T-hu-zGs"/>
                     </connections>
                 </viewController>

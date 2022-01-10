@@ -18,13 +18,15 @@ class DisplayProductsVC: UIViewController,
   
   var arryPhone = [Phone] ()
   
+  var selectedProdect:Product!
   var arr:[Product]!
   var selectedType:String!
   var selectedBrand:String!
   var page:String!
   var arrSeleced:[Product]! = [Product]()
-  var arrBrand:[String] = [String]()
-  var selectedProdect:Product!
+  var arrBrand:[String] = ["All"]
+  var filterData:[Product]!
+  
   
   
   override func viewDidLoad() {
@@ -32,7 +34,8 @@ class DisplayProductsVC: UIViewController,
     
     collcshinPhoneCell.delegate = self
     collcshinPhoneCell.dataSource = self
-   
+    filterData = arrSeleced
+    
     
     
   }
@@ -220,7 +223,9 @@ class DisplayProductsVC: UIViewController,
                       shouldSelectItemAt indexPath: IndexPath) -> Bool {
     if collectionView == collcshinPhoneCell {
     selectedProdect = arrSeleced[indexPath.row]
+      
     }
+    
     return true
   }
   
