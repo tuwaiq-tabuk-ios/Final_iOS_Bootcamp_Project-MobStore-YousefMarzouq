@@ -20,6 +20,7 @@
 		CA01B6EB278369A00022439D /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = CA01B6EA278369A00022439D /* FirebaseDatabase */; };
 		CA01B6EE278369DD0022439D /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = CA01B6ED278369DD0022439D /* SDWebImage */; };
 		CA01B6F027836B9F0022439D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CA01B6EF27836B9F0022439D /* GoogleService-Info.plist */; };
+		CA2B0B60278AF50900CFAD25 /* orderUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2B0B5F278AF50900CFAD25 /* orderUser.swift */; };
 		CADD8876277E8CFC003FBC12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADD8875277E8CFC003FBC12 /* AppDelegate.swift */; };
 		CADD8878277E8CFC003FBC12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADD8877277E8CFC003FBC12 /* SceneDelegate.swift */; };
 		CADD887A277E8CFC003FBC12 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADD8879277E8CFC003FBC12 /* ViewController.swift */; };
@@ -41,6 +42,7 @@
 		CA01B6DF2782E04F0022439D /* P2CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P2CollectionViewCell.swift; sourceTree = "<group>"; };
 		CA01B6E12782E0670022439D /* P3CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P3CollectionViewCell.swift; sourceTree = "<group>"; };
 		CA01B6EF27836B9F0022439D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CA2B0B5F278AF50900CFAD25 /* orderUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = orderUser.swift; sourceTree = "<group>"; };
 		CADD8872277E8CFC003FBC12 /* ManagementApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ManagementApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CADD8875277E8CFC003FBC12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CADD8877277E8CFC003FBC12 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				CADD88AA27811B64003FBC12 /* Product.swift */,
+				CA2B0B5F278AF50900CFAD25 /* orderUser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA2B0B60278AF50900CFAD25 /* orderUser.swift in Sources */,
 				CADD887A277E8CFC003FBC12 /* ViewController.swift in Sources */,
 				CA01B6E22782E0670022439D /* P3CollectionViewCell.swift in Sources */,
 				CA01B6D927814DE70022439D /* Page5VC.swift in Sources */,
