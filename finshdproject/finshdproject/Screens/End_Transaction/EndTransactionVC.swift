@@ -38,7 +38,7 @@ class EndTransactionVC: UIViewController,
         super.viewDidLoad()
     collcionLast.delegate = self
     collcionLast.dataSource = self
-
+    hideKeyboardWhenTappedAround()
     
 
     }
@@ -46,7 +46,7 @@ class EndTransactionVC: UIViewController,
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     ditelsLebul.text = arri1.info
-    prisButoon.text = "\(arri1.price) "
+    prisButoon.text = "\(arri1.price) SAR "
   }
   
   

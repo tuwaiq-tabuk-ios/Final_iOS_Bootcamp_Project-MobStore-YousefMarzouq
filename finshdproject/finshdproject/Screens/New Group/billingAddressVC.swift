@@ -23,7 +23,7 @@ class billingAddressVC: UIViewController ,  CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
       
-      
+      hideKeyboardWhenTappedAround()
     }
     
   

@@ -21,6 +21,7 @@ class ShippingAddressVC: UIViewController ,
   
   override func viewDidLoad() {
         super.viewDidLoad()
+    hideKeyboardWhenTappedAround()
 
     }
   

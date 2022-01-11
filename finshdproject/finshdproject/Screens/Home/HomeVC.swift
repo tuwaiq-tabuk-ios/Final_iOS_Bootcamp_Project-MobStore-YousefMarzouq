@@ -74,7 +74,7 @@ class HomeVC: UIViewController,
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    
+    hideKeyboardWhenTappedAround()
     collectionView.delegate = self
     collectionView.dataSource = self
     let db = Firestore.firestore()

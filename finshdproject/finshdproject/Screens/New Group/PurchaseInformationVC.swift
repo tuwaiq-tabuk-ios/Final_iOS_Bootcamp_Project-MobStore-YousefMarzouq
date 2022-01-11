@@ -56,6 +56,7 @@ class PurchaseInformationVC: UIViewController ,
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    hideKeyboardWhenTappedAround()
     tabelView.delegate = self
     tabelView.dataSource = self
     cllColleViewPInfo.delegate = self
@@ -166,28 +167,13 @@ class PurchaseInformationVC: UIViewController ,
           }
           
       
-          // للحذف راح انسخ هذي و اغير ديكومنت
-          
-          /*
-           let index = sendrt.tag
-           Carts => Prodects
-           auth.uid => ARRAY_NAME[index].id
-           
-           
-           */
           db.collection("Carts").document(auth.uid).delete()
           
         }
         
       }
       
-    
-      
-      
-      
     }
-    
-
 
     
     

@@ -14,7 +14,7 @@ class SocialMediaVC: UIViewController {
   
   
   let db = Firestore.firestore()
-  let auth = Auth.auth().currentUser!
+  let auth = Auth.auth().currentUser
   
   
   
@@ -29,7 +29,8 @@ class SocialMediaVC: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    textLB.text = "auth"
+    hideKeyboardWhenTappedAround()
+    textLB.text = "Arrrrr7B Ya Men"
   }
   
   

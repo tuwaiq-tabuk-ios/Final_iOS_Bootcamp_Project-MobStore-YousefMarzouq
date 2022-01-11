@@ -18,6 +18,7 @@ class LoginVC: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    hideKeyboardWhenTappedAround()
     errorLabel.alpha = 0
     // Do any additional setup after loading the view.
   }
