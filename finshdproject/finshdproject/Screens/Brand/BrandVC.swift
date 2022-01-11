@@ -23,6 +23,8 @@ class BrandVC: UIViewController,
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    hideKeyboardWhenTappedAround()
     collchinBrandView.delegate = self
     collchinBrandView.dataSource = self
     

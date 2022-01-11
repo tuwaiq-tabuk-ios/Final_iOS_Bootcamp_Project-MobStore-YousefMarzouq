@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6Im-JA-gsD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6Im-JA-gsD">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -878,7 +879,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="44" id="UXC-vw-kGL"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                         <color key="textColor" name="Tibing"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -917,26 +918,25 @@
                                             <constraint firstItem="Vts-eO-faI" firstAttribute="leading" secondItem="Nni-id-0AL" secondAttribute="leading" constant="15" id="cAy-eu-Abp"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xLO-WB-7kC">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xLO-WB-7kC">
                                         <rect key="frame" x="7" y="483" width="355" height="53"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ulh-Ag-CwK">
-                                                <rect key="frame" x="8" y="0.0" width="342.5" height="51"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" distribution="equalSpacing" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Ulh-Ag-CwK">
+                                                <rect key="frame" x="8" y="0.0" width="316.5" height="51"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="coantti" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JXD-xT-9Ru">
-                                                        <rect key="frame" x="0.0" y="0.0" width="60.5" height="51"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="58.5" height="51"/>
                                                         <color key="backgroundColor" name="Dark"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                         <color key="textColor" name="Tibing"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PgP-pA-8ja">
-                                                        <rect key="frame" x="70.5" y="0.0" width="174" height="51"/>
+                                                        <rect key="frame" x="88.5" y="0.0" width="50" height="51"/>
                                                         <color key="backgroundColor" name="Dark"/>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2FL-no-YOn">
-                                                        <rect key="frame" x="254.5" y="0.0" width="26.5" height="51"/>
+                                                        <rect key="frame" x="168.5" y="0.0" width="26.5" height="51"/>
                                                         <color key="backgroundColor" name="Dark"/>
                                                         <color key="tintColor" name="Tibing"/>
                                                         <state key="normal" image="plus" catalog="system">
@@ -946,15 +946,15 @@
                                                             <action selector="plasPessd:" destination="8Gt-ex-p3G" eventType="touchUpInside" id="BIe-oN-oJI"/>
                                                         </connections>
                                                     </button>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" borderStyle="line" textAlignment="center" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="0aO-Hj-cVm">
-                                                        <rect key="frame" x="291" y="0.0" width="15" height="51"/>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" borderStyle="bezel" textAlignment="center" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="0aO-Hj-cVm">
+                                                        <rect key="frame" x="225" y="0.0" width="35" height="51"/>
                                                         <color key="backgroundColor" name="Dark"/>
                                                         <color key="textColor" name="Tibing"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fta-Xr-Gfz">
-                                                        <rect key="frame" x="316" y="0.0" width="26.5" height="51"/>
+                                                        <rect key="frame" x="290" y="0.0" width="26.5" height="51"/>
                                                         <color key="backgroundColor" name="Dark"/>
                                                         <color key="tintColor" name="Tibing"/>
                                                         <state key="normal" image="minus" catalog="system">
@@ -970,11 +970,11 @@
                                         </subviews>
                                         <color key="backgroundColor" name="Dark"/>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mxV-7s-vX7">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mxV-7s-vX7">
                                         <rect key="frame" x="24" y="448" width="317" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" name="Tibing"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                        <color key="textColor" systemColor="systemGreenColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -984,10 +984,14 @@
                                     <constraint firstItem="mxV-7s-vX7" firstAttribute="top" secondItem="jVH-sG-Hsb" secondAttribute="bottom" constant="8" symbolic="YES" id="6P6-Fj-LOP"/>
                                     <constraint firstItem="jVH-sG-Hsb" firstAttribute="leading" secondItem="Bpj-eG-h6J" secondAttribute="leading" id="M32-FC-D8p"/>
                                     <constraint firstAttribute="trailing" secondItem="zg5-xx-jUE" secondAttribute="trailing" constant="10" id="M3w-E0-cxY"/>
+                                    <constraint firstAttribute="trailing" secondItem="xLO-WB-7kC" secondAttribute="trailing" constant="13" id="QdQ-KE-3mV"/>
                                     <constraint firstItem="zg5-xx-jUE" firstAttribute="top" secondItem="Bpj-eG-h6J" secondAttribute="top" constant="5" id="Qm7-Sp-cL5"/>
                                     <constraint firstItem="Nni-id-0AL" firstAttribute="leading" secondItem="Bpj-eG-h6J" secondAttribute="leading" constant="10" id="R3D-b7-h5M"/>
                                     <constraint firstItem="jVH-sG-Hsb" firstAttribute="top" secondItem="zg5-xx-jUE" secondAttribute="bottom" constant="20" id="VKw-3h-Pno"/>
+                                    <constraint firstItem="xLO-WB-7kC" firstAttribute="leading" secondItem="Bpj-eG-h6J" secondAttribute="leading" constant="7" id="b48-Ur-5c4"/>
+                                    <constraint firstItem="Nni-id-0AL" firstAttribute="top" secondItem="xLO-WB-7kC" secondAttribute="bottom" constant="8" symbolic="YES" id="cXT-UJ-KMc"/>
                                     <constraint firstAttribute="trailing" secondItem="Nni-id-0AL" secondAttribute="trailing" constant="10" id="l2G-IQ-pis"/>
+                                    <constraint firstItem="xLO-WB-7kC" firstAttribute="top" secondItem="mxV-7s-vX7" secondAttribute="bottom" constant="8" symbolic="YES" id="nn7-2k-YK3"/>
                                     <constraint firstAttribute="bottom" secondItem="Nni-id-0AL" secondAttribute="bottom" constant="8" id="xML-sl-Hig"/>
                                     <constraint firstAttribute="trailing" secondItem="jVH-sG-Hsb" secondAttribute="trailing" id="zYd-1P-aMK"/>
                                 </constraints>
@@ -1032,7 +1036,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ma1-5L-twF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1014" y="2485"/>
+            <point key="canvasLocation" x="-268" y="2857"/>
         </scene>
         <!--Upload Procuts FirebseVC-->
         <scene sceneID="5WU-Nr-3Ma">
@@ -1086,7 +1090,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gke-EX-z0O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="826.39999999999998" y="2471.5142428785607"/>
+            <point key="canvasLocation" x="447" y="2857"/>
         </scene>
         <!--Home-->
         <scene sceneID="thB-VH-VUK">
@@ -2168,7 +2172,7 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TCll" id="gFe-8B-jfn" customClass="PurchaseInformationCellVCTablewCell" customModule="finshdproject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="365" height="43"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="365" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gFe-8B-jfn" id="6QH-HH-nje">
                                             <rect key="frame" x="0.0" y="0.0" width="365" height="43"/>
@@ -3388,6 +3392,9 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

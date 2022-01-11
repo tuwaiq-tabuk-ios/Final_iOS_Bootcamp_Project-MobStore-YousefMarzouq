@@ -35,7 +35,7 @@ class DisplayProductsVC: UIViewController,
     collcshinPhoneCell.delegate = self
     collcshinPhoneCell.dataSource = self
     filterData = arrSeleced
-    
+    hideKeyboardWhenTappedAround()
     
     
   }

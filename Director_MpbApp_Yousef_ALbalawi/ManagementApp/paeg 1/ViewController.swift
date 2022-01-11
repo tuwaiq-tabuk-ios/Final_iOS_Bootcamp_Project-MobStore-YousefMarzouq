@@ -12,15 +12,16 @@ class ViewController: UIViewController ,
                       UICollectionViewDelegate,
                       UICollectionViewDataSource {
   
-  @IBOutlet weak var collall: UICollectionView!
+ 
   
+  @IBOutlet weak var collall: UICollectionView!
   @IBOutlet weak var brandColl: UICollectionView!
+  
   
   var dataCollection:CollectionReference!
   var arrProdects:[Product] = products
   var selectedBrand:String!
   var selectedPreodect:Product!
-  
   var arrBrand:[String] = ["All"]
   var filterData:[Product]!
   

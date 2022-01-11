@@ -43,6 +43,7 @@
 		CAB21A4F2779CC1C0088C6D6 /* PurchaseInformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB21A4E2779CC1C0088C6D6 /* PurchaseInformationVC.swift */; };
 		CAB21A532779CC920088C6D6 /* PurchaseInformationCellVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB21A522779CC920088C6D6 /* PurchaseInformationCellVC.swift */; };
 		CAB21A552779E42B0088C6D6 /* PurchaseInformationCellVCTablewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB21A542779E42B0088C6D6 /* PurchaseInformationCellVCTablewCell.swift */; };
+		CABD8DBE278D7A9400C000A9 /* disMiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABD8DBD278D7A9400C000A9 /* disMiss.swift */; };
 		CAC3755C2785D15C0093A9F6 /* customerinformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC3755B2785D15C0093A9F6 /* customerinformationVC.swift */; };
 		CAC3755E2786098A0093A9F6 /* Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC3755D2786098A0093A9F6 /* Cart.swift */; };
 		CADD889D2780C4CC003FBC12 /* billingAddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADD889C2780C4CC003FBC12 /* billingAddressVC.swift */; };
@@ -87,6 +88,7 @@
 		CAB21A4E2779CC1C0088C6D6 /* PurchaseInformationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseInformationVC.swift; sourceTree = "<group>"; };
 		CAB21A522779CC920088C6D6 /* PurchaseInformationCellVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseInformationCellVC.swift; sourceTree = "<group>"; };
 		CAB21A542779E42B0088C6D6 /* PurchaseInformationCellVCTablewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseInformationCellVCTablewCell.swift; sourceTree = "<group>"; };
+		CABD8DBD278D7A9400C000A9 /* disMiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = disMiss.swift; sourceTree = "<group>"; };
 		CAC3755B2785D15C0093A9F6 /* customerinformationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customerinformationVC.swift; sourceTree = "<group>"; };
 		CAC3755D2786098A0093A9F6 /* Cart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cart.swift; sourceTree = "<group>"; };
 		CADD889C2780C4CC003FBC12 /* billingAddressVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = billingAddressVC.swift; sourceTree = "<group>"; };
@@ -140,7 +142,6 @@
 				CA16C14A2768B49D000EC012 /* View */,
 				CA16C1302768B19F000EC012 /* ProdectsCells */,
 				CA16C1332768B19F000EC012 /* Support */,
-				CA16C1162768B149000EC012 /* LaunchScreen.storyboard */,
 				CA16C1092768B147000EC012 /* Products */,
 			);
 			path = finshdproject;
@@ -157,6 +158,7 @@
 		CA16C1332768B19F000EC012 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				CA16C1162768B149000EC012 /* LaunchScreen.storyboard */,
 				CA5F1C6D277865AF00E8DF4E /* Loader1.gif */,
 				CA16C1142768B149000EC012 /* Assets.xcassets */,
 				CA16C1342768B19F000EC012 /* AppDelegate.swift */,
@@ -194,6 +196,7 @@
 		CA5F1C6F27787B2100E8DF4E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				CADD889B2780C3D8003FBC12 /* New Group */,
 				CAB21A4D2779CBD10088C6D6 /* Purchase information page */,
 				CAF626242778A25C00B25F7C /* Owner */,
 				CA5F1C742778833100E8DF4E /* End_Transaction */,
@@ -268,11 +271,18 @@
 		CAB21A4D2779CBD10088C6D6 /* Purchase information page */ = {
 			isa = PBXGroup;
 			children = (
-				CADD889B2780C3D8003FBC12 /* New Group */,
 				CAB21A522779CC920088C6D6 /* PurchaseInformationCellVC.swift */,
 				CAB21A542779E42B0088C6D6 /* PurchaseInformationCellVCTablewCell.swift */,
 			);
 			path = "Purchase information page";
+			sourceTree = "<group>";
+		};
+		CABD8DBC278D7A3B00C000A9 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				CABD8DBD278D7A9400C000A9 /* disMiss.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		CADD889B2780C3D8003FBC12 /* New Group */ = {
@@ -302,6 +312,7 @@
 				CAF626262778A8E500B25F7C /* Phone.swift */,
 				CAF626282778A93D00B25F7C /* Brand.swift */,
 				CAC3755D2786098A0093A9F6 /* Cart.swift */,
+				CABD8DBC278D7A3B00C000A9 /* Extension */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -425,6 +436,7 @@
 				CA16C1372768B19F000EC012 /* ProductsCVCell.swift in Sources */,
 				CAF626292778A93D00B25F7C /* Brand.swift in Sources */,
 				CADD889F2780C4EB003FBC12 /* ShippingAddressVC.swift in Sources */,
+				CABD8DBE278D7A9400C000A9 /* disMiss.swift in Sources */,
 				CAC3755E2786098A0093A9F6 /* Cart.swift in Sources */,
 				CA16C1392768B19F000EC012 /* SceneDelegate.swift in Sources */,
 				CA9613FA276EB09E00386935 /* SocialMediaVC.swift in Sources */,
