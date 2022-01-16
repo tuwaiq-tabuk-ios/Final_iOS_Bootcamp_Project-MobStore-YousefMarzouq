@@ -9,45 +9,39 @@ import UIKit
 import Firebase
 import PhotosUI
 
+
 class Paeg2VC: UIViewController ,
-               PHPickerViewControllerDelegate,
-               UINavigationControllerDelegate ,
-               UICollectionViewDelegate ,
-               UICollectionViewDataSource,
-               UIPickerViewDataSource ,
-               UIPickerViewAccessibilityDelegate,
-               UITextFieldDelegate {
+              UINavigationControllerDelegate ,
+                  UITextFieldDelegate {
   
   
+  // MARK: - Properties
+  
+  var images:[UIImage] = [UIImage]()
+  var prodectImage = false
   var carntindX = 0
   let pickerTayp = UIPickerView()
   var arryTayp = ["Tablet","Phone","Accessories","CardGame"]
+  
+  
+  
+  // MARK: - IBOutlet
 
-  
-  
-  
-  @IBOutlet weak var tayp: UITextField!
-  
-  @IBOutlet weak var collP2: UICollectionView!
-
-  @IBOutlet weak var countItme: UITextField!
-  @IBOutlet weak var brand: UITextField!
-  @IBOutlet weak var info: UITextField!
-  @IBOutlet weak var praice: UITextField!
+  @IBOutlet weak var taypUITextField: UITextField!
+  @IBOutlet weak var collAddItem: UICollectionView!
+  @IBOutlet weak var countItmeTextField: UITextField!
+  @IBOutlet weak var brandTextField: UITextField!
+  @IBOutlet weak var infoTextField: UITextField!
+  @IBOutlet weak var praiceTextField: UITextField!
   @IBOutlet weak var productImage: UIImageView!
-
-  
   @IBOutlet weak var infoLabel: UILabel!
   @IBOutlet weak var priceLabel: UILabel!
   @IBOutlet weak var countLabel: UILabel!
   @IBOutlet weak var brandLabel: UILabel!
-  var images:[UIImage] = [UIImage]()
-  var prodectImage = false
+  
+  
+  // MARK: - Life Cycle
 
-  
-  
-  
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -58,38 +52,23 @@ class Paeg2VC: UIViewController ,
                                target: self,
                                action: #selector(clus))
     toolbar.setItems([dane], animated: true)
-    tayp.inputView = pickerTayp
+    taypUITextField.inputView = pickerTayp
     pickerTayp.delegate = self
     pickerTayp.dataSource = self
-    collP2.delegate = self
-    collP2.dataSource = self
-    tayp.inputAccessoryView = toolbar
-    
+    collAddItem.delegate = self
+    collAddItem.dataSource = self
+    taypUITextField.inputAccessoryView = toolbar
   }
+  
+  
   @objc func clus () {
-    tayp.text = arryTayp[carntindX]
+    taypUITextField.text = arryTayp[carntindX]
     view.endEditing(true)
   }
   
   
-  func collectionView(_ collectionView: UICollectionView,
-                      numberOfItemsInSection section: Int) -> Int {
-    return images.count
-    
-  }
-  
-  func collectionView(_ collectionView: UICollectionView,
-                      cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    
-    let cll2 = collP2.dequeueReusableCell(withReuseIdentifier: "P2",
-                                          for: indexPath) as! P2CollectionViewCell
-    cll2.deleteButton.tag = indexPath.row
-    cll2.imgP2.image = images[indexPath.row]
-    return cll2
-  }
-  
-  
-  
+  // MARK: - IBAction
+
   @IBAction func imagPage1(_ sender: UIButton) {
     prodectImage = true
     addFoto()
@@ -98,28 +77,26 @@ class Paeg2VC: UIViewController ,
     prodectImage = false
     addFoto()
   }
-  
-  
+  @IBAction func deleteButtonTapped(_ sender: UIButton) {
+    images.remove(at: sender.tag)
+    collAddItem.reloadData()
+  }
   @IBAction func addButtonPreased(_ sender: Any) {
-    
     addToDatabase()
   }
+
   
+  // MARK: - functions
+
   func addFoto() {
     let alert = UIAlertController(title: "Take Poto From",
                                   message: nil,
                                   preferredStyle: .actionSheet)
     alert.addAction(UIAlertAction(title: "Camera",
                                   style: .default,
-                                  handler: { action in self.getimage(type: .camera)
-                                    
-                                    
-                                  }))
+                                  handler: { action in self.getimage(type: .camera)}))
     alert.addAction(UIAlertAction(title: "photo Library",
-                                  style: .default,handler: { action in self.getimage(type: .photoLibrary)
-                                    
-                                    
-                                  }))
+                                  style: .default,handler: { action in self.getimage(type: .photoLibrary)}))
     alert.addAction(UIAlertAction(title: "cancel",
                                   style: .cancel, handler: nil))
     present(alert, animated: true,
@@ -155,55 +132,23 @@ class Paeg2VC: UIViewController ,
             }
           }
         }
-        
       }
     }else {
       for result in results {
         result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
           if let image = image as? UIImage {
-            
             DispatchQueue.main.async {
               self.images.append(image)
-              self.collP2.reloadData()
+              self.collAddItem.reloadData()
               
             }
-            
           }
-          
         }
-        
       }
     }
-    
   }
   
-  
-  
-  func numberOfComponents(in pickerView: UIPickerView) -> Int {
-    return 1
-  }
-  
-  
-  func pickerView(_ pickerView: UIPickerView,
-                  numberOfRowsInComponent component: Int) -> Int {
-    
-    
-    return arryTayp.count
-  }
-  func pickerView(_ pickerView: UIPickerView,
-                  titleForRow row: Int,
-                  forComponent component: Int) -> String? {
-    return arryTayp[row]
-  }
-  
-  
-  func pickerView(_ pickerView: UIPickerView,
-                  didSelectRow row: Int,
-                  inComponent component: Int) {
-    carntindX = row
-    tayp.text = arryTayp[row]
-  }
-  
+
   override func touchesBegan(_ touches: Set<UITouch>,
                              with event: UIEvent?) {
     view.endEditing(true)
@@ -211,28 +156,24 @@ class Paeg2VC: UIViewController ,
   
   
   func addToDatabase() {
-    
     let db = Firestore.firestore()
     let storeage = Storage.storage()
     let documentID = UUID().uuidString
     let uploadMetadata = StorageMetadata()
     uploadMetadata.contentType = "image/jpeg"
-    
     db.collection("Prodects").document(documentID).setData([
-      "info": self.info.text! ,
-      "price": Double(self.praice.text!) ?? 0,
-      "brand": self.brand.text!,
-      "type":self.tayp.text!,
-      "count":Int(self.countItme.text!),
+      "info": self.infoTextField.text! ,
+      "price": Double(self.praiceTextField.text!) ?? 0,
+      "brand": self.brandTextField.text!,
+      "type":self.taypUITextField.text!,
+      "count":Int(self.countItmeTextField.text!),
       "isFavorite":false,
       "Offers":false
     ], merge: true)
-    
     var imageID = ""
     if imageID == "" {
       imageID = UUID().uuidString
     }
-    
     let storeageRF = storeage.reference().child(documentID).child(imageID)
     let imageData = productImage.image?.jpegData(compressionQuality: 0.5)
     storeageRF.putData(imageData!, metadata: uploadMetadata) { metadata, error in
@@ -246,7 +187,6 @@ class Paeg2VC: UIViewController ,
             ], merge: true)
           }
         }
-        
       }
     }
     
@@ -272,21 +212,68 @@ class Paeg2VC: UIViewController ,
               ], merge: true)
             }
           }
-          
         }
       }
-      
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
   }
 }
 
+
+// MARK: - extensionCollectionView
+
+extension Paeg2VC :  UICollectionViewDelegate ,
+                     UICollectionViewDataSource {
+  
+  
+  // MARK: - functionsCollectionView
+
+  func collectionView(_ collectionView: UICollectionView,
+                      numberOfItemsInSection section: Int) -> Int {
+    return images.count}
+  
+  
+  func collectionView(_ collectionView: UICollectionView,
+                      cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cll2 = collAddItem.dequeueReusableCell(withReuseIdentifier: "P2",
+                                               for: indexPath) as! P2CollectionViewCell
+    cll2.deleteButton.tag = indexPath.row
+    cll2.imgP2.image = images[indexPath.row]
+    return cll2
+  }
+}
+
+
+// MARK: - extensionPickerView
+
+extension Paeg2VC : PHPickerViewControllerDelegate ,
+                    UIPickerViewDataSource,
+                    UIPickerViewAccessibilityDelegate {
+  
+  
+  // MARK: - functionsPickerView
+
+  func pickerView(_ pickerView: UIPickerView,
+                  numberOfRowsInComponent component: Int) -> Int {
+    return arryTayp.count
+  }
+  
+  
+  func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    return 1
+  }
+  
+  
+  func pickerView(_ pickerView: UIPickerView,
+                  titleForRow row: Int,
+                  forComponent component: Int) -> String? {
+    return arryTayp[row]
+  }
+  
+  
+  func pickerView(_ pickerView: UIPickerView,
+                  didSelectRow row: Int,
+                  inComponent component: Int) {
+    carntindX = row
+    taypUITextField.text = arryTayp[row]
+  }
+}

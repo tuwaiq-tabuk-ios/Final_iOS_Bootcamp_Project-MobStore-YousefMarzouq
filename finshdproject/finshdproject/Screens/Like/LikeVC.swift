@@ -14,17 +14,19 @@ class LikeVC: UIViewController,
               UICollectionViewDelegateFlowLayout {
   
   
-  @IBOutlet weak var likeImg: UIImageView!
-  
-  //  var SDAnimatedImageView = SDAnimatedImageView()
+  // MARK: - Properties
   
   var productsLike: [Product]! = [Product]()
   var dataCollection: CollectionReference!
   
   
+  // MARK: - IBOutlet
+  
+  @IBOutlet weak var likeImg: UIImageView!
   @IBOutlet weak var likeCView: UICollectionView!
   
   
+  // MARK: - Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -32,15 +34,31 @@ class LikeVC: UIViewController,
     likeCView.dataSource = self
     let db = Firestore.firestore()
     dataCollection = db.collection("ProdectsFavorite")
-    
-    
   }
+  
+  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.likeCView.reloadData()
     getData()
   }
   
+  
+  @IBAction func deleteButtonTapped(_ sender: UIButton) {
+    let index = sender.tag
+    let db = Firestore.firestore()
+    db.collection("Prodects").document(productsLike[index].id).setData(["isFavorite":false], merge: true)
+    if let index1 = products.firstIndex(of: productsLike[index]) {
+      products[index1].isFavorite = false
+      productsLike[index].isFavorite = false
+    }
+    db.collection("ProdectsFavorite").document(productsLike[index].id).delete()
+    productsLike.remove(at: index)
+    likeCView.reloadData()
+  }
+  
+  
+  // MARK: - functions
   
   func getData() {
     let db = Firestore.firestore()
@@ -80,24 +98,9 @@ class LikeVC: UIViewController,
           }
         }
       }
-      
     }
-    
   }
   
-  
-  @IBAction func deleteButtonTapped(_ sender: UIButton) {
-    let index = sender.tag
-    let db = Firestore.firestore()
-    db.collection("Prodects").document(productsLike[index].id).setData(["isFavorite":false], merge: true)
-    if let index1 = products.firstIndex(of: productsLike[index]) {
-      products[index1].isFavorite = false
-      productsLike[index].isFavorite = false
-    }
-    db.collection("ProdectsFavorite").document(productsLike[index].id).delete()
-    productsLike.remove(at: index)
-    likeCView.reloadData()
-  }
   
   func updateUI() {
     print("~~ ggg \(self.productsLike.count)")
@@ -107,12 +110,12 @@ class LikeVC: UIViewController,
     } else {
       self.likeImg.isHidden = true
       self.likeCView.isHidden = false
-      
     }
   }
 }
 
 
+// MARK: - extension
 
 extension LikeVC: UICollectionViewDataSource {
   
@@ -126,6 +129,8 @@ extension LikeVC: UICollectionViewDataSource {
   }
   
   
+  // MARK: - functions
+  
   func collectionView(
     _ collectionView: UICollectionView,
     cellForItemAt indexPath: IndexPath
@@ -138,7 +143,6 @@ extension LikeVC: UICollectionViewDataSource {
     cell.pricFibrt.text = "\(array.price)"
     cell.deleteButton.tag = indexPath.row
     return cell
-    
   }
 }
 

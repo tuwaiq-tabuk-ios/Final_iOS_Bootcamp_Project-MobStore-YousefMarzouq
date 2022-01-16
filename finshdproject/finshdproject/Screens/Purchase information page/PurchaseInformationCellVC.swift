@@ -7,22 +7,16 @@
 
 import UIKit
 import SDWebImage
+
+
 class PurchaseInformationCellVC: UICollectionViewCell {
   
   
-  
+  // MARK: - IBOutlet
   
   @IBOutlet weak var imageCellPurchase: SDAnimatedImageView!
   @IBOutlet weak var infoPurchase: UILabel!
   @IBOutlet weak var praicPurchase: UILabel!
   @IBOutlet weak var deletButton: UIButton!
   @IBOutlet weak var addFibret: UIButton!
-  
-  
-  @IBOutlet weak var plasButton: UIButton!
-  @IBOutlet weak var countPurchase: UILabel!
-  @IBOutlet weak var mensButton: UIButton!
-  
-  
-  
 }

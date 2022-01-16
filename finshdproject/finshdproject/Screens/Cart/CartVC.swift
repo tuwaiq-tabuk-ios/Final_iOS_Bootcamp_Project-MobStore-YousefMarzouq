@@ -13,27 +13,31 @@ class CartVC: UIViewController,
               UICollectionViewDelegate,
               UICollectionViewDataSource {
   
+  // MARK: - Properties
   
   var totlprice:Double = 0
-  var arri2:[Cart]! = [Cart]()
+  var arrayShoppingcart:[Cart]! = [Cart]()
   var DocumentReference: DocumentReference!
   var selectBrand:String!
   
   
-  @IBOutlet weak var viewGreen: UIView!
-  @IBOutlet weak var contToBuy: UIButton!
-  @IBOutlet weak var labelTootl: UILabel!
-  @IBOutlet weak var CollcshinCaSho: UICollectionView!
-  @IBOutlet weak var totllAount: UILabel!
-  @IBOutlet weak var nothingImage: UIImageView!
+  // MARK: - IBOutlet
+  
+
+  @IBOutlet weak var Checkout: UIButton!
+  @IBOutlet weak var totalsummation: UILabel!
+  @IBOutlet weak var shoppingCart: UICollectionView!
+  @IBOutlet weak var totalPraic: UILabel!
+  @IBOutlet weak var heartpicture: UIImageView!
   
   
+ 
+  // MARK: - Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    CollcshinCaSho.delegate = self
-    CollcshinCaSho.dataSource = self
+    shoppingCart.delegate = self
+    shoppingCart.dataSource = self
   }
   
   
@@ -47,16 +51,69 @@ class CartVC: UIViewController,
     getData()
   }
   
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if let vc = segue.destination as? PurchaseInformationVC {
+      vc.arri3 = arrayShoppingcart
+    }
+  }
+  
+  
+  // MARK: - IBAction
+  
+  @IBAction func rmoveItm(_ sender: UIButton) {
+    let index = sender.tag
+    let db = Firestore.firestore()
+    let auth = Auth.auth().currentUser!
+    let document = db.collection("Carts").document(auth.uid)
+    document.setData( ["carts": FieldValue.arrayRemove([arrayShoppingcart[index].product.id])], merge: true)
+    totlprice -= Double(arrayShoppingcart[index].count) * Double(arrayShoppingcart[index].product.price)
+    totalPraic.text = "\(totlprice)"
+    arrayShoppingcart.remove(at: index)
+    shoppingCart.reloadData()
+  }
+  
+  
+  @IBAction func ContTobuy (_ sender: UIButton) {
+   
+  }
+  
+  @IBAction func pluseButtonmPreased(_ sender: UIButton) {
+    let cell = shoppingCart!.cellForItem(at: IndexPath(row: sender.tag, section: 0)) as! CartCollectionVCell
+    var conter = Int(cell.conttiCrSho.text!)
+    conter! += 1
+    cell.conttiCrSho.text = conter?.description
+    totlprice += Double(cell.labelPricShoCr.text!)!
+    totalPraic.text = "\(totlprice)"
+    arrayShoppingcart[sender.tag].count = conter!
+  }
+  
+  
+  @IBAction func minusButtonPreased(_ sender: UIButton) {
+    let cell = shoppingCart!.cellForItem(at: IndexPath(row: sender.tag, section: 0)) as! CartCollectionVCell
+    var conter = Int(cell.conttiCrSho.text!)
+    if conter != 0 {
+      conter! -= 1
+      cell.conttiCrSho.text = conter?.description
+      totlprice -= Double(cell.labelPricShoCr.text!)!
+      totalPraic.text = "\(totlprice)"
+      arrayShoppingcart[sender.tag].count = conter!
+    }
+  }
+  
+  
+  // MARK: - functions
+  
   func getData() {
     let db = Firestore.firestore()
     guard let auth = Auth.auth().currentUser else {
       print("~~~~~ Alert Please SignIn")
       return
     }
-    arri2.removeAll()
-    CollcshinCaSho.reloadData()
+    arrayShoppingcart.removeAll()
+    shoppingCart.reloadData()
     totlprice = 0
-    self.totllAount.text = "\(self.totlprice)"
+    self.totalPraic.text = "\(self.totlprice)"
     
     DocumentReference = db.collection("Carts").document(auth.uid)
     DocumentReference.getDocument { snapshot, error in
@@ -82,14 +139,10 @@ class CartVC: UIViewController,
                                         images: data["images"] as! [String],
                                         isFavorite: data["isFavorite"] as! Bool)
                   let cart = Cart(product: prodect, count: 1)
-                  self.arri2.append(cart)
+                  self.arrayShoppingcart.append(cart)
                   self.totlprice +=  Double(cart.count) * Double(cart.product.price)
-                  self.totllAount.text = "\(self.totlprice)"
-                  self.CollcshinCaSho.reloadData()
-                  
-                   
-                
-                  
+                  self.totalPraic.text = "\(self.totlprice)"
+                  self.shoppingCart.reloadData()
                 }
               }
             }
@@ -99,82 +152,28 @@ class CartVC: UIViewController,
     }
   }
   
-  @IBAction func rmoveItm(_ sender: UIButton) {
-    let index = sender.tag
-    let db = Firestore.firestore()
-    let auth = Auth.auth().currentUser!
-    let document = db.collection("Carts").document(auth.uid)
-    document.setData( ["carts": FieldValue.arrayRemove([arri2[index].product.id])], merge: true)
-    
-    totlprice -= Double(arri2[index].count) * Double(arri2[index].product.price)
-    totllAount.text = "\(totlprice)"
-    arri2.remove(at: index)
-    
-    CollcshinCaSho.reloadData()
-  }
-  
-  
-  
-  @IBAction func ContTobuy (_ sender: UIButton) {
-   
-    
-  }
-  
-  
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if let vc = segue.destination as? PurchaseInformationVC {
-      vc.arri3 = arri2
-    }
-  }
   
   func collectionView(_ collectionView: UICollectionView,
                       numberOfItemsInSection section: Int) -> Int {
-
-    return arri2.count
+                            return arrayShoppingcart.count
   }
   
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CaSho", for: indexPath) as! CartCollectionVCell
-    cell.imgShoCr.sd_setImage(with: URL(string: arri2[indexPath.row].product.image), placeholderImage: UIImage(named: ""))
+    cell.imgShoCr.sd_setImage(with: URL(string: arrayShoppingcart[indexPath.row].product.image), placeholderImage: UIImage(named: ""))
     cell.plasPressd.tag = indexPath.row
     cell.muensPressd.tag = indexPath.row
     cell.conttiCrSho.tag = indexPath.row
     cell.rmove.tag = indexPath.row
-    cell.conttiCrSho.text = "\(arri2[indexPath.row].count)"
-    cell.labelDitels.text = arri2[indexPath.row].product.info
-    cell.labelPricShoCr.text = "\(arri2[indexPath.row].product.price)"
+    cell.conttiCrSho.text = "\(arrayShoppingcart[indexPath.row].count)"
+    cell.labelDitels.text = arrayShoppingcart[indexPath.row].product.info
+    cell.labelPricShoCr.text = "\(arrayShoppingcart[indexPath.row].product.price)"
     return cell
   }
   
-  
+
   func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
     return true
-  }
-  
-  @IBAction func pluseButtonmPreased(_ sender: UIButton) {
-    let cell = CollcshinCaSho!.cellForItem(at: IndexPath(row: sender.tag, section: 0)) as! CartCollectionVCell
-    var conter = Int(cell.conttiCrSho.text!)
-    conter! += 1
-    cell.conttiCrSho.text = conter?.description
-    totlprice += Double(cell.labelPricShoCr.text!)!
-    totllAount.text = "\(totlprice)"
-    arri2[sender.tag].count = conter!
-
-  }
-  
-  
-  @IBAction func minusButtonPreased(_ sender: UIButton) {
-    let cell = CollcshinCaSho!.cellForItem(at: IndexPath(row: sender.tag, section: 0)) as! CartCollectionVCell
-    var conter = Int(cell.conttiCrSho.text!)
-    if conter != 0 {
-      conter! -= 1
-      cell.conttiCrSho.text = conter?.description
-      totlprice -= Double(cell.labelPricShoCr.text!)!
-      totllAount.text = "\(totlprice)"
-      arri2[sender.tag].count = conter!
-
-    }
   }
 }
