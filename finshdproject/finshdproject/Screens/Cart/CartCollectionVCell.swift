@@ -10,6 +10,8 @@ import UIKit
 class CartCollectionVCell: UICollectionViewCell  {
   
   
+  // MARK: - IBOutlet
+  
   @IBOutlet weak var rmove: UIButton!
   @IBOutlet weak var imgShoCr: UIImageView!
   @IBOutlet weak var labelDitels: UILabel!
@@ -17,7 +19,5 @@ class CartCollectionVCell: UICollectionViewCell  {
   @IBOutlet weak var plasPressd: UIButton!
   @IBOutlet weak var muensPressd: UIButton!
   @IBOutlet weak var conttiCrSho: UILabel!
-  
-  
 }
 

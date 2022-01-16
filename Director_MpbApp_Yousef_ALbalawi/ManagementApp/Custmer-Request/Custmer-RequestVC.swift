@@ -13,24 +13,25 @@ class Page5VC: UIViewController,
                UICollectionViewDataSource {
   
   
+  // MARK: - Properties
   
   var DocumentReference: CollectionReference!
-  var arri4 : [Order] = [Order]()
-  var arrProdects:[Product] = products
-
+  var arrayOrderS : [Order] = [Order]()
   
   
-  
+  // MARK: - IBOutlet
   
   @IBOutlet weak var collectionPage5: UICollectionView!
   
+  
+  // MARK: - Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
     collectionPage5.delegate = self
     collectionPage5.dataSource = self
-    
   }
+  
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
@@ -38,51 +39,38 @@ class Page5VC: UIViewController,
   }
   
   
+  // MARK: - functions
   
   func collectionView(_ collectionView: UICollectionView,
                       numberOfItemsInSection section: Int) -> Int {
-    return arri4.count
-    
-    
+    return arrayOrderS.count
   }
+  
+  
   func collectionView(_ collectionView: UICollectionView,
                       cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cll = collectionPage5.dequeueReusableCell(withReuseIdentifier: "collectionPage5", for: indexPath) as! Page5CollectionViewCell
-    
-    cll.imgItm5.sd_setImage(with: URL(string: arri4[indexPath.row].orders[0].product.image))
-    
-    
-    cll.loucitonCoustmer.text = "\(arri4[indexPath.row].billingAddress[0]) \(arri4[indexPath.row].billingAddress[1])"
-    
-    
-    cll.namburPhone.text = arri4 [indexPath.row].customerPhone
-    
-    cll.nameOFitme.text =  arri4[indexPath.row].orders[indexPath.row].product.info
-    
-    cll.praicOFitme.text = "\(arri4[indexPath.row].orders[indexPath.row].product.price) SR"
-   
-    
-    cll.nameCastmer.text = arri4[indexPath.row].customerName
+    cll.imgItm5.sd_setImage(with: URL(string: arrayOrderS[indexPath.row].orders[0].product.image))
+    cll.loucitonCoustmer.text = "\(arrayOrderS[indexPath.row].billingAddress[0]) \(arrayOrderS[indexPath.row].billingAddress[1])"
+    cll.namburPhone.text = arrayOrderS [indexPath.row].customerPhone
+    cll.nameCastmer.text = arrayOrderS[indexPath.row].customerName
+    cll.nameOFitme.text =  arrayOrderS[indexPath.row].orders[indexPath.row].product.info
+    cll.praicOFitme.text = "\(arrayOrderS[indexPath.row].orders[indexPath.row].product.price) SR"
     return cll
   }
   
   
-  
-  
   func getData() {
     let db = Firestore.firestore()
-    arri4.removeAll()
+    arrayOrderS.removeAll()
     collectionPage5.reloadData()
-   
     DocumentReference = db.collection("Orders")
     DocumentReference.getDocuments { snapshot, error in
       if error != nil {
       } else {
-        
         for document in snapshot!.documents {
           let data = document.data()
           if document.documentID != "ordersCount" {
-            
             for (key, values) in data {
               let data = values as! [String:Any]
               var carts: [Cart] = [Cart]()
@@ -111,12 +99,10 @@ class Page5VC: UIViewController,
                                         Offers: data["Offers"] as! Bool,
                                         images: data["images"] as! Array<String>,
                                         isFavorite: data["isFavorite"] as! Bool)
-                  
                   let cart = Cart(product: product, count: cont)
                   carts.append(cart)
                 }
               }
-              
               DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
                 let products = Order(customerName:data["customerName"] as!String ,
                                      customerPhone:data[ "customerPhone"]as!String,
@@ -126,22 +112,14 @@ class Page5VC: UIViewController,
                                      shippingAddress: data["shippingAddress"] as! Array,
                                      totalAmount:data["totalAmount"] as! String,
                                      orders:carts)
-                
-                self.arri4.append(products)
-                print(self.arri4[0].orders[0].product.info)
+                self.arrayOrderS.append(products)
+                print(self.arrayOrderS[0].orders[0].product.info)
                 self.collectionPage5.reloadData()
               }
-            
             }
-            
-            
           }
         }
       }
     }
   }
-  
-  
 }
-
-

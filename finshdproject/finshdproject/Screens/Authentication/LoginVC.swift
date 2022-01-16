@@ -11,18 +11,23 @@ import FirebaseAuth
 class LoginVC: UIViewController {
   
   
-  @IBOutlet weak var email: UITextField!
-  @IBOutlet weak var password: UITextField!
+  // MARK: - IBOutlet
+  
+  @IBOutlet weak var emailTextField: UITextField!
+  @IBOutlet weak var passwordTextField: UITextField!
   @IBOutlet weak var errorLabel: UILabel!
   
+  
+  // MARK: - Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
     hideKeyboardWhenTappedAround()
     errorLabel.alpha = 0
-    // Do any additional setup after loading the view.
   }
   
+  
+  // MARK: - IBAction
   
   @IBAction func forgetPassword(_ sender: Any) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -32,14 +37,14 @@ class LoginVC: UIViewController {
   }
   
   
-  @IBAction func closPege(_ sender: Any) {
+  @IBAction func closPegePassword(_ sender: Any) {
     dismiss(animated: true, completion: nil);
   }
   
   
-  @IBAction func login(_ sender: Any) {
-    let emailClear = email.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-    let passwordClear = password.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+  @IBAction func loginPassword(_ sender: Any) {
+    let emailClear = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+    let passwordClear = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
     Auth.auth().signIn(withEmail: emailClear, password: passwordClear) { (result,error) in
       if error != nil {
         self.errorLabel.alpha = 1
@@ -56,7 +61,5 @@ class LoginVC: UIViewController {
     let vc = storyboard.instantiateViewController(identifier: "SingUp")
     vc.modalPresentationStyle = .overFullScreen
     present(vc, animated: true)
-  }
-  func validateFileds () {
   }
 }

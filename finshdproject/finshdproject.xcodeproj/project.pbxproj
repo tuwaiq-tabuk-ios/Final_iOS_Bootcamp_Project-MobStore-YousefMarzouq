@@ -22,11 +22,9 @@
 		CA16C1442768B1B4000EC012 /* BrandVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA16C13C2768B1B4000EC012 /* BrandVCCell.swift */; };
 		CA16C1472768B1B4000EC012 /* HomeVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA16C13F2768B1B4000EC012 /* HomeVCCell.swift */; };
 		CA16C1482768B1B4000EC012 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA16C1402768B1B4000EC012 /* Product.swift */; };
-		CA16C1492768B1B4000EC012 /* ViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA16C1412768B1B4000EC012 /* ViewControllerTest.swift */; };
 		CA16C14E2769D42C000EC012 /* BrandHeadersCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA16C14D2769D42C000EC012 /* BrandHeadersCVCell.swift */; };
 		CA226EFB277491E10035FF6D /* likeCollectionVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA226EFA277491E00035FF6D /* likeCollectionVCell.swift */; };
 		CA226EFD277491FC0035FF6D /* LikeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA226EFC277491FC0035FF6D /* LikeVC.swift */; };
-		CA226F00277512AF0035FF6D /* UploadProcutsFirebseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA226EFF277512AF0035FF6D /* UploadProcutsFirebseVC.swift */; };
 		CA226F03277524BC0035FF6D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CA226F02277524BC0035FF6D /* FirebaseStorage */; };
 		CA226F05277524BC0035FF6D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CA226F04277524BC0035FF6D /* FirebaseAuth */; };
 		CA226F07277524BC0035FF6D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CA226F06277524BC0035FF6D /* FirebaseFirestore */; };
@@ -72,11 +70,9 @@
 		CA16C13C2768B1B4000EC012 /* BrandVCCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandVCCell.swift; sourceTree = "<group>"; };
 		CA16C13F2768B1B4000EC012 /* HomeVCCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVCCell.swift; sourceTree = "<group>"; };
 		CA16C1402768B1B4000EC012 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
-		CA16C1412768B1B4000EC012 /* ViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerTest.swift; sourceTree = "<group>"; };
 		CA16C14D2769D42C000EC012 /* BrandHeadersCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandHeadersCVCell.swift; sourceTree = "<group>"; };
 		CA226EFA277491E00035FF6D /* likeCollectionVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = likeCollectionVCell.swift; sourceTree = "<group>"; };
 		CA226EFC277491FC0035FF6D /* LikeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeVC.swift; sourceTree = "<group>"; };
-		CA226EFF277512AF0035FF6D /* UploadProcutsFirebseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProcutsFirebseVC.swift; sourceTree = "<group>"; };
 		CA5CFB3B2771BC9F000F6B03 /* CartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartVC.swift; sourceTree = "<group>"; };
 		CA5CFB3D2771BCDB000F6B03 /* CartCollectionVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCollectionVCell.swift; sourceTree = "<group>"; };
 		CA5F1C6D277865AF00E8DF4E /* Loader1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Loader1.gif; sourceTree = "<group>"; };
@@ -196,11 +192,9 @@
 		CA5F1C6F27787B2100E8DF4E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				CADD889B2780C3D8003FBC12 /* New Group */,
+				CADD889B2780C3D8003FBC12 /* Customer_Order */,
 				CAB21A4D2779CBD10088C6D6 /* Purchase information page */,
-				CAF626242778A25C00B25F7C /* Owner */,
 				CA5F1C742778833100E8DF4E /* End_Transaction */,
-				CA5F1C732778827E00E8DF4E /* Test */,
 				CA5F1C722778823E00E8DF4E /* Home */,
 				CA5F1C7127787EAB00E8DF4E /* DisplayProducts */,
 				CA5F1C7027787E5E00E8DF4E /* Brand */,
@@ -240,14 +234,6 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		CA5F1C732778827E00E8DF4E /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				CA16C1412768B1B4000EC012 /* ViewControllerTest.swift */,
-			);
-			path = Test;
-			sourceTree = "<group>";
-		};
 		CA5F1C742778833100E8DF4E /* End_Transaction */ = {
 			isa = PBXGroup;
 			children = (
@@ -285,7 +271,7 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		CADD889B2780C3D8003FBC12 /* New Group */ = {
+		CADD889B2780C3D8003FBC12 /* Customer_Order */ = {
 			isa = PBXGroup;
 			children = (
 				CAB21A4E2779CC1C0088C6D6 /* PurchaseInformationVC.swift */,
@@ -294,15 +280,7 @@
 				CA01B6DC2781D07F0022439D /* CardViewController.swift */,
 				CAC3755B2785D15C0093A9F6 /* customerinformationVC.swift */,
 			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
-		CAF626242778A25C00B25F7C /* Owner */ = {
-			isa = PBXGroup;
-			children = (
-				CA226EFF277512AF0035FF6D /* UploadProcutsFirebseVC.swift */,
-			);
-			path = Owner;
+			path = Customer_Order;
 			sourceTree = "<group>";
 		};
 		CAF626252778A2C600B25F7C /* Model */ = {
@@ -414,7 +392,6 @@
 				CA5CFB3C2771BC9F000F6B03 /* CartVC.swift in Sources */,
 				CAC3755C2785D15C0093A9F6 /* customerinformationVC.swift in Sources */,
 				CA16C1432768B1B4000EC012 /* PhoneDetailsCVCell.swift in Sources */,
-				CA16C1492768B1B4000EC012 /* ViewControllerTest.swift in Sources */,
 				CAF626272778A8E500B25F7C /* Phone.swift in Sources */,
 				CAB21A552779E42B0088C6D6 /* PurchaseInformationCellVCTablewCell.swift in Sources */,
 				CA9613F6276EA50700386935 /* ForgetPasswordVC.swift in Sources */,
@@ -429,7 +406,6 @@
 				CA9613F4276EA4E900386935 /* SingUpVC.swift in Sources */,
 				CA16C1252768B18D000EC012 /* HomeVC.swift in Sources */,
 				CAEB55B82770028B00E4A894 /* EndTransactionCollectionVCell.swift in Sources */,
-				CA226F00277512AF0035FF6D /* UploadProcutsFirebseVC.swift in Sources */,
 				CA16C1382768B19F000EC012 /* AppDelegate.swift in Sources */,
 				CAB21A532779CC920088C6D6 /* PurchaseInformationCellVC.swift in Sources */,
 				CA16C1472768B1B4000EC012 /* HomeVCCell.swift in Sources */,

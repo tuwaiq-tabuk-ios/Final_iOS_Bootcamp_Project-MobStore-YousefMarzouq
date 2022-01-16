@@ -8,11 +8,12 @@
 import UIKit
 import Firebase
 import SDWebImage
+
 class ViewController: UIViewController ,
                       UICollectionViewDelegate,
                       UICollectionViewDataSource {
   
- 
+  
   
   @IBOutlet weak var collall: UICollectionView!
   @IBOutlet weak var brandColl: UICollectionView!
@@ -31,7 +32,6 @@ class ViewController: UIViewController ,
     super.viewDidLoad()
     collall.delegate = self
     collall.dataSource = self
-    
     brandColl.delegate = self
     brandColl.dataSource = self
     filterData = arrProdects
@@ -46,17 +46,15 @@ class ViewController: UIViewController ,
   }
   
   
-  
   @IBAction func deleatButton(_ sender: UIButton) {
-      
-      let index = sender.tag
-     let ind = filterData.firstIndex(of: filterData[index])
-      let db = Firestore.firestore()
-      db.collection("Prodects").document(filterData[index].id).delete()
+    let index = sender.tag
+    let ind = filterData.firstIndex(of: filterData[index])
+    let db = Firestore.firestore()
+    db.collection("Prodects").document(filterData[index].id).delete()
     filterData.remove(at: ind!)
     collall.reloadData()
-
-    }
+  }
+  
   
   func getData() {
     arrProdects.removeAll()
@@ -78,23 +76,18 @@ class ViewController: UIViewController ,
                                    type: data["type"] as! String,
                                    Offers: data["Offers"] as! Bool,
                                    images: data["images"] as! Array,
-                                   isFavorite: data["isFavorite"] as! Bool))
-          
-        }
-        
+                                   isFavorite: data["isFavorite"] as! Bool))}
         self.arrProdects = Product.getProducts()
         self.arrProdects.forEach { Prodectse in
           if !self.arrBrand.contains(Prodectse.brand) {
             self.arrBrand.append(Prodectse.brand)
           }
           self.filterData = self.arrProdects
-
         }
         self.collall.reloadData()
         self.brandColl.reloadData()
       }
     }
-    
   }
   
   
@@ -119,12 +112,10 @@ class ViewController: UIViewController ,
         cll.btPric.text = "\(filterData[indexPath.row].price) SR"
         cll.dletBT.tag = indexPath.row
       } else {
-      
-      cll.img.sd_setImage(with: URL(string: arrProdects[indexPath.row].image),
-                          placeholderImage: UIImage(named: ""))
-      
-      cll.btinfo.text = arrProdects[indexPath.row].info
-      cll.btPric.text = "\(arrProdects[indexPath.row].price) SR"
+        cll.img.sd_setImage(with: URL(string: arrProdects[indexPath.row].image),
+                            placeholderImage: UIImage(named: ""))
+        cll.btinfo.text = arrProdects[indexPath.row].info
+        cll.btPric.text = "\(arrProdects[indexPath.row].price) SR"
       }
       return cll
     } else {
@@ -137,34 +128,31 @@ class ViewController: UIViewController ,
   func collectionView(_ collectionView: UICollectionView,
                       shouldSelectItemAt indexPath: IndexPath) -> Bool {
     if collectionView == collall {
-    selectedPreodect = filterData[indexPath.row]
-      var editVC = Paeg3VC()
+      selectedPreodect = filterData[indexPath.row]
+      var editVC = EditItme()
       if let arrController = self.tabBarController?.viewControllers {
-          for vc in arrController {
-              if vc is Paeg3VC {
-                editVC = vc as! Paeg3VC
-                editVC.prodect = filterData[indexPath.row]
-                print("~~ \(editVC.prodect)")
-                  self.tabBarController?.selectedIndex = 1
-              }
+        for vc in arrController {
+          if vc is EditItme {
+            editVC = vc as! EditItme
+            editVC.prodect = filterData[indexPath.row]
+            print("~~ \(editVC.prodect)")
+            self.tabBarController?.selectedIndex = 1
           }
+        }
       }
-      
     } else {
       selectedBrand = arrBrand[indexPath.row]
       if selectedBrand != "All" {
-      filterData = selectedBrand.isEmpty ? arrProdects : arrProdects.filter{ (item: Product) -> Bool in
-        return item.brand.range(of: selectedBrand, options: .caseInsensitive, range: nil,locale: nil) != nil
-      }
+        filterData = selectedBrand.isEmpty ? arrProdects : arrProdects.filter{ (item: Product) -> Bool in
+          return item.brand.range(of: selectedBrand, options: .caseInsensitive, range: nil,locale: nil) != nil
+        }
       } else {
         filterData = arrProdects
       }
       self.collall.reloadData()
-
       print("~~ \(filterData.count)")
     }
     return true
   }
-  
 }
 

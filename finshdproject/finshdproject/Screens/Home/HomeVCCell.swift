@@ -10,7 +10,5 @@ import UIKit
 class HomeVCCell: UICollectionViewCell {
 
   
-  @IBOutlet weak var imig: UIImageView!
-  
-  
+  @IBOutlet weak var img: UIImageView!
 }

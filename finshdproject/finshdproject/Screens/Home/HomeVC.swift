@@ -18,19 +18,20 @@ class HomeVC: UIViewController,
               UICollectionViewDelegateFlowLayout {
   
   
-  @IBOutlet weak var collectionView: UICollectionView!
-  @IBOutlet weak var brandCollectionView: UICollectionView!
-  @IBOutlet weak var brandCollectionView2: UICollectionView!
+  // MARK: - Properties
   
-  
+  var arrayProdects:[Product] = products
+  var arrOffers:[Product] = []
+  var selectedBrand:String!
+  var selectedPreodect:Product!
+  var timer:Timer?
+  var crandcellIndix = 0
+  var dataCollection: CollectionReference!
   
   var arrProducPhotos = [UIImage(named: "promoipel10"),
-                         UIImage(named: "Xiaomi-Promotion"),
-  ]
-  
-  
-  
-  var arrProducPhotos1: [Brand] = [
+                         UIImage(named: "Xiaomi-Promotion"),]
+
+  var arrProducBrand: [Brand] = [
     Brand(image: UIImage(named: "Apple_brand")!,
           name: "Apple"),
     Brand(image: UIImage(named: "Huawei_Brand")!,
@@ -50,26 +51,17 @@ class HomeVC: UIViewController,
     Brand(image: UIImage(named: "Vivo_Brand")!,
           name: "Vivo"),
     Brand(image: UIImage(named: "xiaomi_brand")!,
-          name: "Xiaomi"),
-  ]
+          name: "Xiaomi"),]
   
   
+  // MARK: - IBOutlet
+  
+  @IBOutlet weak var collectionView: UICollectionView!
+  @IBOutlet weak var brandCollectionView: UICollectionView!
+  @IBOutlet weak var brandCollectionView2: UICollectionView!
   
   
-  
-  
-  var arrProdects:[Product] = products
-  var selectedType:String!
-  var arrOffers:[Product] = []
-  var selectedBrand:String!
-  var selectedPreodect:Product!
-  
-  
-  var timer:Timer?
-  var crandcellIndix = 0
-  var arrBrand:[String] = [String]()
-  var dataCollection: CollectionReference!
-  
+  // MARK: - Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -81,9 +73,15 @@ class HomeVC: UIViewController,
     dataCollection = db.collection("Prodects")
     getData()
     startTimer()
-    
-    
   }
+  
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+  }
+  
+  
+  // MARK: - functions
   
   func getData() {
     dataCollection.getDocuments { snapshot, error in
@@ -103,12 +101,10 @@ class HomeVC: UIViewController,
                                    Offers: data["Offers"] as! Bool,
                                    images: data["images"] as! Array,
                                    isFavorite: data["isFavorite"] as! Bool))
-          
         }
-        
-        self.arrProdects = Product.getProducts()
+        self.arrayProdects = Product.getProducts()
         self.arrOffers.removeAll()
-        self.arrProdects.forEach { Prodectse in
+        self.arrayProdects.forEach { Prodectse in
           
           
           if (Prodectse.Offers) {
@@ -129,11 +125,6 @@ class HomeVC: UIViewController,
   }
   
   
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-  }
-
-  
   func startTimer () {
     timer = Timer.scheduledTimer(timeInterval: 2.5,
                                  target: self,
@@ -150,9 +141,7 @@ class HomeVC: UIViewController,
       crandcellIndix = 0
     }
     collectionView.scrollToItem(at: IndexPath(item: crandcellIndix,
-                                              section: 0), at: .centeredHorizontally,
-                                animated: true)
-  }
+                                              section: 0), at: .centeredHorizontally,animated: true)  }
   
   
   func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -166,7 +155,7 @@ class HomeVC: UIViewController,
     if (collectionView == brandCollectionView) {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "brandCell",
                                                     for: indexPath ) as! BrandShowAllCVCell
-      cell.brandImagee.image = arrProducPhotos1[indexPath.row].image
+      cell.brandImagee.image = arrProducBrand[indexPath.row].image
       
       return cell
     } else if (collectionView == brandCollectionView2) {
@@ -179,10 +168,11 @@ class HomeVC: UIViewController,
     } else {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCollectionViewCell",
                                                     for: indexPath ) as! HomeVCCell
-      cell.imig.image = arrProducPhotos[indexPath.row]
+      cell.img.image = arrProducPhotos[indexPath.row]
       return cell
     }
   }
+  
   
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -195,6 +185,7 @@ class HomeVC: UIViewController,
     }
   }
   
+  
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     if (collectionView == brandCollectionView){
@@ -206,11 +197,12 @@ class HomeVC: UIViewController,
     }
   }
   
+  
   func collectionView(_ collectionView: UICollectionView,
                       numberOfItemsInSection section: Int
   ) -> Int {
     if (collectionView == brandCollectionView) {
-      return arrProducPhotos1.count
+      return arrProducBrand.count
     }else  if (collectionView == brandCollectionView2) {
       return arrOffers.count
     } else {
@@ -240,19 +232,16 @@ class HomeVC: UIViewController,
   }
   
   
-  
   func configureSize(numOfHorizontsalCells:CGFloat,
                      marginBetweenCells:CGFloat) {
     print("\n \(#function)")
-    
-    
     let layout = UICollectionViewFlowLayout()
     let totalMarginBetweenCells:CGFloat = marginBetweenCells * (numOfHorizontsalCells - 1)
     let marginPerCell: CGFloat = totalMarginBetweenCells / numOfHorizontsalCells
     let frameWidth = brandCollectionView.frame.width
     let cellWidth = frameWidth / numOfHorizontsalCells - marginPerCell
     let cellHight = frameWidth / numOfHorizontsalCells
-   
+    
     layout.minimumLineSpacing = marginPerCell
     layout.minimumInteritemSpacing = marginPerCell
     layout.estimatedItemSize = .zero
@@ -264,22 +253,21 @@ class HomeVC: UIViewController,
   
   
   func collectionView(_ collectionView: UICollectionView,
-                      shouldSelectItemAt indexPath: IndexPath
-  ) -> Bool {
+                      shouldSelectItemAt indexPath: IndexPath) -> Bool {
     if (collectionView == brandCollectionView){
-      selectedBrand = arrProducPhotos1[indexPath.row].name
+      selectedBrand = arrProducBrand[indexPath.row].name
     } else if (collectionView == brandCollectionView2) {
       selectedPreodect = arrOffers[indexPath.row]
     }
     return true
   }
   
-  override func prepare(for segue: UIStoryboardSegue,
-                        sender: Any?) {
+  
+  override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
     switch segue.identifier {
     case "showPhone":
       if let vc = segue.destination as? DisplayProductsVC {
-        vc.arr = arrProdects
+        vc.arrayAllPhone = arrayProdects
         vc.selectedType = "Phone"
         vc.page = "Type"
         vc.selectedBrand = ""
@@ -287,7 +275,7 @@ class HomeVC: UIViewController,
       }
     case "showTablet":
       if let vc = segue.destination as? DisplayProductsVC {
-        vc.arr = arrProdects
+        vc.arrayAllPhone = arrayProdects
         vc.selectedType = "Tablet"
         vc.page = "Type"
         vc.selectedBrand = ""
@@ -295,7 +283,7 @@ class HomeVC: UIViewController,
       
     case "showAccessories":
       if let vc = segue.destination as? DisplayProductsVC {
-        vc.arr = arrProdects
+        vc.arrayAllPhone = arrayProdects
         vc.selectedType = "Accessories"
         vc.page = "Type"
         vc.selectedBrand = ""
@@ -303,7 +291,7 @@ class HomeVC: UIViewController,
       
     case "showCardGame":
       if let vc = segue.destination as? DisplayProductsVC {
-        vc.arr = arrProdects
+        vc.arrayAllPhone = arrayProdects
         vc.selectedType = "CardGame"
         vc.page = "Type"
         vc.selectedBrand = ""
@@ -311,27 +299,29 @@ class HomeVC: UIViewController,
       
     case "showProdect1":
       if let vc = segue.destination as? DisplayProductsVC {
-        vc.arr = arrProdects
+        vc.arrayAllPhone = arrayProdects
         vc.selectedType = ""
         vc.page = "Brand"
         vc.selectedBrand = selectedBrand
       }
+      
     case "arrProducPhotos2":
       if let vc = segue.destination as? DisplayProductsVC {
-        vc.arr = arrOffers
+        vc.arrayAllPhone = arrOffers
         vc.selectedType = ""
         vc.page = "ALL"
         vc.selectedBrand = ""
       }
+      
     case "showDeatil2":
       if let vc = segue.destination as? EndTransactionVC {
-        vc.arri1 = selectedPreodect
+        vc.arrayCarts = selectedPreodect
       }
+      
     default:
       print("default")
     }
   }
-  
 }
 
 

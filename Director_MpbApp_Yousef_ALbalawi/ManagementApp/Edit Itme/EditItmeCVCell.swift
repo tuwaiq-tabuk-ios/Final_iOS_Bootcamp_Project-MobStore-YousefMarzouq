@@ -7,7 +7,7 @@
 
 import UIKit
 
-class P3CollectionViewCell: UICollectionViewCell {
+class EditItmeCollectionViewCell: UICollectionViewCell {
     
   @IBOutlet weak var imgP3: UIImageView!
   @IBOutlet weak var deleteButton: UIButton!

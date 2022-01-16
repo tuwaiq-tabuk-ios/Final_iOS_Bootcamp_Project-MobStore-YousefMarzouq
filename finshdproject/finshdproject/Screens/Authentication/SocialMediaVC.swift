@@ -13,20 +13,21 @@ import FirebaseAuth
 class SocialMediaVC: UIViewController {
   
   
+  // MARK: - Properties
+  
   let db = Firestore.firestore()
   let auth = Auth.auth().currentUser
-  
-  
-  
   let newName = UserInfo.self
+  
+  
+  // MARK: - IBOutlet
   
   @IBOutlet weak var snapButton: UIButton!
   @IBOutlet weak var viewadd: UIView!
-  
   @IBOutlet weak var textLB: UILabel!
   
   
-  
+  // MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
     hideKeyboardWhenTappedAround()
@@ -46,20 +47,20 @@ class SocialMediaVC: UIViewController {
     }
   }
   
-  @IBAction func logOut(_ sender: UIButton) {
+  
+  // MARK: - IBAction
+  
+  @IBAction func logOutPassword(_ sender: UIButton) {
     let auth = Auth.auth()
     do {
       try auth.signOut()
       UserDefaults.standard.removeObject(forKey: "email")
       UserDefaults.standard.removeObject(forKey: "password")
       UserDefaults.standard.synchronize()
-      
       let storyboard = UIStoryboard(name: "Main", bundle: nil)
       let vc = storyboard.instantiateViewController(identifier: "Home")
       vc.modalPresentationStyle = .overFullScreen
       present(vc, animated: true)
-      
-      
       snapButton.isHidden = false
       viewadd.isHidden = true
     } catch let signOutError {
@@ -73,21 +74,19 @@ class SocialMediaVC: UIViewController {
   }
   
   
-  
-  
   @IBAction func settings(_ sender: Any) {
-    
   }
+  
+  
   @IBAction func location(_ sender: Any) {
-    
   }
+  
   
   @IBAction func myrequests(_ sender: Any) {
-    
   }
   
   
-  @IBAction func singUP(_ sender: Any) {
+  @IBAction func singUPPassword(_ sender: Any) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let vc = storyboard.instantiateViewController(identifier: "SingUp")
     vc.modalPresentationStyle = .overFullScreen
@@ -95,16 +94,16 @@ class SocialMediaVC: UIViewController {
   }
   
   
-  @IBAction func login(_ sender: Any) {
-    let storyboratd = UIStoryboard(name: "Main", bundle: nil)
+  @IBAction func loginPassword(_ sender: Any) {
+    _ = UIStoryboard(name: "Main", bundle: nil)
     let vc = storyboard?.instantiateViewController(identifier: "Login")
     vc!.modalPresentationStyle = .overFullScreen
     present(vc!, animated: true)
   }
   
   
-  @IBAction func WhatsApp(_ sender: UIButton) {
-    let myWebsite = URL(string: "https://www.linkedin.com/feed/")
+  @IBAction func WhatsAppPassword(_ sender: UIButton) {
+    let myWebsite = URL(string: "https://api.whatsapp.com/qr/OB3ZS5SJOS6IF1")
     UIApplication.shared.openURL(myWebsite!)
   }
   
@@ -115,8 +114,8 @@ class SocialMediaVC: UIViewController {
   }
   
   
-  @IBAction func snapshat(_ sender: UIButton) {
-    let myWebsite = URL(string: "https://www.linkedin.com/feed/")
+  @IBAction func snapshatPassword(_ sender: UIButton) {
+    let myWebsite = URL(string: "https://www.snapchat.com/add/siri-support?share_id=OUFBOTQ0&locale=en_SA@calendar=gregorian")
     UIApplication.shared.openURL(myWebsite!)
   }
 }
