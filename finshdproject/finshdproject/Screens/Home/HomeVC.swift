@@ -21,17 +21,17 @@ class HomeVC: UIViewController,
   // MARK: - Properties
   
   var arrayProdects:[Product] = products
-  var arrOffers:[Product] = []
+  var arrayOffers:[Product] = []
   var selectedBrand:String!
   var selectedPreodect:Product!
   var timer:Timer?
   var crandcellIndix = 0
   var dataCollection: CollectionReference!
   
-  var arrProducPhotos = [UIImage(named: "promoipel10"),
+  var arrayProducPhotos = [UIImage(named: "promoipel10"),
                          UIImage(named: "Xiaomi-Promotion"),]
 
-  var arrProducBrand: [Brand] = [
+  var arrayProducBrand: [Brand] = [
     Brand(image: UIImage(named: "Apple_brand")!,
           name: "Apple"),
     Brand(image: UIImage(named: "Huawei_Brand")!,
@@ -76,10 +76,6 @@ class HomeVC: UIViewController,
   }
   
   
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-  }
-  
   
   // MARK: - functions
   
@@ -103,12 +99,10 @@ class HomeVC: UIViewController,
                                    isFavorite: data["isFavorite"] as! Bool))
         }
         self.arrayProdects = Product.getProducts()
-        self.arrOffers.removeAll()
+        self.arrayOffers.removeAll()
         self.arrayProdects.forEach { Prodectse in
-          
-          
           if (Prodectse.Offers) {
-            self.arrOffers.append(Product(id: Prodectse.id,
+            self.arrayOffers.append(Product(id: Prodectse.id,
                                           image: Prodectse.image,
                                           info: Prodectse.info,
                                           price: Prodectse.price,
@@ -135,13 +129,14 @@ class HomeVC: UIViewController,
   
   
   @objc func moveToNextIndix () {
-    if crandcellIndix < arrProducPhotos.count - 1 {
+    if crandcellIndix < arrayProducPhotos.count - 1 {
       crandcellIndix += 1
     }else {
       crandcellIndix = 0
     }
     collectionView.scrollToItem(at: IndexPath(item: crandcellIndix,
-                                              section: 0), at: .centeredHorizontally,animated: true)  }
+                                              section: 0), at: .centeredHorizontally,
+                                                                  animated: true)  }
   
   
   func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -155,20 +150,20 @@ class HomeVC: UIViewController,
     if (collectionView == brandCollectionView) {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "brandCell",
                                                     for: indexPath ) as! BrandShowAllCVCell
-      cell.brandImagee.image = arrProducBrand[indexPath.row].image
+      cell.brandImagee.image = arrayProducBrand[indexPath.row].image
       
       return cell
     } else if (collectionView == brandCollectionView2) {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "prodectCell",
                                                     for: indexPath ) as! ProductsCVCell
-      cell.Setupcell(photo: arrOffers[indexPath.row].image,
-                     price: arrOffers[indexPath.row].price,
-                     DisCrbsion: arrOffers[indexPath.row].info)
+      cell.Setupcell(photo: arrayOffers[indexPath.row].image,
+                     price: arrayOffers[indexPath.row].price,
+                     DisCrbsion: arrayOffers[indexPath.row].info)
       return cell
     } else {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCollectionViewCell",
                                                     for: indexPath ) as! HomeVCCell
-      cell.img.image = arrProducPhotos[indexPath.row]
+      cell.img.image = arrayProducPhotos[indexPath.row]
       return cell
     }
   }
@@ -202,11 +197,11 @@ class HomeVC: UIViewController,
                       numberOfItemsInSection section: Int
   ) -> Int {
     if (collectionView == brandCollectionView) {
-      return arrProducBrand.count
+      return arrayProducBrand.count
     }else  if (collectionView == brandCollectionView2) {
-      return arrOffers.count
+      return arrayOffers.count
     } else {
-      return arrProducPhotos.count
+      return arrayProducPhotos.count
     }
   }
   
@@ -255,9 +250,9 @@ class HomeVC: UIViewController,
   func collectionView(_ collectionView: UICollectionView,
                       shouldSelectItemAt indexPath: IndexPath) -> Bool {
     if (collectionView == brandCollectionView){
-      selectedBrand = arrProducBrand[indexPath.row].name
+      selectedBrand = arrayProducBrand[indexPath.row].name
     } else if (collectionView == brandCollectionView2) {
-      selectedPreodect = arrOffers[indexPath.row]
+      selectedPreodect = arrayOffers[indexPath.row]
     }
     return true
   }
@@ -307,7 +302,7 @@ class HomeVC: UIViewController,
       
     case "arrProducPhotos2":
       if let vc = segue.destination as? DisplayProductsVC {
-        vc.arrayAllPhone = arrOffers
+        vc.arrayAllPhone = arrayOffers
         vc.selectedType = ""
         vc.page = "ALL"
         vc.selectedBrand = ""

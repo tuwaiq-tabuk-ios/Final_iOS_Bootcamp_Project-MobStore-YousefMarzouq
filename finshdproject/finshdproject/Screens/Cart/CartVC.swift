@@ -173,7 +173,8 @@ class CartVC: UIViewController,
   }
   
 
-  func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+  func collectionView(_ collectionView: UICollectionView,
+                      shouldSelectItemAt indexPath: IndexPath) -> Bool {
     return true
   }
 }

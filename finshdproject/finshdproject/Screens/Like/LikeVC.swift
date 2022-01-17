@@ -135,10 +135,12 @@ extension LikeVC: UICollectionViewDataSource {
     _ collectionView: UICollectionView,
     cellForItemAt indexPath: IndexPath
   ) -> UICollectionViewCell {
-    let cell = likeCView.dequeueReusableCell(withReuseIdentifier: "likeSho", for: indexPath) as! likeCollectionVCell
+    let cell = likeCView.dequeueReusableCell(withReuseIdentifier: "likeSho",
+                                             for: indexPath) as! likeCollectionVCell
     let array = productsLike[indexPath.row]
     let animatedImage = SDAnimatedImage(contentsOfFile: "\(Bundle.main.bundlePath)/Loader1.gif")
-    cell.imgFibrtcll.sd_setImage(with: URL(string: array.image), placeholderImage:animatedImage)
+    cell.imgFibrtcll.sd_setImage(with: URL(string: array.image),
+                                 placeholderImage:animatedImage)
     cell.ditelsFibrt.text = array.info
     cell.pricFibrt.text = "\(array.price)"
     cell.deleteButton.tag = indexPath.row

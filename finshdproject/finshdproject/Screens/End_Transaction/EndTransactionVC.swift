@@ -67,18 +67,21 @@ class EndTransactionVC: UIViewController,
       return
     }
     let document = db.collection("Carts").document(auth.uid)
-      document.setData( ["carts": FieldValue.arrayUnion([arrayCarts.id])], merge: true)
+      document.setData( ["carts": FieldValue.arrayUnion([arrayCarts.id])],
+                        merge: true)
   }
 
   
   // MARK: - functions
   
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  func collectionView(_ collectionView: UICollectionView,
+                      numberOfItemsInSection section: Int) -> Int {
   return arrayCarts.images.count
   }
  
   
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+  func collectionView(_ collectionView: UICollectionView,
+                      cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
    let cll = collectionView.dequeueReusableCell(withReuseIdentifier: "lastpershn", for: indexPath) as! EndTransactionCollectionVCell
     let animatedImage = SDAnimatedImage(contentsOfFile: "\(Bundle.main.bundlePath)/Loader1.gif")
     cll.imgLast.sd_setImage(with: URL(string: arrayCarts.images[indexPath.row]), placeholderImage:animatedImage)

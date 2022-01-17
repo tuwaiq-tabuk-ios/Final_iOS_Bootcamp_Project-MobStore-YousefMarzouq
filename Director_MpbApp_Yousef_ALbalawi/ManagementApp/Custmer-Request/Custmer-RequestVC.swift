@@ -79,9 +79,9 @@ class Page5VC: UIViewController,
                 var id :String!
                 for (key,value) in product  {
                   if key == "id" {
-                    id = value as! String
+                    id = value as? String
                   }else{
-                    cont = value as! Int
+                    cont = value as? Int
                   }
                 }
                 db.collection("Prodects").document(id).getDocument { snapshot, error in

@@ -49,14 +49,14 @@ class DisplayProductsVC: UIViewController,
       if page == "Type" {
         if (Prodectse.type == selectedType) {
           arraySeleced.append(Product(id: Prodectse.id,
-                                    image: Prodectse.image,
-                                    info: Prodectse.info,
-                                    price: Prodectse.price,
-                                    brand: Prodectse.brand,
-                                    type: Prodectse.type,
-                                    Offers: Prodectse.Offers,
-                                    images: Prodectse.images,
-                                    isFavorite: Prodectse.isFavorite) )
+                                      image: Prodectse.image,
+                                      info: Prodectse.info,
+                                      price: Prodectse.price,
+                                      brand: Prodectse.brand,
+                                      type: Prodectse.type,
+                                      Offers: Prodectse.Offers,
+                                      images: Prodectse.images,
+                                      isFavorite: Prodectse.isFavorite) )
         }
         if !arrayBrand.contains(Prodectse.brand) {
           arrayBrand.append(Prodectse.brand)
@@ -66,14 +66,14 @@ class DisplayProductsVC: UIViewController,
       } else if page == "Brand" {
         if (Prodectse.brand == selectedBrand) {
           arraySeleced.append(Product(id: Prodectse.id,
-                                    image: Prodectse.image,
-                                    info: Prodectse.info,
-                                    price: Prodectse.price,
-                                    brand: Prodectse.brand,
-                                    type: Prodectse.type,
-                                    Offers: Prodectse.Offers,
-                                    images: Prodectse.images,
-                                    isFavorite: Prodectse.isFavorite))
+                                      image: Prodectse.image,
+                                      info: Prodectse.info,
+                                      price: Prodectse.price,
+                                      brand: Prodectse.brand,
+                                      type: Prodectse.type,
+                                      Offers: Prodectse.Offers,
+                                      images: Prodectse.images,
+                                      isFavorite: Prodectse.isFavorite))
         }
         if !arrayBrand.contains(Prodectse.type) {
           arrayBrand.append(Prodectse.type)
@@ -83,14 +83,14 @@ class DisplayProductsVC: UIViewController,
       } else if page == "ALL" {
         if Prodectse.Offers {
           arraySeleced.append(Product(id: Prodectse.id,
-                                    image: Prodectse.image,
-                                    info: Prodectse.info,
-                                    price: Prodectse.price,
-                                    brand: Prodectse.brand,
-                                    type: Prodectse.type,
-                                    Offers: Prodectse.Offers,
-                                    images: Prodectse.images,
-                                    isFavorite: Prodectse.isFavorite) )
+                                      image: Prodectse.image,
+                                      info: Prodectse.info,
+                                      price: Prodectse.price,
+                                      brand: Prodectse.brand,
+                                      type: Prodectse.type,
+                                      Offers: Prodectse.Offers,
+                                      images: Prodectse.images,
+                                      isFavorite: Prodectse.isFavorite) )
         }
         if !arrayBrand.contains(Prodectse.brand) {
           arrayBrand.append(Prodectse.brand)

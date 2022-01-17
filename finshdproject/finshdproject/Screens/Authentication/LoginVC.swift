@@ -23,7 +23,7 @@ class LoginVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     hideKeyboardWhenTappedAround()
-    errorLabel.alpha = 0
+    errorLabel.isHidden = true
   }
   
   
@@ -47,7 +47,7 @@ class LoginVC: UIViewController {
     let passwordClear = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
     Auth.auth().signIn(withEmail: emailClear, password: passwordClear) { (result,error) in
       if error != nil {
-        self.errorLabel.alpha = 1
+        self.errorLabel.isHidden = false
         self.errorLabel.text = error?.localizedDescription
       } else {
         self.dismiss(animated: true, completion: nil);
@@ -56,7 +56,7 @@ class LoginVC: UIViewController {
   }
   
   
-  @IBAction func singUp(_ sender: Any) {
+  @IBAction func singUpPassword(_ sender: Any) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let vc = storyboard.instantiateViewController(identifier: "SingUp")
     vc.modalPresentationStyle = .overFullScreen
