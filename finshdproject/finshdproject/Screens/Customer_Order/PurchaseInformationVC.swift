@@ -104,20 +104,26 @@ class PurchaseInformationVC: UIViewController ,
   // MARK: - IBAction
   
   @IBAction func comfirmButtonPreased(_ sender: UIButton) {
+    
+   
     var array = [[String:Any]]()
     for cart in arri3 {
       array.append(["count" : cart.count,
                     "id":cart.product.id])
     }
+    
     let db = Firestore.firestore()
-    let auth = Auth.auth().currentUser!
-    db.collection("users").document(auth.uid).getDocument { document,
+    guard let userID = Auth.auth().currentUser?.uid else {
+      return
+    }
+    
+    db.collection("users").document(userID).getDocument { document,
       error in
       guard error == nil else {
         return
       }
       let userdata = document!.data()!
-      let customerName = "\(String(describing: userdata["firstname"])) \(String(describing: userdata["lastname"]))"
+      let customerName = "\(userdata["firstname"]!) \(userdata["lastname"]!)"
       db.collection("Orders").document("ordersCount").getDocument { document, error in
         guard error == nil else {
           return
@@ -126,7 +132,8 @@ class PurchaseInformationVC: UIViewController ,
         let orderNumber = ordersCountData?["count"] as! Int
         let sum = orderNumber + 1
         db.collection("Orders").document("ordersCount").setData(["count":sum], merge: true)
-        db.collection("Orders").document(auth.uid).setData(["\(sum)":[
+        db.collection("Orders").document(userID).setData(["\(sum)":[
+          "id":userID,
           "customerName": customerName,
           "customerPhone":userdata["phone"] ?? "",
           "orderNumber":sum,
@@ -139,7 +146,17 @@ class PurchaseInformationVC: UIViewController ,
           guard error == nil else {
             return
           }
-          db.collection("Carts").document(auth.uid).delete()
+          for cart in self.arri3 {
+            db.collection("users").document(userID).collection("Carts").document(cart.product.id).delete()
+          }
+          let alert =  UIAlertController (title: "Congrats", message: "We have received your order, thank you", preferredStyle: .alert)
+          
+          alert.addAction(UIAlertAction(title: "Thanks", style: .default,handler: { UIAlertAction in
+            self.navigationController?.popViewController(animated: true)
+          }))
+          
+          self.present(alert, animated: true)
+          
         }
       }
     }
@@ -169,16 +186,19 @@ class PurchaseInformationVC: UIViewController ,
       present(vc,
               animated: true)
     }
+    
+    
   }
   
   
-  @IBAction func rmoveBT(_ sender: UIButton) {
+  @IBAction func rmoveBTPreased(_ sender: UIButton) {
     let index = sender.tag
     let db = Firestore.firestore()
-    let auth = Auth.auth().currentUser!
-    let document = db.collection("Carts").document(auth.uid)
-    document.setData( ["carts": FieldValue.arrayRemove([arri3[index].product.id])],
-                      merge: true)
+    guard let userID = Auth.auth().currentUser?.uid else {
+      return
+    }
+    db.collection("users").document(userID).collection("Carts").document(arri3[index].product.id).delete()
+
     totlprice -= Double(arri3[index].count) * Double(arri3[index].product.price)
     subTotalLabel.text = "\(totlprice)"
     taxLabel.text = "\(totlprice * 0.15)"
@@ -190,7 +210,7 @@ class PurchaseInformationVC: UIViewController ,
   }
   
   
-  @IBAction func addLike(_ sender: UIButton) {
+  @IBAction func addLikePreased(_ sender: UIButton) {
   }
   
   

@@ -130,7 +130,6 @@
 		CA16C10A2768B147000EC012 /* finshdproject */ = {
 			isa = PBXGroup;
 			children = (
-				CAF6262A2778A97A00B25F7C /* Managers */,
 				CAF626252778A2C600B25F7C /* Model */,
 				CA5F1C6F27787B2100E8DF4E /* Screens */,
 				CA16C1192768B149000EC012 /* Info.plist */,
@@ -192,12 +191,12 @@
 		CA5F1C6F27787B2100E8DF4E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				CADD889B2780C3D8003FBC12 /* Customer_Order */,
-				CAB21A4D2779CBD10088C6D6 /* Purchase information page */,
-				CA5F1C742778833100E8DF4E /* End_Transaction */,
 				CA5F1C722778823E00E8DF4E /* Home */,
 				CA5F1C7127787EAB00E8DF4E /* DisplayProducts */,
 				CA5F1C7027787E5E00E8DF4E /* Brand */,
+				CADD889B2780C3D8003FBC12 /* Customer_Order */,
+				CAB21A4D2779CBD10088C6D6 /* Purchase information page */,
+				CA5F1C742778833100E8DF4E /* End_Transaction */,
 				CA9613EC276EA39400386935 /* Authentication */,
 				CA226EF9277491B20035FF6D /* Like */,
 				CA5CFB3A2771BC3E000F6B03 /* Cart */,
@@ -293,13 +292,6 @@
 				CABD8DBC278D7A3B00C000A9 /* Extension */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		CAF6262A2778A97A00B25F7C /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -28,7 +28,7 @@ class SingUpVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     hideKeyboardWhenTappedAround()
-    errorLabel.alpha = 0
+    errorLabel.isHidden = true
     
   }
   
@@ -53,10 +53,14 @@ class SingUpVC: UIViewController {
   
   
   @IBAction func singin(_ sender: Any) {
-    _ = UIStoryboard(name: "Main", bundle: nil)
-    let vc = storyboard?.instantiateViewController(identifier: "Login")
-    vc?.modalPresentationStyle = .overFullScreen
-    present(vc!, animated: true)
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let vc = storyboard.instantiateViewController(identifier: "Login")
+    vc.modalPresentationStyle = .overFullScreen
+    let parentVC = presentingViewController
+    dismiss(animated: true) {
+      parentVC!.present(vc, animated: true)
+    }
+    
   }
   
   
@@ -70,14 +74,14 @@ class SingUpVC: UIViewController {
     let password = password.text!.trimmingCharacters(in: .whitespacesAndNewlines)
     Auth.auth().createUser(withEmail: email, password: password) {  (authResult ,error) in
       if error != nil {
-        self.errorLabel.alpha = 1
+        self.errorLabel.isHidden = false
         self.errorLabel.text = error?.localizedDescription
       } else {
         let db = Firestore.firestore()
         db.collection("users").document(authResult!.user.uid).setData(  ["firstname":fristName,"lastname":lastname,"phone":self.customerPhone1.text!,"uid":authResult!.user.uid],merge:true) {
           (error) in
           if error != nil {
-            self.errorLabel.alpha = 1
+            self.errorLabel.isHidden = false
             self.errorLabel.text = error?.localizedDescription
           }else {
             //          self.checkUoserInfo()

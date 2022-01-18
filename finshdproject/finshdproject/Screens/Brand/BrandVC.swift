@@ -31,27 +31,27 @@ class BrandVC: UIViewController,
     hideKeyboardWhenTappedAround()
     collchinBrandView.delegate = self
     collchinBrandView.dataSource = self
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "Apple_brand")!,brand:"Apple"))
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "Honor-Logo")!,
-                           brand:"Honor"))
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Apple_Brand")!,brand:"Apple"))
     arrayBrandPictures.append(Phone(photo: UIImage(named: "Huawei_Brand")!,
-                           brand:"Huawei"))
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "infinix")!,
-                           brand:"Infinix"))
+                                    brand:"Honor"))
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Infinix_Brand")!,
+                                    brand:"Huawei"))
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Honor_Brand")!,
+                                    brand:"Infinix"))
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Nokia_Brand")!,
+                                    brand:"Itel"))
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Lenovo_Brand")!,
+                                    brand:"Lenovo"))
     arrayBrandPictures.append(Phone(photo: UIImage(named: "Itel_Brand")!,
-                           brand:"Itel"))
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "Lenovo_logo")!,
-                           brand:"Lenovo"))
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "nokia")!,
-                           brand:"Nokia"))
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "oppo")!,
-                           brand:"Oppo"))
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "Samsung_brand")!,
-                           brand:"Samsung"))
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "Vivo_Logo")!,
-                           brand:"Vivo"))
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "xiaomi_brand")!,
-                           brand:"Xiaomi"))
+                                    brand:"Nokia"))
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Oppo_Brand")!,
+                                    brand:"Oppo"))
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Samsung_Brand")!,
+                                    brand:"Samsung"))
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Vivo_Brand")!,
+                                    brand:"Vivo"))
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Xiaomi_Brand")!,
+                                    brand:"Xiaomi"))
     configureSize(numOfHorizontsalCells: 2, marginBetweenCells: 0)
   }
   
@@ -73,23 +73,24 @@ class BrandVC: UIViewController,
   
   // MARK: - functions
   
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  func collectionView(_ collectionView: UICollectionView,
+                      numberOfItemsInSection section: Int) -> Int {
     return arrayBrandPictures.count
   }
   
   
-  
-  
-  
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Brandd", for: indexPath) as! BrandVCCell
+  func collectionView(_ collectionView: UICollectionView,
+                      cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Brandd",
+                                                  for: indexPath) as! BrandVCCell
     let data = arrayBrandPictures[indexPath.row]
     cell.imageBrand.image = data.photo
     return cell
   }
   
   
-  func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+  func collectionView(_ collectionView: UICollectionView,
+                      shouldSelectItemAt indexPath: IndexPath) -> Bool {
     selectedBrand = arrayBrandPictures[indexPath.row].brand
     return true
   }

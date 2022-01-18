@@ -60,7 +60,7 @@ class ViewController: UIViewController ,
     arrProdects.removeAll()
     arrBrand.removeAll()
     arrBrand.append("All")
-    dataCollection.getDocuments { snapshot, error in
+    dataCollection.addSnapshotListener { snapshot, error in
       if error != nil {
         print("Error: \(error?.localizedDescription ?? "")")
       } else {

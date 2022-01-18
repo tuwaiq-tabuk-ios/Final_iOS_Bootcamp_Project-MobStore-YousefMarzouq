@@ -62,23 +62,38 @@ class EndTransactionVC: UIViewController,
   
   @IBAction func addCartPressd(_ sender: UIButton) {
     let db = Firestore.firestore()
-    guard let auth = Auth.auth().currentUser else {
-      print("~~~~~ Alert Please SignIn")
+
+    guard let userID = Auth.auth().currentUser?.uid else {
       return
     }
-    let document = db.collection("Carts").document(auth.uid)
-      document.setData( ["carts": FieldValue.arrayUnion([arrayCarts.id])], merge: true)
+    
+    let document = db.collection("users").document(userID).collection("Carts").document(arrayCarts.id)
+    
+      document.setData( [
+        "id":arrayCarts.id,
+        "image":arrayCarts.image,
+        "info":arrayCarts.info,
+        "price":arrayCarts.price,
+        "brand":arrayCarts.brand,
+        "type":arrayCarts.type,
+        "Offers":arrayCarts.Offers,
+        "images":arrayCarts.images,
+        "isFavorite":arrayCarts.isFavorite
+      ],merge: true)
+    
   }
 
   
   // MARK: - functions
   
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  func collectionView(_ collectionView: UICollectionView,
+                      numberOfItemsInSection section: Int) -> Int {
   return arrayCarts.images.count
   }
  
   
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+  func collectionView(_ collectionView: UICollectionView,
+                      cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
    let cll = collectionView.dequeueReusableCell(withReuseIdentifier: "lastpershn", for: indexPath) as! EndTransactionCollectionVCell
     let animatedImage = SDAnimatedImage(contentsOfFile: "\(Bundle.main.bundlePath)/Loader1.gif")
     cll.imgLast.sd_setImage(with: URL(string: arrayCarts.images[indexPath.row]), placeholderImage:animatedImage)

@@ -16,11 +16,12 @@ import Foundation
 
 struct Cart {
   let product:Product
-  var count:Int
+  var counts:Int
 }
 
 
 struct Order {
+  let id: String
   let customerName: String
   let customerPhone: String
   let orderNumber: Int

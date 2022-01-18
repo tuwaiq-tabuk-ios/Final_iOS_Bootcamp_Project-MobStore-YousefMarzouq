@@ -57,7 +57,8 @@ class ShippingAddressVC: UIViewController ,
   
   // MARK: - functions
 
-  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+  func locationManager(_ manager: CLLocationManager,
+                       didUpdateLocations locations: [CLLocation]) {
     if let location = locations.first {
       manger.accuracyAuthorization
       render(location)
@@ -68,10 +69,12 @@ class ShippingAddressVC: UIViewController ,
   func render (_ location:CLLocation) {
     let span = MKCoordinateSpan(latitudeDelta: 0.1,
                                 longitudeDelta: 0.1)
-    let Coordinat = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+    let Coordinat = CLLocationCoordinate2D(latitude: location.coordinate.latitude,
+                                           longitude: location.coordinate.longitude)
     let rehion = MKCoordinateRegion (center: Coordinat,
                                      span: span)
-    mapView.setRegion(rehion, animated: true)
+    mapView.setRegion(rehion,
+                      animated: true)
     let pin = MKPointAnnotation ()
     pin.coordinate = Coordinat
     mapView.addAnnotation(pin)

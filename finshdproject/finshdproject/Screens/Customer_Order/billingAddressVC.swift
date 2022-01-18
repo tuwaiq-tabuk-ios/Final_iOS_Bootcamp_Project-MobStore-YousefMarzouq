@@ -43,7 +43,9 @@ class billingAddressVC: UIViewController ,
   @IBAction func buttonAdd(_ sender: UIButton) {
     let latitude = manger.location!.coordinate.latitude
     let longitude = manger.location!.coordinate.longitude
-    NotificationCenter.default.post(name: Notification.Name("billingAddress"), object: nil, userInfo: ["latitude":Double(latitude), "longitude":Double(longitude) ])
+    NotificationCenter.default.post(name: Notification.Name("billingAddress"),
+                                    object: nil,
+                                    userInfo: ["latitude":Double(latitude), "longitude":Double(longitude) ])
     clus("")
   }
   
@@ -68,7 +70,8 @@ class billingAddressVC: UIViewController ,
   func render (_ location:CLLocation) {
     let span = MKCoordinateSpan(latitudeDelta: 0.1,
                                 longitudeDelta: 0.1)
-    let Coordinat = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+    let Coordinat = CLLocationCoordinate2D(latitude: location.coordinate.latitude,
+                                           longitude: location.coordinate.longitude)
     let rehion = MKCoordinateRegion (center: Coordinat,
                                      span: span)
     mapVC.setRegion(rehion,
