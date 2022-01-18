@@ -76,7 +76,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pVa-18-1Mf" userLabel="PhoneView">
                                                                         <rect key="frame" x="0.0" y="0.0" width="207" height="138.5"/>
                                                                         <subviews>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pngtree-mobile-phone-design-transparent-image-png-image_2778296" translatesAutoresizingMaskIntoConstraints="NO" id="RHN-rg-Eee" userLabel="PhoneImg">
+                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Phone" translatesAutoresizingMaskIntoConstraints="NO" id="RHN-rg-Eee" userLabel="PhoneImg">
                                                                                 <rect key="frame" x="8" y="8" width="191" height="89"/>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acG-BK-eyh" userLabel="PhoneLbule">
@@ -114,7 +114,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o9a-gf-hbN" userLabel="TabletView">
                                                                         <rect key="frame" x="207" y="0.0" width="207" height="138.5"/>
                                                                         <subviews>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pngtree-mobile-vector-icon-png-image_470662" translatesAutoresizingMaskIntoConstraints="NO" id="N8C-nJ-7rv" userLabel="AcsacorisImg">
+                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Tablet" translatesAutoresizingMaskIntoConstraints="NO" id="N8C-nJ-7rv" userLabel="AcsacorisImg">
                                                                                 <rect key="frame" x="8" y="8" width="191" height="89"/>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tablet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0sm-ki-Vzb" userLabel="TabletLbule">
@@ -154,7 +154,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aod-ct-hvL">
                                                                         <rect key="frame" x="0.0" y="0.0" width="207" height="138.5"/>
                                                                         <subviews>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pngtree-white-video-game-controller-with-blue-circle-background-png-image_2256063" translatesAutoresizingMaskIntoConstraints="NO" id="td3-5y-ff5" userLabel="Card Img">
+                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Card_Game" translatesAutoresizingMaskIntoConstraints="NO" id="td3-5y-ff5" userLabel="Card Img">
                                                                                 <rect key="frame" x="8" y="8" width="191" height="89"/>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Card Game" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2G4-pD-NWx">
@@ -189,7 +189,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBD-ql-E97">
                                                                         <rect key="frame" x="207" y="0.0" width="207" height="138.5"/>
                                                                         <subviews>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Capture-3" translatesAutoresizingMaskIntoConstraints="NO" id="vt3-eY-GCW" userLabel="AccessoriesImg">
+                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Accessories" translatesAutoresizingMaskIntoConstraints="NO" id="vt3-eY-GCW" userLabel="AccessoriesImg">
                                                                                 <rect key="frame" x="8" y="8" width="191" height="89"/>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accessories" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Py-Sz-SHO">
@@ -1095,7 +1095,7 @@
                                                 <color key="textColor" name="Tibing"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kisspng-siri-apple-ios-11-iphone-applications-macos-icons-5b6fe0a7385402.9866480515340586632307-1" translatesAutoresizingMaskIntoConstraints="NO" id="HQ0-oZ-FVU">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Siri" translatesAutoresizingMaskIntoConstraints="NO" id="HQ0-oZ-FVU">
                                                 <rect key="frame" x="269" y="6" width="94" height="94"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -1129,7 +1129,7 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dry-4N-GrF">
                                                                 <rect key="frame" x="20" y="20" width="92.5" height="71"/>
                                                                 <color key="tintColor" name="Tibing"/>
-                                                                <state key="normal" image="pngegg-15"/>
+                                                                <state key="normal" image="Whatsapp"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                         <integer key="value" value="50"/>
@@ -1155,7 +1155,7 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QQz-XT-0uS">
                                                                 <rect key="frame" x="20" y="20" width="93" height="71"/>
                                                                 <color key="tintColor" name="Tibing"/>
-                                                                <state key="normal" image="pngegg-16"/>
+                                                                <state key="normal" image="Instagram"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                         <integer key="value" value="50"/>
@@ -1181,7 +1181,7 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O4y-Xq-ybN">
                                                                 <rect key="frame" x="20" y="20" width="92.5" height="71"/>
                                                                 <color key="tintColor" name="Tibing"/>
-                                                                <state key="normal" image="pngegg-14">
+                                                                <state key="normal" image="Snapchat">
                                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="10" scale="small"/>
                                                                 </state>
                                                                 <userDefinedRuntimeAttributes>
@@ -1219,17 +1219,17 @@
                                         <rect key="frame" x="8" y="422" width="398" height="64"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vgb-br-vLw">
-                                                <rect key="frame" x="184.5" y="8" width="76" height="48"/>
+                                                <rect key="frame" x="165.5" y="8" width="95" height="48"/>
                                                 <color key="tintColor" name="Tibingrgb(157, 157, 157)"/>
-                                                <state key="normal" title="Arbi" image="a.book.closed.ar" catalog="system">
+                                                <state key="normal" title="Arabic" image="a.book.closed.ar" catalog="system">
                                                     <color key="titleColor" name="Tibingrgb(157, 157, 157)"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="40"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16h-6e-UfV">
-                                                <rect key="frame" x="8" y="8" width="144.5" height="48"/>
+                                                <rect key="frame" x="8" y="8" width="125.5" height="48"/>
                                                 <color key="tintColor" name="Tibingrgb(157, 157, 157)"/>
-                                                <state key="normal" title="siting" image="gearshape" catalog="system">
+                                                <state key="normal" title="Setting" image="gearshape" catalog="system">
                                                     <color key="titleColor" name="Tibingrgb(157, 157, 157)"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="40"/>
                                                 </state>
@@ -1240,7 +1240,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hjb-Gc-iXE">
                                                 <rect key="frame" x="286.5" y="8" width="80.5" height="48"/>
                                                 <color key="tintColor" name="Tibingrgb(157, 157, 157)"/>
-                                                <state key="normal" title="map" image="mappin.and.ellipse" catalog="system">
+                                                <state key="normal" title="Map" image="mappin.and.ellipse" catalog="system">
                                                     <color key="titleColor" name="Tibingrgb(157, 157, 157)"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="40"/>
                                                 </state>
@@ -1278,22 +1278,22 @@
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2XD-A8-BJw">
-                                                <rect key="frame" x="148" y="8" width="103" height="30"/>
+                                                <rect key="frame" x="142" y="8" width="95" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="KPe-Au-peD"/>
                                                 </constraints>
                                                 <color key="tintColor" name="Tibing"/>
-                                                <state key="normal" title="Privacy policy .">
+                                                <state key="normal" title="Privacy policy">
                                                     <color key="titleColor" name="Tibingrgb(157, 157, 157)"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvG-5h-yos">
-                                                <rect key="frame" x="42" y="8" width="52" height="30"/>
+                                                <rect key="frame" x="42" y="8" width="46" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="d5U-uX-frr"/>
                                                 </constraints>
                                                 <color key="tintColor" name="Tibing"/>
-                                                <state key="normal" title="call us .">
+                                                <state key="normal" title="Call us">
                                                     <color key="titleColor" name="Tibingrgb(157, 157, 157)"/>
                                                 </state>
                                             </button>
@@ -3281,11 +3281,18 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="RQv-tL-k1p"/>
+        <segue reference="K1e-p4-gFa"/>
         <segue reference="oZF-lv-a5G"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="Capture-3" width="1440" height="1011"/>
+        <image name="Accessories" width="1440" height="1011"/>
+        <image name="Card_Game" width="666" height="470"/>
+        <image name="Instagram" width="512" height="512"/>
+        <image name="Phone" width="1599" height="652"/>
+        <image name="Siri" width="512" height="512"/>
+        <image name="Snapchat" width="512" height="512"/>
+        <image name="Tablet" width="1920" height="1671"/>
+        <image name="Whatsapp" width="512" height="512"/>
         <image name="a.book.closed.ar" catalog="system" width="115" height="128"/>
         <image name="cart" catalog="system" width="128" height="102"/>
         <image name="cart.fill.badge.minus" catalog="system" width="128" height="106"/>
@@ -3294,18 +3301,11 @@
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="heart.slash" catalog="system" width="128" height="115"/>
         <image name="homekit" catalog="system" width="128" height="106"/>
-        <image name="kisspng-siri-apple-ios-11-iphone-applications-macos-icons-5b6fe0a7385402.9866480515340586632307-1" width="512" height="512"/>
         <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
         <image name="minus" catalog="system" width="128" height="24"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.badge.plus" catalog="system" width="128" height="124"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="pngegg-14" width="512" height="512"/>
-        <image name="pngegg-15" width="512" height="512"/>
-        <image name="pngegg-16" width="512" height="512"/>
-        <image name="pngtree-mobile-phone-design-transparent-image-png-image_2778296" width="1599" height="652"/>
-        <image name="pngtree-mobile-vector-icon-png-image_470662" width="1920" height="1671"/>
-        <image name="pngtree-white-video-game-controller-with-blue-circle-background-png-image_2256063" width="666" height="470"/>
         <image name="suit.heart" catalog="system" width="128" height="109"/>
         <image name="trash" catalog="system" width="121" height="128"/>
         <namedColor name="Dark">

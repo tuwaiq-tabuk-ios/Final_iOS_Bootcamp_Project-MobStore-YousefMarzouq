@@ -31,26 +31,26 @@ class BrandVC: UIViewController,
     hideKeyboardWhenTappedAround()
     collchinBrandView.delegate = self
     collchinBrandView.dataSource = self
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "Apple_brand")!,brand:"Apple"))
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "Honor-Logo")!,
-                                    brand:"Honor"))
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Apple_Brand")!,brand:"Apple"))
     arrayBrandPictures.append(Phone(photo: UIImage(named: "Huawei_Brand")!,
+                                    brand:"Honor"))
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Infinix_Brand")!,
                                     brand:"Huawei"))
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "infinix")!,
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Honor_Brand")!,
                                     brand:"Infinix"))
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "Itel_Brand")!,
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Nokia_Brand")!,
                                     brand:"Itel"))
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "Lenovo_logo")!,
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Lenovo_Brand")!,
                                     brand:"Lenovo"))
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "nokia")!,
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Itel_Brand")!,
                                     brand:"Nokia"))
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "oppo")!,
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Oppo_Brand")!,
                                     brand:"Oppo"))
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "Samsung_brand")!,
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Samsung_Brand")!,
                                     brand:"Samsung"))
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "Vivo_Logo")!,
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Vivo_Brand")!,
                                     brand:"Vivo"))
-    arrayBrandPictures.append(Phone(photo: UIImage(named: "xiaomi_brand")!,
+    arrayBrandPictures.append(Phone(photo: UIImage(named: "Xiaomi_Brand")!,
                                     brand:"Xiaomi"))
     configureSize(numOfHorizontsalCells: 2, marginBetweenCells: 0)
   }

@@ -28,29 +28,30 @@ class HomeVC: UIViewController,
   var crandcellIndix = 0
   var dataCollection: CollectionReference!
   
-  var arrayProducPhotos = [UIImage(named: "promoipel10"),
-                         UIImage(named: "Xiaomi-Promotion"),]
+  var arrayProducPhotos = [UIImage(named: "iPhone12ProMax_Header"),
+                         UIImage(named: "Xiaomi_Header"),]
 
   var arrayProducBrand: [Brand] = [
-    Brand(image: UIImage(named: "Apple_brand")!,
+    Brand(image: UIImage(named: "Apple_Brand")!,
           name: "Apple"),
     Brand(image: UIImage(named: "Huawei_Brand")!,
           name: "Huawei"),
-    Brand(image: UIImage(named: "infinix")!,
+    Brand(image: UIImage(named: "Infinix_Brand")!,
           name: "Infinix"),
-    Brand(image: UIImage(named: "Honor-Logo")!,
+    Brand(image: UIImage(named: "Honor_Brand")!,
           name: "Honor"),
-    Brand(image: UIImage(named: "nokia")!,
+    Brand(image: UIImage(named: "Nokia_Brand")!,
           name: "Nokia"),
     Brand(image: UIImage(named: "Itel_Brand")!,
           name: "Itel"),
-    Brand(image: UIImage(named: "oppo")!,
+    Brand(image: UIImage(named: "Lenovo_Brand")!, name: "Lenovo"),
+    Brand(image: UIImage(named: "Oppo_Brand")!,
           name: "Oppo"),
-    Brand(image: UIImage(named: "Samsung_brand")!,
+    Brand(image: UIImage(named: "Samsung_Brand")!,
           name: "Samsung"),
     Brand(image: UIImage(named: "Vivo_Brand")!,
           name: "Vivo"),
-    Brand(image: UIImage(named: "xiaomi_brand")!,
+    Brand(image: UIImage(named: "Xiaomi_Brand")!,
           name: "Xiaomi"),]
   
   
