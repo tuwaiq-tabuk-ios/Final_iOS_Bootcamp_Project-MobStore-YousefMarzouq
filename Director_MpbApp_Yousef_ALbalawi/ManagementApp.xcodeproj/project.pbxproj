@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B819C5AE27962E990086405C /* OrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819C5AD27962E990086405C /* OrderVC.swift */; };
+		B819C5B027962EAE0086405C /* OrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819C5AF27962EAE0086405C /* OrderCell.swift */; };
 		CA01B6D727814DC50022439D /* Custmer-RequestVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA01B6D627814DC50022439D /* Custmer-RequestVCCell.swift */; };
 		CA01B6D927814DE70022439D /* Custmer-RequestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA01B6D827814DE70022439D /* Custmer-RequestVC.swift */; };
 		CA01B6DB278195730022439D /* BrandCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA01B6DA278195730022439D /* BrandCVCell.swift */; };
@@ -32,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B819C5AD27962E990086405C /* OrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderVC.swift; sourceTree = "<group>"; };
+		B819C5AF27962EAE0086405C /* OrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCell.swift; sourceTree = "<group>"; };
 		CA01B6D627814DC50022439D /* Custmer-RequestVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Custmer-RequestVCCell.swift"; sourceTree = "<group>"; };
 		CA01B6D827814DE70022439D /* Custmer-RequestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Custmer-RequestVC.swift"; sourceTree = "<group>"; };
 		CA01B6DA278195730022439D /* BrandCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandCVCell.swift; sourceTree = "<group>"; };
@@ -74,6 +78,8 @@
 			children = (
 				CA01B6D827814DE70022439D /* Custmer-RequestVC.swift */,
 				CA01B6D627814DC50022439D /* Custmer-RequestVCCell.swift */,
+				B819C5AD27962E990086405C /* OrderVC.swift */,
+				B819C5AF27962EAE0086405C /* OrderCell.swift */,
 			);
 			path = "Custmer-Request";
 			sourceTree = "<group>";
@@ -255,6 +261,8 @@
 				CADD8896277E9233003FBC12 /* EditItmeVC.swift in Sources */,
 				CADD8876277E8CFC003FBC12 /* AppDelegate.swift in Sources */,
 				CADD8893277E9164003FBC12 /* AddItmeVC.swift in Sources */,
+				B819C5B027962EAE0086405C /* OrderCell.swift in Sources */,
+				B819C5AE27962E990086405C /* OrderVC.swift in Sources */,
 				CA01B6DB278195730022439D /* BrandCVCell.swift in Sources */,
 				CADD888C277E8F14003FBC12 /* HomeCVCell.swift in Sources */,
 				CADD8878277E8CFC003FBC12 /* SceneDelegate.swift in Sources */,

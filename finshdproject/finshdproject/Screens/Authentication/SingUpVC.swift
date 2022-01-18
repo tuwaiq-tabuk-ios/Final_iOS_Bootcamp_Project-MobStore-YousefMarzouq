@@ -53,10 +53,14 @@ class SingUpVC: UIViewController {
   
   
   @IBAction func singin(_ sender: Any) {
-    _ = UIStoryboard(name: "Main", bundle: nil)
-    let vc = storyboard?.instantiateViewController(identifier: "Login")
-    vc?.modalPresentationStyle = .overFullScreen
-    present(vc!, animated: true)
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let vc = storyboard.instantiateViewController(identifier: "Login")
+    vc.modalPresentationStyle = .overFullScreen
+    let parentVC = presentingViewController
+    dismiss(animated: true) {
+      parentVC!.present(vc, animated: true)
+    }
+    
   }
   
   

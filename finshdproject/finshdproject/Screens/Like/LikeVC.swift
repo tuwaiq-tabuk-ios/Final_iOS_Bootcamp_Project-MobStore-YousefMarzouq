@@ -32,16 +32,9 @@ class LikeVC: UIViewController,
     super.viewDidLoad()
     likeCView.delegate = self
     likeCView.dataSource = self
-    let db = Firestore.firestore()
-    dataCollection = db.collection("ProdectsFavorite")
-  }
-  
-  
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    self.likeCView.reloadData()
     getData()
   }
+  
   
   
   @IBAction func deleteButtonTapped(_ sender: UIButton) {
@@ -52,7 +45,10 @@ class LikeVC: UIViewController,
       products[index1].isFavorite = false
       productsLike[index].isFavorite = false
     }
-    db.collection("ProdectsFavorite").document(productsLike[index].id).delete()
+    guard let userID = Auth.auth().currentUser?.uid else {
+      return
+    }
+    db.collection("users").document(userID).collection("ProdectsFavorite").document(productsLike[index].id).delete()
     productsLike.remove(at: index)
     likeCView.reloadData()
   }
@@ -62,20 +58,19 @@ class LikeVC: UIViewController,
   
   func getData() {
     let db = Firestore.firestore()
-    productsLike.removeAll()
-    dataCollection.getDocuments { snapsot, error in
+    guard let userID = Auth.auth().currentUser?.uid else {
+      return
+    }
+    
+    
+    db.collection("users").document(userID).collection("ProdectsFavorite").addSnapshotListener { snapsot, error in
       if error != nil {
       } else {
+        self.productsLike.removeAll()
         for document in snapsot!.documents {
           let data = document.data()
-          let dataCollection2 = db.collection("Prodects").document(data["id"] as! String)
-          dataCollection2.getDocument { snapshotData, error in
-            if error != nil {
-              print("~~ error: \(String(describing: error?.localizedDescription))")
-            } else {
-              let data = snapshotData!.data()!
-              let id = snapshotData?.documentID
-              let prodects = Product(id: id!,
+              let id = document.documentID
+              let prodects = Product(id: id,
                                      image: data["image"] as! String,
                                      info: data["info"] as! String,
                                      price: data["price"] as! Double,
@@ -94,8 +89,6 @@ class LikeVC: UIViewController,
                 self.productsLike.append(prodects)
                 self.likeCView.reloadData()
               }
-            }
-          }
         }
       }
     }

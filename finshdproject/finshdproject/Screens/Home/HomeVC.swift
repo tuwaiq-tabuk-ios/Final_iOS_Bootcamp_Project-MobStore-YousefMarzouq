@@ -80,7 +80,7 @@ class HomeVC: UIViewController,
   // MARK: - functions
   
   func getData() {
-    dataCollection.getDocuments { snapshot, error in
+    dataCollection.addSnapshotListener { snapshot, error in
       if error != nil {
         print("Error: \(error?.localizedDescription ?? "")")
       } else {

@@ -17,7 +17,7 @@ class Page5VC: UIViewController,
   
   var DocumentReference: CollectionReference!
   var arrayOrderS : [Order] = [Order]()
-  
+  var selectedOrder:Order!
   
   // MARK: - IBOutlet
   
@@ -25,19 +25,14 @@ class Page5VC: UIViewController,
   
   
   // MARK: - Life Cycle
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     collectionPage5.delegate = self
     collectionPage5.dataSource = self
-  }
-  
-  
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
     getData()
   }
-  
+
   
   // MARK: - functions
   
@@ -55,23 +50,41 @@ class Page5VC: UIViewController,
     cll.namburPhone.text = arrayOrderS [indexPath.row].customerPhone
     cll.nameCastmer.text = arrayOrderS[indexPath.row].customerName
     cll.nameOFitme.text =  arrayOrderS[indexPath.row].orders[indexPath.row].product.info
-    cll.praicOFitme.text = "\(arrayOrderS[indexPath.row].orders[indexPath.row].product.price) SR"
+    cll.praicOFitme.text = "\(arrayOrderS[indexPath.row].totalAmount) SR"
     return cll
   }
   
   
+  func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+    selectedOrder = arrayOrderS[indexPath.row]
+    return true
+  }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    switch segue.identifier {
+    case "showOrders":
+        
+      if let vc = segue.destination as? OrderVC {
+        vc.order = selectedOrder
+      }
+    default:
+      print("else")
+    }
+  }
+  
   func getData() {
     let db = Firestore.firestore()
-    arrayOrderS.removeAll()
-    collectionPage5.reloadData()
     DocumentReference = db.collection("Orders")
-    DocumentReference.getDocuments { snapshot, error in
+    DocumentReference.addSnapshotListener { snapshot, error in
       if error != nil {
       } else {
+        self.arrayOrderS.removeAll()
+        self.collectionPage5.reloadData()
+
         for document in snapshot!.documents {
           let data = document.data()
           if document.documentID != "ordersCount" {
-            for (key, values) in data {
+            for (_, values) in data {
               let data = values as! [String:Any]
               var carts: [Cart] = [Cart]()
               for product in data["orders"] as! [[String:Any]] {
@@ -84,7 +97,7 @@ class Page5VC: UIViewController,
                     cont = value as? Int
                   }
                 }
-                db.collection("Prodects").document(id).getDocument { snapshot, error in
+                db.collection("Prodects").document(id).addSnapshotListener { snapshot, error in
                   guard error == nil else {
                     return
                   }
@@ -99,12 +112,13 @@ class Page5VC: UIViewController,
                                         Offers: data["Offers"] as! Bool,
                                         images: data["images"] as! Array<String>,
                                         isFavorite: data["isFavorite"] as! Bool)
-                  let cart = Cart(product: product, count: cont)
+                  let cart = Cart(product: product, counts: cont)
                   carts.append(cart)
                 }
               }
               DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
-                let products = Order(customerName:data["customerName"] as!String ,
+                let products = Order(id:data["id"] as!String,
+                                     customerName:data["customerName"] as!String ,
                                      customerPhone:data[ "customerPhone"]as!String,
                                      orderNumber:data["orderNumber"]as! Int ,
                                      orderState:data["orderState"]as!String,

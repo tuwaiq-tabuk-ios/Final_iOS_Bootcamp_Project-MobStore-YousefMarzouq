@@ -37,6 +37,9 @@ class DisplayProductsVC: UIViewController,
     super.viewDidLoad()
     collcshinPhoneCell.delegate = self
     collcshinPhoneCell.dataSource = self
+    brandHeaders.delegate = self
+    brandHeaders.dataSource = self
+    
     filterData = arraySeleced
     hideKeyboardWhenTappedAround()
   }
@@ -97,6 +100,7 @@ class DisplayProductsVC: UIViewController,
         }
       }
     }
+    filterData = arraySeleced
   }
   
   
@@ -105,15 +109,19 @@ class DisplayProductsVC: UIViewController,
   @IBAction func likeButtonPreased(_ sender: UIButton) {
     let index = sender.tag
     let db = Firestore.firestore()
-    print("~~ \(arraySeleced[index].isFavorite)")
+    
+    guard let userID = Auth.auth().currentUser?.uid else {
+      alert()
+      return
+    }
+    
     if arraySeleced[index].isFavorite {
       sender.setImage(UIImage(systemName: "suit.heart"), for: .normal)
-      db.collection("Prodects").document(arraySeleced[index].id).setData(["isFavorite":false],merge: true)
       if let index1 = arrayAllPhone.firstIndex(of: arraySeleced[index]) {
         arrayAllPhone[index1].isFavorite = false
         arraySeleced[index].isFavorite = false
       }
-      db.collection("ProdectsFavorite").document(arraySeleced[index].id).delete()
+      db.collection("users").document(userID).collection("ProdectsFavorite").document(arraySeleced[index].id).delete()
     } else {
       if let index1 = arrayAllPhone.firstIndex(of: arraySeleced[index]) {
         arrayAllPhone[index1].isFavorite = true
@@ -121,34 +129,65 @@ class DisplayProductsVC: UIViewController,
       }
       sender.setImage(UIImage(systemName: "suit.heart.fill"),
                       for: .normal)
-      db.collection("Prodects").document(arraySeleced[index].id).setData(["isFavorite":true], merge: true) { error in
-        if error != nil {
-          print("Error Edit : \(String(describing: error?.localizedDescription))")
-        } else {
-          db.collection("ProdectsFavorite").document(self.arraySeleced[index].id).setData(
-            ["id":self.arraySeleced[index].id]) { error in
+
+      db.collection("users").document(userID).collection("ProdectsFavorite").document(self.arraySeleced[index].id).setData(
+            ["id": self.arraySeleced[index].id,
+            "image": self.arraySeleced[index].image,
+            "info": self.arraySeleced[index].info,
+            "price": self.arraySeleced[index].price,
+            "brand":self.arraySeleced[index].brand,
+            "type":self.arraySeleced[index].type,
+            "Offers":self.arraySeleced[index].Offers,
+            "images":self.arraySeleced[index].images,
+            "isFavorite":self.arraySeleced[index].isFavorite]) { error in
               if error != nil {
                 print("Error add : \(String(describing: error?.localizedDescription))")
               } else {
                 
               }
             }
-        }
-      }
     }
   }
   
+  func alert() {
+    
+    let alert = UIAlertController(title: "alert", message: "Please Sign in Frist", preferredStyle: .alert)
+    
+    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { UIAlertAction in
+      let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "Login") as! LoginVC
+      loginVC.modalPresentationStyle = .overFullScreen
+      self.present(loginVC, animated: true, completion: nil)
+    }))
+    
+    present(alert, animated: true)
+    
+    
+  }
   
-  @IBAction func tollyForPay(_ sender: UIButton) {
+  
+  @IBAction func tollyForPayPreased(_ sender: UIButton) {
     sender.setImage(UIImage(systemName: "cart.fill"),
                     for: .normal)
     let index = sender.tag
     let db = Firestore.firestore()
-    guard let auth = Auth.auth().currentUser else {
+    guard let userID = Auth.auth().currentUser?.uid else {
+      alert()
       return
     }
-    let document = db.collection("Carts").document(auth.uid)
-    document.setData( ["carts": FieldValue.arrayUnion([arraySeleced[index].id])], merge: true)
+    
+    let document = db.collection("users").document(userID).collection("Carts").document(arraySeleced[index].id)
+    
+    document.setData([
+      "id":arraySeleced[index].id,
+      "image":arraySeleced[index].image,
+      "info":arraySeleced[index].info,
+      "price":arraySeleced[index].price,
+      "brand":arraySeleced[index].brand,
+      "type":arraySeleced[index].type,
+      "Offers":arraySeleced[index].Offers,
+      "images":arraySeleced[index].images,
+      "isFavorite":arraySeleced[index].isFavorite
+    ], merge: true)
   }
   
   
@@ -157,7 +196,7 @@ class DisplayProductsVC: UIViewController,
   func collectionView(_ collectionView: UICollectionView,
                       numberOfItemsInSection section: Int) -> Int {
     if collectionView == collcshinPhoneCell {
-      return arraySeleced.count
+      return filterData.count
     } else {
       return arrayBrand.count
     }
@@ -169,7 +208,12 @@ class DisplayProductsVC: UIViewController,
   ) -> UICollectionViewCell {
     if collectionView == collcshinPhoneCell {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhoneDitels",for: indexPath) as! PhoneDetailsCVCell
-      let data = arraySeleced[indexPath.row]
+      var data:Product!
+      if filterData.count != 0 {
+       data = filterData[indexPath.row]
+      } else {
+       data = arraySeleced[indexPath.row]
+      }
       cell.likeButton.tag = indexPath.row
       cell.cartButton.tag = indexPath.row
       if data.isFavorite {
@@ -182,6 +226,7 @@ class DisplayProductsVC: UIViewController,
       cell.Setupcell(photo: data.image,
                      price: data.price,
                      DisCrbsion:data.info )
+      
       return cell
     } else {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "brandHeader",for: indexPath) as! BrandHeadersCVCell
@@ -195,6 +240,26 @@ class DisplayProductsVC: UIViewController,
                       shouldSelectItemAt indexPath: IndexPath) -> Bool {
     if collectionView == collcshinPhoneCell {
       selectedProdect = arraySeleced[indexPath.row]
+    } else {
+      
+      selectedBrand = arrayBrand[indexPath.row]
+      if selectedBrand != "All" {
+        if page == "Brand" {
+          filterData = selectedBrand.isEmpty ? arraySeleced : arraySeleced.filter{ (item: Product) -> Bool in
+            return item.type.range(of: selectedBrand, options: .caseInsensitive, range: nil,locale: nil) != nil
+          }
+        } else {
+          filterData = selectedBrand.isEmpty ? arraySeleced : arraySeleced.filter{ (item: Product) -> Bool in
+            return item.brand.range(of: selectedBrand, options: .caseInsensitive, range: nil,locale: nil) != nil
+          }
+        }
+        
+
+
+      } else {
+        filterData = arraySeleced
+      }
+      self.collcshinPhoneCell.reloadData()
     }
     return true
   }

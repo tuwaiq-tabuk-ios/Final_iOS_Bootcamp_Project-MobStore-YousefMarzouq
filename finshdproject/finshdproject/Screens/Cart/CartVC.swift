@@ -17,13 +17,13 @@ class CartVC: UIViewController,
   
   var totlprice:Double = 0
   var arrayShoppingcart:[Cart]! = [Cart]()
-  var DocumentReference: DocumentReference!
+  var DocumentReference: CollectionReference!
   var selectBrand:String!
   
   
   // MARK: - IBOutlet
   
-
+  
   @IBOutlet weak var Checkout: UIButton!
   @IBOutlet weak var totalsummation: UILabel!
   @IBOutlet weak var shoppingCart: UICollectionView!
@@ -31,7 +31,7 @@ class CartVC: UIViewController,
   @IBOutlet weak var heartpicture: UIImageView!
   
   
- 
+  
   // MARK: - Life Cycle
   
   override func viewDidLoad() {
@@ -64,18 +64,22 @@ class CartVC: UIViewController,
   @IBAction func rmoveItm(_ sender: UIButton) {
     let index = sender.tag
     let db = Firestore.firestore()
-    let auth = Auth.auth().currentUser!
-    let document = db.collection("Carts").document(auth.uid)
-    document.setData( ["carts": FieldValue.arrayRemove([arrayShoppingcart[index].product.id])], merge: true)
-    totlprice -= Double(arrayShoppingcart[index].count) * Double(arrayShoppingcart[index].product.price)
-    totalPraic.text = "\(totlprice)"
-    arrayShoppingcart.remove(at: index)
-    shoppingCart.reloadData()
+    guard let userID = Auth.auth().currentUser?.uid else {
+      return
+    }
+    
+ db.collection("users").document(userID).collection("Carts").document(arrayShoppingcart[index].product.id).delete()
+    
+    self.totlprice -= Double(self.arrayShoppingcart[index].count) * Double(self.arrayShoppingcart[index].product.price)
+    self.totalPraic.text = "\(self.totlprice)"
+    self.arrayShoppingcart.remove(at: index)
+    self.shoppingCart.reloadData()
+    
   }
   
   
-  @IBAction func ContTobuy (_ sender: UIButton) {
-   
+  @IBAction func ContTobuyPreased (_ sender: UIButton) {
+    
   }
   
   @IBAction func pluseButtonmPreased(_ sender: UIButton) {
@@ -106,48 +110,41 @@ class CartVC: UIViewController,
   
   func getData() {
     let db = Firestore.firestore()
-    guard let auth = Auth.auth().currentUser else {
-      print("~~~~~ Alert Please SignIn")
+    
+    guard let userID = Auth.auth().currentUser?.uid else {
       return
     }
-    arrayShoppingcart.removeAll()
-    shoppingCart.reloadData()
-    totlprice = 0
-    self.totalPraic.text = "\(self.totlprice)"
     
-    DocumentReference = db.collection("Carts").document(auth.uid)
-    DocumentReference.getDocument { snapshot, error in
+    
+    db.collection("users").document(userID).collection("Carts").addSnapshotListener { snapshot, error in
       if error != nil {
       } else {
-        guard let data = snapshot!.data() else {
+        guard let document = snapshot?.documents else {
           return
         }
-        for (key,values) in data {
-          if key == "carts" {
-            for value in values as! Array<Any> {
-              db.collection("Prodects").document(value as! String).getDocument { documentSnapshot, error in
-                if error != nil {
-                } else {
-                  let data = documentSnapshot!.data()!
-                  let prodect = Product(id: value as! String,
-                                        image: data["image"] as! String,
-                                        info: data["info"] as! String,
-                                        price: data["price"] as! Double,
-                                        brand: data["brand"] as! String,
-                                        type: data["type"] as! String,
-                                        Offers: data["Offers"] as! Bool,
-                                        images: data["images"] as! [String],
-                                        isFavorite: data["isFavorite"] as! Bool)
-                  let cart = Cart(product: prodect, count: 1)
-                  self.arrayShoppingcart.append(cart)
-                  self.totlprice +=  Double(cart.count) * Double(cart.product.price)
-                  self.totalPraic.text = "\(self.totlprice)"
-                  self.shoppingCart.reloadData()
-                }
-              }
-            }
-          }
+        self.totlprice = 0
+        self.totalPraic.text = "\(self.totlprice)"
+        self.arrayShoppingcart.removeAll()
+        for snapsot in document {
+
+          let data = snapsot.data()
+          
+          let prodect = Product(id: data["id"] as! String,
+                                image: data["image"] as! String,
+                                info: data["info"] as! String,
+                                price: data["price"] as! Double,
+                                brand: data["brand"] as! String,
+                                type: data["type"] as! String,
+                                Offers: data["Offers"] as! Bool,
+                                images: data["images"] as! [String],
+                                isFavorite: data["isFavorite"] as! Bool)
+          let cart = Cart(product: prodect, count: 1)
+          self.arrayShoppingcart.append(cart)
+          self.totlprice +=  Double(cart.count) * Double(cart.product.price)
+          self.totalPraic.text = "\(self.totlprice)"
         }
+        self.shoppingCart.reloadData()
+        
       }
     }
   }
@@ -155,7 +152,7 @@ class CartVC: UIViewController,
   
   func collectionView(_ collectionView: UICollectionView,
                       numberOfItemsInSection section: Int) -> Int {
-                            return arrayShoppingcart.count
+    return arrayShoppingcart.count
   }
   
   
@@ -172,7 +169,7 @@ class CartVC: UIViewController,
     return cell
   }
   
-
+  
   func collectionView(_ collectionView: UICollectionView,
                       shouldSelectItemAt indexPath: IndexPath) -> Bool {
     return true

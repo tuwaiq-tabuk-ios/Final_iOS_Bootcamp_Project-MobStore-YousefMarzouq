@@ -33,8 +33,10 @@ class LoginVC: UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let vc = storyboard.instantiateViewController(identifier: "ForgetPassword")
     vc.modalPresentationStyle = .overFullScreen
-    present(vc, animated: true)
-  }
+    let parentVC = presentingViewController
+    dismiss(animated: true) {
+      parentVC!.present(vc, animated: true)
+    }  }
   
   
   @IBAction func closPegePassword(_ sender: Any) {
@@ -60,6 +62,10 @@ class LoginVC: UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let vc = storyboard.instantiateViewController(identifier: "SingUp")
     vc.modalPresentationStyle = .overFullScreen
-    present(vc, animated: true)
+    let parentVC = presentingViewController
+    dismiss(animated: true) {
+      parentVC!.present(vc, animated: true)
+    }
+    
   }
 }
