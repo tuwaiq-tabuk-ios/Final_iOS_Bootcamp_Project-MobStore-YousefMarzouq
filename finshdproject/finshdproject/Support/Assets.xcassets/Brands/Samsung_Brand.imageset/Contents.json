@@ -1,15 +1,16 @@
 {
   "images" : [
     {
-      "filename" : "kisspng-logo-brand-font-mind-the-gap-5b5e9049be91a6.1977437615329239777806.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Samsung_Brand@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Samsung_Brand@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

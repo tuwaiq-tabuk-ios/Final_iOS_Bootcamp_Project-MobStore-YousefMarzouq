@@ -1,17 +1,16 @@
 {
   "images" : [
     {
-      "filename" : "إنفينيكس@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "إنفينيكس@2x.png",
+      "filename" : "Infinix_Brand@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "إنفينيكس@3x.png",
+      "filename" : "Infinix_Brand@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

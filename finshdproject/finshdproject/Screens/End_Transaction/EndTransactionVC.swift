@@ -10,18 +10,17 @@ import Firebase
 import SDWebImage
 
 
-class EndTransactionVC: UIViewController,
-                           UICollectionViewDelegate,
-                           UICollectionViewDataSource {
+class EndTransactionVC: UIViewController
+{
   
   
   
   // MARK: - Properties
   
-  var arrayCarts:Product!
+  var carts:Product!
   var conter = 0
   
- 
+  
   // MARK: - IBOutlet
   
   @IBOutlet weak var textContty: UITextField!
@@ -29,22 +28,22 @@ class EndTransactionVC: UIViewController,
   @IBOutlet weak var ditelsLebul: UILabel!
   @IBOutlet weak var collcionLast: UICollectionView!
   @IBOutlet weak var prisButoon: UILabel!
-    
+  
   
   // MARK: - Life Cycle
   
   override func viewDidLoad() {
-        super.viewDidLoad()
+    super.viewDidLoad()
     collcionLast.delegate = self
     collcionLast.dataSource = self
     hideKeyboardWhenTappedAround()
-    }
-
+  }
+  
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    ditelsLebul.text = arrayCarts.info
-    prisButoon.text = "\(arrayCarts.price) SAR "
+    ditelsLebul.text = carts.info
+    prisButoon.text = "\(carts.price) SAR "
   }
   
   
@@ -62,45 +61,32 @@ class EndTransactionVC: UIViewController,
   
   @IBAction func addCartPressd(_ sender: UIButton) {
     let db = Firestore.firestore()
-
+    
     guard let userID = Auth.auth().currentUser?.uid else {
       return
     }
     
-    let document = db.collection("users").document(userID).collection("Carts").document(arrayCarts.id)
+    let document = db.collection("users").document(userID).collection("Carts").document(carts.id)
     
-      document.setData( [
-        "id":arrayCarts.id,
-        "image":arrayCarts.image,
-        "info":arrayCarts.info,
-        "price":arrayCarts.price,
-        "brand":arrayCarts.brand,
-        "type":arrayCarts.type,
-        "Offers":arrayCarts.Offers,
-        "images":arrayCarts.images,
-        "isFavorite":arrayCarts.isFavorite
-      ],merge: true)
+    document.setData( [
+      "id":carts.id,
+      "image":carts.image,
+      "info":carts.info,
+      "price":carts.price,
+      "brand":carts.brand,
+      "type":carts.type,
+      "Offers":carts.Offers,
+      "images":carts.images,
+      "isFavorite":carts.isFavorite
+    ],merge: true)
     
   }
-
+  
   
   // MARK: - functions
   
-  func collectionView(_ collectionView: UICollectionView,
-                      numberOfItemsInSection section: Int) -> Int {
-  return arrayCarts.images.count
-  }
- 
   
-  func collectionView(_ collectionView: UICollectionView,
-                      cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-   let cll = collectionView.dequeueReusableCell(withReuseIdentifier: "lastpershn", for: indexPath) as! EndTransactionCollectionVCell
-    let animatedImage = SDAnimatedImage(contentsOfFile: "\(Bundle.main.bundlePath)/Loader1.gif")
-    cll.imgLast.sd_setImage(with: URL(string: arrayCarts.images[indexPath.row]), placeholderImage:animatedImage)
-    return cll
-  }
   
-
   func addOneToCounter () {
     conter += 1
     textContty.text = conter .description
@@ -114,3 +100,30 @@ class EndTransactionVC: UIViewController,
     }
   }
 }
+
+
+// MARK: - extensionCollectionView
+
+
+extension EndTransactionVC :  UICollectionViewDelegate,
+                              UICollectionViewDataSource {
+                                
+                                
+                                // MARK: - functions collectionView
+                                
+                                
+                                func collectionView(_ collectionView: UICollectionView,
+                                                    numberOfItemsInSection section: Int) -> Int {
+                                  return carts.images.count
+                                }
+                                
+                                
+                                func collectionView(_ collectionView: UICollectionView,
+                                                    cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+                                  let cll = collectionView.dequeueReusableCell(withReuseIdentifier: "lastpershn", for: indexPath) as! EndTransactionCollectionVCell
+                                  let animatedImage = SDAnimatedImage(contentsOfFile: "\(Bundle.main.bundlePath)/Loader1.gif")
+                                  cll.imgLast.sd_setImage(with: URL(string: carts.images[indexPath.row]),
+                                                          placeholderImage:animatedImage)
+                                  return cll
+                                }
+                              }

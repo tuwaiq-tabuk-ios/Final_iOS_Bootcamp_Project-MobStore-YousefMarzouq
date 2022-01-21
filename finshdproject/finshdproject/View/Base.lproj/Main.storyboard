@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6Im-JA-gsD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6Im-JA-gsD">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -720,10 +720,10 @@
             </objects>
             <point key="canvasLocation" x="-665" y="856"/>
         </scene>
-        <!--BrandVC-->
+        <!--Brand ShoallVC-->
         <scene sceneID="I7M-iv-5GI">
             <objects>
-                <viewController id="luD-rV-SQr" customClass="BrandVC" customModule="finshdproject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="luD-rV-SQr" customClass="BrandShoallVC" customModule="finshdproject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MQw-qO-XLH" userLabel="Brand sho page View">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1244,6 +1244,9 @@
                                                     <color key="titleColor" name="Tibingrgb(157, 157, 157)"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="40"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="location:" destination="NUb-lw-qI7" eventType="touchUpInside" id="Rl3-mC-465"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" name="Dark"/>
@@ -1732,8 +1735,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cart.fill.badge.minus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="eS7-hb-Oyo">
-                                <rect key="frame" x="70" y="116" width="235" height="361"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Cart" translatesAutoresizingMaskIntoConstraints="NO" id="eS7-hb-Oyo">
+                                <rect key="frame" x="70" y="160" width="273" height="512"/>
                                 <color key="backgroundColor" name="Dark"/>
                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
@@ -1964,7 +1967,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="QrS-2a-DZ1" firstAttribute="top" secondItem="etg-bt-DFM" secondAttribute="top" id="A9a-Fd-ouY"/>
                                     <constraint firstAttribute="trailing" secondItem="QrS-2a-DZ1" secondAttribute="trailing" id="Qdu-cI-YsO"/>
@@ -1994,11 +1997,6 @@
                             <constraint firstItem="zsm-eQ-fgX" firstAttribute="trailing" secondItem="Nvg-Jw-cdQ" secondAttribute="trailing" constant="180" id="wUn-XY-MRQ"/>
                             <constraint firstItem="Nvg-Jw-cdQ" firstAttribute="top" secondItem="zsm-eQ-fgX" secondAttribute="top" constant="8" id="xIg-Z4-sIv"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="eS7-hb-Oyo"/>
-                            </mask>
-                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="shopping cart" image="cart" catalog="system" id="8Wq-Nw-mTl"/>
                     <navigationItem key="navigationItem" id="7Tq-zK-Dqh"/>
@@ -3285,17 +3283,17 @@
         <segue reference="oZF-lv-a5G"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="Accessories" width="1440" height="1011"/>
-        <image name="Card_Game" width="666" height="470"/>
+        <image name="Accessories" width="480" height="337"/>
+        <image name="Card_Game" width="222" height="156.5"/>
+        <image name="Cart" width="840" height="840"/>
         <image name="Instagram" width="512" height="512"/>
-        <image name="Phone" width="1599" height="652"/>
+        <image name="Phone" width="533" height="217.5"/>
         <image name="Siri" width="512" height="512"/>
         <image name="Snapchat" width="512" height="512"/>
-        <image name="Tablet" width="1920" height="1671"/>
+        <image name="Tablet" width="640" height="557"/>
         <image name="Whatsapp" width="512" height="512"/>
         <image name="a.book.closed.ar" catalog="system" width="115" height="128"/>
         <image name="cart" catalog="system" width="128" height="102"/>
-        <image name="cart.fill.badge.minus" catalog="system" width="128" height="106"/>
         <image name="creditcard" catalog="system" width="128" height="88"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="heart" catalog="system" width="128" height="109"/>

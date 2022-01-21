@@ -8,9 +8,7 @@
 import UIKit
 import Firebase
 
-class DisplayProductsVC: UIViewController,
-                         UICollectionViewDelegate,
-                         UICollectionViewDataSource {
+class DisplayProductsVC: UIViewController {
   
   
   // MARK: - Properties
@@ -31,7 +29,7 @@ class DisplayProductsVC: UIViewController,
   @IBOutlet weak var brandHeaders: UICollectionView!
   
   
-  // MARK: - Life Cycle
+  // MARK: - View cohntroller Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -129,39 +127,42 @@ class DisplayProductsVC: UIViewController,
       }
       sender.setImage(UIImage(systemName: "suit.heart.fill"),
                       for: .normal)
-
+      
       db.collection("users").document(userID).collection("ProdectsFavorite").document(self.arraySeleced[index].id).setData(
-            ["id": self.arraySeleced[index].id,
-            "image": self.arraySeleced[index].image,
-            "info": self.arraySeleced[index].info,
-            "price": self.arraySeleced[index].price,
-            "brand":self.arraySeleced[index].brand,
-            "type":self.arraySeleced[index].type,
-            "Offers":self.arraySeleced[index].Offers,
-            "images":self.arraySeleced[index].images,
-            "isFavorite":self.arraySeleced[index].isFavorite]) { error in
-              if error != nil {
-                print("Error add : \(String(describing: error?.localizedDescription))")
-              } else {
-                
-              }
-            }
+        ["id": self.arraySeleced[index].id,
+         "image": self.arraySeleced[index].image,
+         "info": self.arraySeleced[index].info,
+         "price": self.arraySeleced[index].price,
+         "brand":self.arraySeleced[index].brand,
+         "type":self.arraySeleced[index].type,
+         "Offers":self.arraySeleced[index].Offers,
+         "images":self.arraySeleced[index].images,
+         "isFavorite":self.arraySeleced[index].isFavorite]) { error in
+           if error != nil {
+             print("Error add : \(String(describing: error?.localizedDescription))")
+           } else {
+             
+           }
+         }
     }
   }
   
   func alert() {
     
-    let alert = UIAlertController(title: "alert", message: "Please Sign in Frist", preferredStyle: .alert)
+    let alert = UIAlertController(title: "alert",
+                                  message: "Please Sign in Frist",
+                                  preferredStyle: .alert)
     
-    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { UIAlertAction in
+    alert.addAction(UIAlertAction(title: "Ok",
+                                  style: .default,
+                                  handler: { UIAlertAction in
       let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "Login") as! LoginVC
       loginVC.modalPresentationStyle = .overFullScreen
-      self.present(loginVC, animated: true, completion: nil)
+      self.present(loginVC,
+                   animated: true,
+                   completion: nil)
     }))
-    
     present(alert, animated: true)
-    
-    
   }
   
   
@@ -189,9 +190,18 @@ class DisplayProductsVC: UIViewController,
       "isFavorite":arraySeleced[index].isFavorite
     ], merge: true)
   }
+}
+
+
+
+// MARK: - extensionCollectionView
+
+extension DisplayProductsVC: UICollectionViewDelegate,
+                             UICollectionViewDataSource {
   
   
-  // MARK: - functions
+  // MARK: - functions collectionView
+  
   
   func collectionView(_ collectionView: UICollectionView,
                       numberOfItemsInSection section: Int) -> Int {
@@ -207,12 +217,13 @@ class DisplayProductsVC: UIViewController,
                       cellForItemAt indexPath: IndexPath
   ) -> UICollectionViewCell {
     if collectionView == collcshinPhoneCell {
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhoneDitels",for: indexPath) as! PhoneDetailsCVCell
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhoneDitels",
+                                                    for: indexPath) as! PhoneDetailsCVCell
       var data:Product!
       if filterData.count != 0 {
-       data = filterData[indexPath.row]
+        data = filterData[indexPath.row]
       } else {
-       data = arraySeleced[indexPath.row]
+        data = arraySeleced[indexPath.row]
       }
       cell.likeButton.tag = indexPath.row
       cell.cartButton.tag = indexPath.row
@@ -226,10 +237,10 @@ class DisplayProductsVC: UIViewController,
       cell.Setupcell(photo: data.image,
                      price: data.price,
                      DisCrbsion:data.info )
-      
       return cell
     } else {
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "brandHeader",for: indexPath) as! BrandHeadersCVCell
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "brandHeader",
+                                                    for: indexPath) as! BrandHeadersCVCell
       cell.name.text = arrayBrand[indexPath.row]
       return cell
     }
@@ -241,21 +252,21 @@ class DisplayProductsVC: UIViewController,
     if collectionView == collcshinPhoneCell {
       selectedProdect = arraySeleced[indexPath.row]
     } else {
-      
       selectedBrand = arrayBrand[indexPath.row]
       if selectedBrand != "All" {
         if page == "Brand" {
           filterData = selectedBrand.isEmpty ? arraySeleced : arraySeleced.filter{ (item: Product) -> Bool in
-            return item.type.range(of: selectedBrand, options: .caseInsensitive, range: nil,locale: nil) != nil
+            return item.type.range(of: selectedBrand, options: .caseInsensitive, range: nil,
+                                   locale: nil) != nil
           }
         } else {
           filterData = selectedBrand.isEmpty ? arraySeleced : arraySeleced.filter{ (item: Product) -> Bool in
-            return item.brand.range(of: selectedBrand, options: .caseInsensitive, range: nil,locale: nil) != nil
+            return item.brand.range(of: selectedBrand, options: .caseInsensitive,
+                                    range: nil,
+                                    locale: nil) != nil
           }
         }
         
-
-
       } else {
         filterData = arraySeleced
       }
@@ -268,7 +279,8 @@ class DisplayProductsVC: UIViewController,
   override func prepare(for segue: UIStoryboardSegue,
                         sender: Any?) {
     if let vc = segue.destination as? EndTransactionVC {
-      vc.arrayCarts = selectedProdect
+      vc.carts = selectedProdect
     }
   }
 }
+

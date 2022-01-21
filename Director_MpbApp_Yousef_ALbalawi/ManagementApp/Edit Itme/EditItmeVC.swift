@@ -10,9 +10,7 @@ import PhotosUI
 import Firebase
 
 
-class EditItme: UIViewController ,
-                UINavigationControllerDelegate ,
-                UITextFieldDelegate{
+class EditItme: UIViewController  {
   
   
   // MARK: - Properties
@@ -20,20 +18,20 @@ class EditItme: UIViewController ,
   var prodect:Product?
   var prodectImage = false
   var ID:String!
-  var images:[UIImage] = [UIImage]()
+  var imagesEdit:[UIImage] = [UIImage]()
   var carntindX = 0
   let pickerTayp = UIPickerView()
-  var arryTayp = ["Tablet","Phone","Accessories","CardGame"]
+  var pickerarryTayp = ["Tablet","Phone","Accessories","CardGame"]
   
   
   // MARK: - IBOutlet
   
-  @IBOutlet weak var tayp: UITextField!
-  @IBOutlet weak var CollP3: UICollectionView!
-  @IBOutlet weak var countItme: UITextField!
-  @IBOutlet weak var brand: UITextField!
-  @IBOutlet weak var info: UITextField!
-  @IBOutlet weak var praice: UITextField!
+  @IBOutlet weak var taypTextField: UITextField!
+  @IBOutlet weak var CollectionEdit: UICollectionView!
+  @IBOutlet weak var countItmeTextField: UITextField!
+  @IBOutlet weak var brandTextField: UITextField!
+  @IBOutlet weak var infoTextField: UITextField!
+  @IBOutlet weak var praiceTextField: UITextField!
   @IBOutlet weak var productImage: UIImageView!
   @IBOutlet weak var infoLabel: UILabel!
   @IBOutlet weak var priceLabel: UILabel!
@@ -52,12 +50,12 @@ class EditItme: UIViewController ,
                                target: self,
                                action: #selector(clus))
     toolbar.setItems([dane], animated: true)
-    tayp.inputView = pickerTayp
+    taypTextField.inputView = pickerTayp
     pickerTayp.delegate = self
     pickerTayp.dataSource = self
-    CollP3.delegate = self
-    CollP3.dataSource = self
-    tayp.inputAccessoryView = toolbar
+    CollectionEdit.delegate = self
+    CollectionEdit.dataSource = self
+    taypTextField.inputAccessoryView = toolbar
   }
   
   
@@ -74,24 +72,24 @@ class EditItme: UIViewController ,
   
   
   @objc func clus () {
-    tayp.text = arryTayp[carntindX]
+    taypTextField.text = pickerarryTayp[carntindX]
     view.endEditing(true)
   }
   
   
   // MARK: - IBAction
   
-  @IBAction func imagPage2(_ sender: Any) {
+  @IBAction func imagHeadEdit(_ sender: Any) {
     prodectImage = true
     addFoto ()
   }
-  @IBAction func imagsPage2(_ sender: Any) {
+  @IBAction func imagsArryEdit(_ sender: Any) {
     prodectImage = false
     addFoto ()
   }
   @IBAction func deleteButtonTapped(_ sender: UIButton) {
-    images.remove(at: sender.tag)
-    CollP3.reloadData()
+    imagesEdit.remove(at: sender.tag)
+    CollectionEdit.reloadData()
   }
   @IBAction func editButtonTapped(_ sender: Any) {
     editDatabase()
@@ -101,28 +99,28 @@ class EditItme: UIViewController ,
   func getData() {
     productImage.sd_setImage(with: URL(string: prodect?.image ?? ""),
                              placeholderImage: UIImage(named: ""))
-    countItme.text = "0"
-    brand.text = prodect?.brand
-    info.text = prodect?.info
-    praice.text = "\(prodect?.price ?? 0)"
-    infoLabel.text = info.text
-    priceLabel.text = praice.text
+    countItmeTextField.text = "0"
+    brandTextField.text = prodect?.brand
+    infoTextField.text = prodect?.info
+    praiceTextField.text = "\(prodect?.price ?? 0)"
+    infoLabel.text = infoTextField.text
+    priceLabel.text = praiceTextField.text
     countLabel.text = "5"
-    brandLabel.text = brand.text
-    tayp.text = prodect?.type
+    brandLabel.text = brandTextField.text
+    taypTextField.text = prodect?.type
     ID = prodect?.id
-    self.images.removeAll()
+    self.imagesEdit.removeAll()
     if prodect?.images.count ?? 0 > 0 {
       for image in prodect!.images {
         let imageView = UIImageView()
         imageView.sd_setImage(with: URL(string: image)) { image, error,
           cache, url in
-          self.images.append(image!)
-          self.CollP3.reloadData()
+          self.imagesEdit.append(image!)
+          self.CollectionEdit.reloadData()
         }
       }
     }
-    CollP3.reloadData()
+    CollectionEdit.reloadData()
     DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
       self.prodect = nil
     }
@@ -136,11 +134,11 @@ class EditItme: UIViewController ,
     let uploadMetadata = StorageMetadata()
     uploadMetadata.contentType = "image/jpeg"
     db.collection("Prodects").document(documentID).setData([
-      "info": self.info.text! ,
-      "price": Double(self.praice.text!) ?? 0,
-      "brand": self.brand.text!,
-      "type":self.tayp.text!,
-      "count":Int(self.countItme.text!)
+      "info": self.infoTextField.text! ,
+      "price": Double(self.praiceTextField.text!) ?? 0,
+      "brand": self.brandLabel.text!,
+      "type":self.taypTextField.text!,
+      "count":Int(self.countLabel.text!)
     ], merge: true)
     var imageID = ""
     if imageID == "" {
@@ -162,7 +160,7 @@ class EditItme: UIViewController ,
       }
     }
     var imagesData = [Data]()
-    for image in images {
+    for image in imagesEdit {
       let data = image.jpegData(compressionQuality: 0.5)
       imagesData.append(data!)
     }
@@ -196,11 +194,14 @@ class EditItme: UIViewController ,
                                   style: .default,
                                   handler: { action in self.getimage(type: .camera)}))
     alert.addAction(UIAlertAction(title: "photo Library",
-                                  style: .default,handler: { action in self.getimage(type: .photoLibrary
+                                  style: .default,
+                                  handler: { action in self.getimage(type: .photoLibrary
                                   )}))
     alert.addAction(UIAlertAction(title: "cancel",
-                                  style: .cancel, handler: nil))
-    present(alert, animated: true,
+                                  style: .cancel,
+                                  handler: nil))
+    present(alert,
+            animated: true,
             completion: nil)
   }
   
@@ -248,8 +249,8 @@ extension EditItme : PHPickerViewControllerDelegate ,
         result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
           if let image = image as? UIImage {
             DispatchQueue.main.async {
-              self.images.append(image)
-              self.CollP3.reloadData()
+              self.imagesEdit.append(image)
+              self.CollectionEdit.reloadData()
               
             }
           }
@@ -261,14 +262,14 @@ extension EditItme : PHPickerViewControllerDelegate ,
   
   func pickerView(_ pickerView: UIPickerView,
                   numberOfRowsInComponent component: Int) -> Int {
-    return arryTayp.count
+    return pickerarryTayp.count
   }
   
   
   func pickerView(_ pickerView: UIPickerView,
                   titleForRow row: Int,
                   forComponent component: Int) -> String? {
-    return arryTayp[row]
+    return pickerarryTayp[row]
   }
   
   
@@ -276,7 +277,7 @@ extension EditItme : PHPickerViewControllerDelegate ,
                   didSelectRow row: Int,
                   inComponent component: Int) {
     carntindX = row
-    tayp.text = arryTayp[row]
+    taypTextField.text = pickerarryTayp[row]
   }
   
   
@@ -302,17 +303,22 @@ extension EditItme :  UICollectionViewDelegate ,
   
   func collectionView(_ collectionView: UICollectionView,
                       numberOfItemsInSection section: Int) -> Int {
-    return images.count ?? 0
+    return imagesEdit.count ?? 0
   }
   
   
   func collectionView(_ collectionView: UICollectionView,
                       cellForItemAt indexPath: IndexPath
   ) -> UICollectionViewCell {
-    let cll3 = CollP3.dequeueReusableCell(withReuseIdentifier: "P3",
-                                          for: indexPath) as! EditItmeCollectionViewCell
-    cll3.deleteButton.tag = indexPath.row
-    cll3.imgP3.image = images[indexPath.row]
-    return cll3
+    let cllEdit = CollectionEdit.dequeueReusableCell(withReuseIdentifier: "P3",
+                                                     for: indexPath) as! EditItmeCollectionViewCell
+    cllEdit.deleteButton.tag = indexPath.row
+    cllEdit.imgEdit.image = imagesEdit[indexPath.row]
+    return cllEdit
   }
+}
+
+extension EditItme :  UINavigationControllerDelegate ,
+                      UITextFieldDelegate {
+  
 }

@@ -11,13 +11,8 @@ class CollectionViewCell: UICollectionViewCell {
     
   @IBOutlet weak var img:
     UIImageView!
-
-
-  @IBOutlet weak var btinfo: UILabel!
-  
-
-  @IBOutlet weak var btPric: UILabel!
-  
-  @IBOutlet weak var dletBT: UIButton!
+  @IBOutlet weak var infoLabel: UILabel!
+  @IBOutlet weak var pricLabel: UILabel!
+  @IBOutlet weak var dletButton: UIButton!
   
 }

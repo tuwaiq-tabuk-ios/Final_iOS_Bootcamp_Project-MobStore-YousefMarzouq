@@ -12,7 +12,7 @@
 		CA16C1152768B149000EC012 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA16C1142768B149000EC012 /* Assets.xcassets */; };
 		CA16C1182768B149000EC012 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA16C1162768B149000EC012 /* LaunchScreen.storyboard */; };
 		CA16C1232768B18D000EC012 /* DisplayProductsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA16C1202768B18D000EC012 /* DisplayProductsVC.swift */; };
-		CA16C1242768B18D000EC012 /* BrandVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA16C1212768B18D000EC012 /* BrandVC.swift */; };
+		CA16C1242768B18D000EC012 /* BrandShoallVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA16C1212768B18D000EC012 /* BrandShoallVC.swift */; };
 		CA16C1252768B18D000EC012 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA16C1222768B18D000EC012 /* HomeVC.swift */; };
 		CA16C12A2768B192000EC012 /* BrandShowAllCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA16C1282768B192000EC012 /* BrandShowAllCVCell.swift */; };
 		CA16C1372768B19F000EC012 /* ProductsCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA16C1322768B19F000EC012 /* ProductsCVCell.swift */; };
@@ -60,7 +60,7 @@
 		CA16C1172768B149000EC012 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CA16C1192768B149000EC012 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA16C1202768B18D000EC012 /* DisplayProductsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayProductsVC.swift; sourceTree = "<group>"; };
-		CA16C1212768B18D000EC012 /* BrandVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandVC.swift; sourceTree = "<group>"; };
+		CA16C1212768B18D000EC012 /* BrandShoallVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandShoallVC.swift; sourceTree = "<group>"; };
 		CA16C1222768B18D000EC012 /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		CA16C1282768B192000EC012 /* BrandShowAllCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandShowAllCVCell.swift; sourceTree = "<group>"; };
 		CA16C1322768B19F000EC012 /* ProductsCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsCVCell.swift; sourceTree = "<group>"; };
@@ -207,7 +207,7 @@
 		CA5F1C7027787E5E00E8DF4E /* Brand */ = {
 			isa = PBXGroup;
 			children = (
-				CA16C1212768B18D000EC012 /* BrandVC.swift */,
+				CA16C1212768B18D000EC012 /* BrandShoallVC.swift */,
 				CA16C14D2769D42C000EC012 /* BrandHeadersCVCell.swift */,
 				CA16C1282768B192000EC012 /* BrandShowAllCVCell.swift */,
 				CA16C13C2768B1B4000EC012 /* BrandVCCell.swift */,
@@ -335,7 +335,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CA16C1032768B147000EC012 /* Build configuration list for PBXProject "finshdproject" */;
+			buildConfigurationList = CA16C1032768B147000EC012 /* Build configuration list for PBXProject "MobStore" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -392,7 +392,7 @@
 				CA01B6DD2781D07F0022439D /* CardViewController.swift in Sources */,
 				CA16C12A2768B192000EC012 /* BrandShowAllCVCell.swift in Sources */,
 				CA16C1442768B1B4000EC012 /* BrandVCCell.swift in Sources */,
-				CA16C1242768B18D000EC012 /* BrandVC.swift in Sources */,
+				CA16C1242768B18D000EC012 /* BrandShoallVC.swift in Sources */,
 				CA226EFB277491E10035FF6D /* likeCollectionVCell.swift in Sources */,
 				CA226EFD277491FC0035FF6D /* LikeVC.swift in Sources */,
 				CA9613F4276EA4E900386935 /* SingUpVC.swift in Sources */,
@@ -594,7 +594,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CA16C1032768B147000EC012 /* Build configuration list for PBXProject "finshdproject" */ = {
+		CA16C1032768B147000EC012 /* Build configuration list for PBXProject "MobStore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CA16C11A2768B149000EC012 /* Debug */,

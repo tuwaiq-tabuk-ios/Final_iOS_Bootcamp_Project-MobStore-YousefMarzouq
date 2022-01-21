@@ -10,20 +10,19 @@ import SDWebImage
 import Firebase
 
 
-class PurchaseInformationVC: UIViewController ,
-                             UITableViewDataSource,
-                             UITableViewDelegate {
+class PurchaseInformationVC: UIViewController
+{
   
- 
+  
   // MARK: - Properties
   
-  var arri3:[Cart]!
+  var customerrequests:[Cart]!
   var totlprice:Double = 0
   var billingAddress : [Double] = [Double]()
   var shippingAddress : [Double] = [Double]()
   
   
-  let data1 : [purchase] = [
+  let customerinformation : [purchase] = [
     purchase(labul: "Shipping Address",
              button: "Selection"),
     purchase(labul: "billing address",
@@ -50,7 +49,7 @@ class PurchaseInformationVC: UIViewController ,
     let button : String
   }
   
-
+  
   
   // MARK: - Life Cycle
   
@@ -66,7 +65,7 @@ class PurchaseInformationVC: UIViewController ,
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    for prodct in arri3 {
+    for prodct in customerrequests {
       totlprice +=  Double(prodct.count) * Double(prodct.product.price)
       subTotalLabel.text = "\(totlprice)"
       taxLabel.text = "\(totlprice * 0.15)"
@@ -104,10 +103,46 @@ class PurchaseInformationVC: UIViewController ,
   // MARK: - IBAction
   
   @IBAction func comfirmButtonPreased(_ sender: UIButton) {
+    if billingAddress.count == 0 {
+      let alert =  UIAlertController (title: "billingAddress",
+                                      message: "Please select a location", preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "Open",
+                                    style: .default,
+                                    handler: { UIAlertAction in
+        let storyboard = UIStoryboard(name: "Main",
+                                      bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "billingAddress")
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc,
+                     animated: true)      }))
+      
+      self.present(alert, animated: true)
+      return
+      
+    }
     
-   
+    if shippingAddress.count == 0 {
+      let alert =  UIAlertController (title: "shippingAddress",
+                                      message: "Please select a location",
+                                      preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Open",
+                                    style: .default,
+                                    handler: { UIAlertAction in
+        let storyboard = UIStoryboard(name: "Main",
+                                      bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ShippingAddress")
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc,
+                     animated: true)
+      }))
+      
+      self.present(alert, animated: true)
+      return
+    }
+    
     var array = [[String:Any]]()
-    for cart in arri3 {
+    for cart in customerrequests {
       array.append(["count" : cart.count,
                     "id":cart.product.id])
     }
@@ -146,16 +181,21 @@ class PurchaseInformationVC: UIViewController ,
           guard error == nil else {
             return
           }
-          for cart in self.arri3 {
+          for cart in self.customerrequests {
             db.collection("users").document(userID).collection("Carts").document(cart.product.id).delete()
           }
-          let alert =  UIAlertController (title: "Congrats", message: "We have received your order, thank you", preferredStyle: .alert)
+          let alert =  UIAlertController (title: "Congrats",
+                                          message: "We have received your order, thank you",
+                                          preferredStyle: .alert)
           
-          alert.addAction(UIAlertAction(title: "Thanks", style: .default,handler: { UIAlertAction in
+          alert.addAction(UIAlertAction(title: "Thanks",
+                                        style: .default,
+                                        handler: { UIAlertAction in
             self.navigationController?.popViewController(animated: true)
           }))
           
-          self.present(alert, animated: true)
+          self.present(alert,
+                       animated: true)
           
         }
       }
@@ -197,15 +237,15 @@ class PurchaseInformationVC: UIViewController ,
     guard let userID = Auth.auth().currentUser?.uid else {
       return
     }
-    db.collection("users").document(userID).collection("Carts").document(arri3[index].product.id).delete()
-
-    totlprice -= Double(arri3[index].count) * Double(arri3[index].product.price)
+    db.collection("users").document(userID).collection("Carts").document(customerrequests[index].product.id).delete()
+    
+    totlprice -= Double(customerrequests[index].count) * Double(customerrequests[index].product.price)
     subTotalLabel.text = "\(totlprice)"
     taxLabel.text = "\(totlprice * 0.15)"
     deliveryLabel.text = "20"
     let sum = Double(taxLabel.text!)! + Double(deliveryLabel.text!)!
     totalLabel.text = "\( sum + totlprice)"
-    arri3.remove(at: index)
+    customerrequests.remove(at: index)
     cllColleViewPInfo.reloadData()
   }
   
@@ -214,17 +254,73 @@ class PurchaseInformationVC: UIViewController ,
   }
   
   
+  
+  
+  @objc
+  func prssd (sender:UIButton){
+    print("pressd inDix \(sender.tag)")
+    
+  }
+}
+
+
+// MARK: - extensionCollectionView
+
+extension PurchaseInformationVC: UICollectionViewDelegate,
+                                 UICollectionViewDataSource {
+  
+  
+  // MARK: - functions collectionView
+  
+  
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return customerrequests.count
+  }
+  
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cll1 = collectionView.dequeueReusableCell(withReuseIdentifier: "CCll", for: indexPath) as! PurchaseInformationCellVC
+    let animatedImage = SDAnimatedImage(contentsOfFile: "\(Bundle.main.bundlePath)/Loader1.gif")
+    cll1.imageCellPurchase.sd_setImage(with: URL(string: customerrequests[indexPath.row].product.image),
+                                       placeholderImage:animatedImage)
+    cll1.infoPurchase.text =  customerrequests[indexPath.row].product.info
+    cll1.praicPurchase.text = "\(customerrequests[indexPath.row].product.price) SR"
+    return cll1
+  }
+  
+  // MARK: - IBAction
+  @IBAction func rmoveCollch(_ sender: UIButton) {
+    
+  }
+  
+  
+  @IBAction func addToLike(_ sender: UIButton) {
+  }
+}
+
+
+
+// MARK: - extensionTableView
+
+
+extension PurchaseInformationVC: UITableViewDataSource,
+                                 UITableViewDelegate {
+  
+  
+  // MARK: - functionsTableView
+  
+  
   func tableView(_ tableView: UITableView,
                  numberOfRowsInSection section: Int
   ) -> Int {
-    return data1.count
+    return customerinformation.count
   }
   
   
   func tableView(_ tableView: UITableView,
                  cellForRowAt indexPath: IndexPath
   ) -> UITableViewCell {
-    let sunde = data1[indexPath.row]
+    let sunde = customerinformation[indexPath.row]
     let cll = tableView.dequeueReusableCell(withIdentifier: "TCll",for: indexPath) as! PurchaseInformationCellVCTablewCell
     cll .label.text = sunde.labul
     cll.button.tag = indexPath.row
@@ -236,51 +332,4 @@ class PurchaseInformationVC: UIViewController ,
     return cll
   }
   
-  
-  @objc
-  func prssd (sender:UIButton){
-    print("pressd inDix \(sender.tag)")
-    
-  }
-}
-
-
-// MARK: - extension
-
-extension PurchaseInformationVC: UICollectionViewDelegate,
-                                 UICollectionViewDataSource {
-  
-  
-  
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return arri3.count
-  }
-  
-  
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cll1 = collectionView.dequeueReusableCell(withReuseIdentifier: "CCll", for: indexPath) as! PurchaseInformationCellVC
-    let animatedImage = SDAnimatedImage(contentsOfFile: "\(Bundle.main.bundlePath)/Loader1.gif")
-    cll1.imageCellPurchase.sd_setImage(with: URL(string: arri3[indexPath.row].product.image),
-                                       placeholderImage:animatedImage)
-    cll1.infoPurchase.text =  arri3[indexPath.row].product.info
-    cll1.praicPurchase.text = "\(arri3[indexPath.row].product.price) SR"
-    return cll1
-  }
-  
-  // MARK: - IBAction
-  @IBAction func rmoveCollch(_ sender: UIButton) {
-    
-    /*
-     let index = sendrt.tag
-     Carts => Prodects
-     auth.uid => ARRAY_NAME[index].id
-     
-     */
-    
-    //db.collection("Carts").document(auth.uid).delete()
-  }
-  
-  
-  @IBAction func addToLike(_ sender: UIButton) {
-  }
 }

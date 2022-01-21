@@ -12,26 +12,23 @@ import SDWebImage
 
 
 
-class HomeVC: UIViewController,
-              UICollectionViewDelegate,
-              UICollectionViewDataSource ,
-              UICollectionViewDelegateFlowLayout {
+class HomeVC: UIViewController {
   
   
   // MARK: - Properties
   
-  var arrayProdects:[Product] = products
-  var arrayOffers:[Product] = []
+  var homeProdects:[Product] = products
+  var homeProdectsInOffer:[Product] = []
   var selectedBrand:String!
   var selectedPreodect:Product!
   var timer:Timer?
-  var crandcellIndix = 0
-  var dataCollection: CollectionReference!
+  var currentCellIndix = 0
+  var fbCollection: CollectionReference!
   
   var arrayProducPhotos = [UIImage(named: "iPhone12ProMax_Header"),
-                         UIImage(named: "Xiaomi_Header"),]
-
-  var arrayProducBrand: [Brand] = [
+                           UIImage(named: "Xiaomi_Header"),]
+  
+  var brandOuter: [Brand] = [
     Brand(image: UIImage(named: "Apple_Brand")!,
           name: "Apple"),
     Brand(image: UIImage(named: "Huawei_Brand")!,
@@ -44,7 +41,8 @@ class HomeVC: UIViewController,
           name: "Nokia"),
     Brand(image: UIImage(named: "Itel_Brand")!,
           name: "Itel"),
-    Brand(image: UIImage(named: "Lenovo_Brand")!, name: "Lenovo"),
+    Brand(image: UIImage(named: "Lenovo_Brand")!,
+          name: "Lenovo"),
     Brand(image: UIImage(named: "Oppo_Brand")!,
           name: "Oppo"),
     Brand(image: UIImage(named: "Samsung_Brand")!,
@@ -62,7 +60,7 @@ class HomeVC: UIViewController,
   @IBOutlet weak var brandCollectionView2: UICollectionView!
   
   
-  // MARK: - Life Cycle
+  // MARK: - View cohntroller Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -71,7 +69,7 @@ class HomeVC: UIViewController,
     collectionView.delegate = self
     collectionView.dataSource = self
     let db = Firestore.firestore()
-    dataCollection = db.collection("Prodects")
+    fbCollection = db.collection("Prodects")
     getData()
     startTimer()
   }
@@ -81,7 +79,7 @@ class HomeVC: UIViewController,
   // MARK: - functions
   
   func getData() {
-    dataCollection.addSnapshotListener { snapshot, error in
+    fbCollection.addSnapshotListener { snapshot, error in
       if error != nil {
         print("Error: \(error?.localizedDescription ?? "")")
       } else {
@@ -99,19 +97,19 @@ class HomeVC: UIViewController,
                                    images: data["images"] as! Array,
                                    isFavorite: data["isFavorite"] as! Bool))
         }
-        self.arrayProdects = Product.getProducts()
-        self.arrayOffers.removeAll()
-        self.arrayProdects.forEach { Prodectse in
+        self.homeProdects = Product.getProducts()
+        self.homeProdectsInOffer.removeAll()
+        self.homeProdects.forEach { Prodectse in
           if (Prodectse.Offers) {
-            self.arrayOffers.append(Product(id: Prodectse.id,
-                                          image: Prodectse.image,
-                                          info: Prodectse.info,
-                                          price: Prodectse.price,
-                                          brand: Prodectse.brand,
-                                          type: Prodectse.type,
-                                          Offers: Prodectse.Offers,
-                                          images: Prodectse.images,
-                                          isFavorite: Prodectse.isFavorite))
+            self.homeProdectsInOffer.append(Product(id: Prodectse.id,
+                                            image: Prodectse.image,
+                                            info: Prodectse.info,
+                                            price: Prodectse.price,
+                                            brand: Prodectse.brand,
+                                            type: Prodectse.type,
+                                            Offers: Prodectse.Offers,
+                                            images: Prodectse.images,
+                                            isFavorite: Prodectse.isFavorite))
           }
         }
         self.brandCollectionView2.reloadData()
@@ -130,14 +128,87 @@ class HomeVC: UIViewController,
   
   
   @objc func moveToNextIndix () {
-    if crandcellIndix < arrayProducPhotos.count - 1 {
-      crandcellIndix += 1
+    if currentCellIndix < arrayProducPhotos.count - 1 {
+      currentCellIndix += 1
     }else {
-      crandcellIndix = 0
+      currentCellIndix = 0
     }
-    collectionView.scrollToItem(at: IndexPath(item: crandcellIndix,
+    collectionView.scrollToItem(at: IndexPath(item: currentCellIndix,
                                               section: 0), at: .centeredHorizontally,
-                                                                  animated: true)  }
+                                animated: true)  }
+
+  
+  override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
+    switch segue.identifier {
+    case "showPhone":
+      if let vc = segue.destination as? DisplayProductsVC {
+        vc.arrayAllPhone = homeProdects
+        vc.selectedType = "Phone"
+        vc.page = "Type"
+        vc.selectedBrand = ""
+        
+      }
+    case "showTablet":
+      if let vc = segue.destination as? DisplayProductsVC {
+        vc.arrayAllPhone = homeProdects
+        vc.selectedType = "Tablet"
+        vc.page = "Type"
+        vc.selectedBrand = ""
+      }
+      
+    case "showAccessories":
+      if let vc = segue.destination as? DisplayProductsVC {
+        vc.arrayAllPhone = homeProdects
+        vc.selectedType = "Accessories"
+        vc.page = "Type"
+        vc.selectedBrand = ""
+      }
+      
+    case "showCardGame":
+      if let vc = segue.destination as? DisplayProductsVC {
+        vc.arrayAllPhone = homeProdects
+        vc.selectedType = "CardGame"
+        vc.page = "Type"
+        vc.selectedBrand = ""
+      }
+      
+    case "showProdect1":
+      if let vc = segue.destination as? DisplayProductsVC {
+        vc.arrayAllPhone = homeProdects
+        vc.selectedType = ""
+        vc.page = "Brand"
+        vc.selectedBrand = selectedBrand
+      }
+      
+    case "arrProducPhotos2":
+      if let vc = segue.destination as? DisplayProductsVC {
+        vc.arrayAllPhone = homeProdectsInOffer
+        vc.selectedType = ""
+        vc.page = "ALL"
+        vc.selectedBrand = ""
+      }
+      
+    case "showDeatil2":
+      if let vc = segue.destination as? EndTransactionVC {
+        vc.carts = selectedPreodect
+      }
+      
+    default:
+      print("default")
+    }
+  }
+}
+
+
+// MARK: - extensionCollectionView
+
+
+extension HomeVC: UICollectionViewDelegate,
+                  UICollectionViewDataSource,
+                  UICollectionViewDelegateFlowLayout {
+  
+  
+  // MARK: - functions collectionView
   
   
   func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -151,15 +222,15 @@ class HomeVC: UIViewController,
     if (collectionView == brandCollectionView) {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "brandCell",
                                                     for: indexPath ) as! BrandShowAllCVCell
-      cell.brandImagee.image = arrayProducBrand[indexPath.row].image
+      cell.brandImagee.image = brandOuter[indexPath.row].image
       
       return cell
     } else if (collectionView == brandCollectionView2) {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "prodectCell",
                                                     for: indexPath ) as! ProductsCVCell
-      cell.Setupcell(photo: arrayOffers[indexPath.row].image,
-                     price: arrayOffers[indexPath.row].price,
-                     DisCrbsion: arrayOffers[indexPath.row].info)
+      cell.Setupcell(photo: homeProdectsInOffer[indexPath.row].image,
+                     price: homeProdectsInOffer[indexPath.row].price,
+                     DisCrbsion: homeProdectsInOffer[indexPath.row].info)
       return cell
     } else {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCollectionViewCell",
@@ -183,7 +254,8 @@ class HomeVC: UIViewController,
   
   
   func collectionView(_ collectionView: UICollectionView,
-                      layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+                      layout collectionViewLayout: UICollectionViewLayout,
+                      minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     if (collectionView == brandCollectionView){
       return 30
     } else if (collectionView == brandCollectionView2){
@@ -198,9 +270,9 @@ class HomeVC: UIViewController,
                       numberOfItemsInSection section: Int
   ) -> Int {
     if (collectionView == brandCollectionView) {
-      return arrayProducBrand.count
+      return brandOuter.count
     }else  if (collectionView == brandCollectionView2) {
-      return arrayOffers.count
+      return homeProdectsInOffer.count
     } else {
       return arrayProducPhotos.count
     }
@@ -251,75 +323,13 @@ class HomeVC: UIViewController,
   func collectionView(_ collectionView: UICollectionView,
                       shouldSelectItemAt indexPath: IndexPath) -> Bool {
     if (collectionView == brandCollectionView){
-      selectedBrand = arrayProducBrand[indexPath.row].name
+      selectedBrand = brandOuter[indexPath.row].name
     } else if (collectionView == brandCollectionView2) {
-      selectedPreodect = arrayOffers[indexPath.row]
+      selectedPreodect = homeProdectsInOffer[indexPath.row]
     }
     return true
   }
   
   
-  override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
-    switch segue.identifier {
-    case "showPhone":
-      if let vc = segue.destination as? DisplayProductsVC {
-        vc.arrayAllPhone = arrayProdects
-        vc.selectedType = "Phone"
-        vc.page = "Type"
-        vc.selectedBrand = ""
-        
-      }
-    case "showTablet":
-      if let vc = segue.destination as? DisplayProductsVC {
-        vc.arrayAllPhone = arrayProdects
-        vc.selectedType = "Tablet"
-        vc.page = "Type"
-        vc.selectedBrand = ""
-      }
-      
-    case "showAccessories":
-      if let vc = segue.destination as? DisplayProductsVC {
-        vc.arrayAllPhone = arrayProdects
-        vc.selectedType = "Accessories"
-        vc.page = "Type"
-        vc.selectedBrand = ""
-      }
-      
-    case "showCardGame":
-      if let vc = segue.destination as? DisplayProductsVC {
-        vc.arrayAllPhone = arrayProdects
-        vc.selectedType = "CardGame"
-        vc.page = "Type"
-        vc.selectedBrand = ""
-      }
-      
-    case "showProdect1":
-      if let vc = segue.destination as? DisplayProductsVC {
-        vc.arrayAllPhone = arrayProdects
-        vc.selectedType = ""
-        vc.page = "Brand"
-        vc.selectedBrand = selectedBrand
-      }
-      
-    case "arrProducPhotos2":
-      if let vc = segue.destination as? DisplayProductsVC {
-        vc.arrayAllPhone = arrayOffers
-        vc.selectedType = ""
-        vc.page = "ALL"
-        vc.selectedBrand = ""
-      }
-      
-    case "showDeatil2":
-      if let vc = segue.destination as? EndTransactionVC {
-        vc.arrayCarts = selectedPreodect
-      }
-      
-    default:
-      print("default")
-    }
-  }
 }
-
-
-
 

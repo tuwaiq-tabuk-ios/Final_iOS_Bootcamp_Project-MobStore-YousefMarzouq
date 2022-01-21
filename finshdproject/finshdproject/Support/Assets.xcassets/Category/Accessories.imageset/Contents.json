@@ -1,15 +1,16 @@
 {
   "images" : [
     {
-      "filename" : "kisspng-smartphone-samsung-galaxy-s8-moto-z-mobile-phone-a-5bc4be1bf2bf27.2093044415396203799943.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Accessories@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Accessories@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
