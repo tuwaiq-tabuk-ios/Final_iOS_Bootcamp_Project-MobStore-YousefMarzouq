@@ -62,6 +62,10 @@ class CartVC: UIViewController {
   
   // MARK: - IBAction
   
+  @IBAction func ContTobuyPreased (_ sender: UIButton) {
+    
+  }
+  
   @IBAction func rmoveItm(_ sender: UIButton) {
     let index = sender.tag
     let db = Firestore.firestore()
