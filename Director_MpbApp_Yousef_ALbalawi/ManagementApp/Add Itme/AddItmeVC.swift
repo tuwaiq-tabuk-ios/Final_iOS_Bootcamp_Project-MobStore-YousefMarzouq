@@ -10,23 +10,21 @@ import Firebase
 import PhotosUI
 
 
-class Paeg2VC: UIViewController ,
-              UINavigationControllerDelegate ,
-                  UITextFieldDelegate {
+class AddItmeVC: UIViewController  {
   
   
   // MARK: - Properties
   
-  var images:[UIImage] = [UIImage]()
+  var imagesAdd:[UIImage] = [UIImage]()
   var prodectImage = false
   var carntindX = 0
   let pickerTayp = UIPickerView()
-  var arryTayp = ["Tablet","Phone","Accessories","CardGame"]
+  var pickerarryTayp = ["Tablet","Phone","Accessories","CardGame"]
   
   
   
   // MARK: - IBOutlet
-
+  
   @IBOutlet weak var taypUITextField: UITextField!
   @IBOutlet weak var collAddItem: UICollectionView!
   @IBOutlet weak var countItmeTextField: UITextField!
@@ -41,7 +39,7 @@ class Paeg2VC: UIViewController ,
   
   
   // MARK: - Life Cycle
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -62,32 +60,32 @@ class Paeg2VC: UIViewController ,
   
   
   @objc func clus () {
-    taypUITextField.text = arryTayp[carntindX]
+    taypUITextField.text = pickerarryTayp[carntindX]
     view.endEditing(true)
   }
   
   
   // MARK: - IBAction
-
-  @IBAction func imagPage1(_ sender: UIButton) {
+  
+  @IBAction func imagHeadAdd(_ sender: UIButton) {
     prodectImage = true
     addFoto()
   }
-  @IBAction func imagsPage1(_ sender: UIButton) {
+  @IBAction func imagsArryAdd(_ sender: UIButton) {
     prodectImage = false
     addFoto()
   }
   @IBAction func deleteButtonTapped(_ sender: UIButton) {
-    images.remove(at: sender.tag)
+    imagesAdd.remove(at: sender.tag)
     collAddItem.reloadData()
   }
   @IBAction func addButtonPreased(_ sender: Any) {
     addToDatabase()
   }
-
+  
   
   // MARK: - functions
-
+  
   func addFoto() {
     let alert = UIAlertController(title: "Take Poto From",
                                   message: nil,
@@ -96,9 +94,11 @@ class Paeg2VC: UIViewController ,
                                   style: .default,
                                   handler: { action in self.getimage(type: .camera)}))
     alert.addAction(UIAlertAction(title: "photo Library",
-                                  style: .default,handler: { action in self.getimage(type: .photoLibrary)}))
+                                  style: .default,
+                                  handler: { action in self.getimage(type: .photoLibrary)}))
     alert.addAction(UIAlertAction(title: "cancel",
-                                  style: .cancel, handler: nil))
+                                  style: .cancel,
+                                  handler: nil))
     present(alert, animated: true,
             completion: nil)
   }
@@ -118,37 +118,7 @@ class Paeg2VC: UIViewController ,
     
   }
   
-  func picker(_ picker: PHPickerViewController,
-              didFinishPicking results: [PHPickerResult]) {
-    dismiss(animated: true,
-            completion: nil)
-    if prodectImage {
-      if let result = results.first, result.itemProvider.canLoadObject(ofClass: UIImage.self) {
-        result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
-          if let image = image as? UIImage {
-            
-            DispatchQueue.main.async {
-              self.productImage.image = image
-            }
-          }
-        }
-      }
-    }else {
-      for result in results {
-        result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
-          if let image = image as? UIImage {
-            DispatchQueue.main.async {
-              self.images.append(image)
-              self.collAddItem.reloadData()
-              
-            }
-          }
-        }
-      }
-    }
-  }
   
-
   override func touchesBegan(_ touches: Set<UITouch>,
                              with event: UIEvent?) {
     view.endEditing(true)
@@ -192,7 +162,7 @@ class Paeg2VC: UIViewController ,
     
     
     var imagesData = [Data]()
-    for image in images {
+    for image in imagesAdd {
       let data = image.jpegData(compressionQuality: 0.5)
       imagesData.append(data!)
     }
@@ -221,15 +191,15 @@ class Paeg2VC: UIViewController ,
 
 // MARK: - extensionCollectionView
 
-extension Paeg2VC :  UICollectionViewDelegate ,
-                     UICollectionViewDataSource {
+extension AddItmeVC :  UICollectionViewDelegate ,
+                       UICollectionViewDataSource {
   
   
   // MARK: - functionsCollectionView
-
+  
   func collectionView(_ collectionView: UICollectionView,
                       numberOfItemsInSection section: Int) -> Int {
-    return images.count}
+    return imagesAdd.count}
   
   
   func collectionView(_ collectionView: UICollectionView,
@@ -237,7 +207,7 @@ extension Paeg2VC :  UICollectionViewDelegate ,
     let cll2 = collAddItem.dequeueReusableCell(withReuseIdentifier: "P2",
                                                for: indexPath) as! P2CollectionViewCell
     cll2.deleteButton.tag = indexPath.row
-    cll2.imgP2.image = images[indexPath.row]
+    cll2.imgP2.image = imagesAdd[indexPath.row]
     return cll2
   }
 }
@@ -245,16 +215,16 @@ extension Paeg2VC :  UICollectionViewDelegate ,
 
 // MARK: - extensionPickerView
 
-extension Paeg2VC : PHPickerViewControllerDelegate ,
-                    UIPickerViewDataSource,
-                    UIPickerViewAccessibilityDelegate {
+extension AddItmeVC : PHPickerViewControllerDelegate ,
+                      UIPickerViewDataSource,
+                      UIPickerViewAccessibilityDelegate {
   
   
   // MARK: - functionsPickerView
-
+  
   func pickerView(_ pickerView: UIPickerView,
                   numberOfRowsInComponent component: Int) -> Int {
-    return arryTayp.count
+    return pickerarryTayp.count
   }
   
   
@@ -266,7 +236,7 @@ extension Paeg2VC : PHPickerViewControllerDelegate ,
   func pickerView(_ pickerView: UIPickerView,
                   titleForRow row: Int,
                   forComponent component: Int) -> String? {
-    return arryTayp[row]
+    return pickerarryTayp[row]
   }
   
   
@@ -274,6 +244,45 @@ extension Paeg2VC : PHPickerViewControllerDelegate ,
                   didSelectRow row: Int,
                   inComponent component: Int) {
     carntindX = row
-    taypUITextField.text = arryTayp[row]
+    taypUITextField.text = pickerarryTayp[row]
   }
+  
+  
+  
+  func picker(_ picker: PHPickerViewController,
+              didFinishPicking results: [PHPickerResult]) {
+    dismiss(animated: true,
+            completion: nil)
+    if prodectImage {
+      if let result = results.first, result.itemProvider.canLoadObject(ofClass: UIImage.self) {
+        result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+          if let image = image as? UIImage {
+            
+            DispatchQueue.main.async {
+              self.productImage.image = image
+            }
+          }
+        }
+      }
+    }else {
+      for result in results {
+        result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+          if let image = image as? UIImage {
+            DispatchQueue.main.async {
+              self.imagesAdd.append(image)
+              self.collAddItem.reloadData()
+              
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+extension AddItmeVC :
+  UINavigationControllerDelegate ,
+  UITextFieldDelegate {
+  
 }

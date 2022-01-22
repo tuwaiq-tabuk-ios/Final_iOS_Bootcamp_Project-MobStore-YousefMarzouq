@@ -9,6 +9,6 @@ import UIKit
 
 class EditItmeCollectionViewCell: UICollectionViewCell {
     
-  @IBOutlet weak var imgP3: UIImageView!
+  @IBOutlet weak var imgEdit: UIImageView!
   @IBOutlet weak var deleteButton: UIButton!
 }

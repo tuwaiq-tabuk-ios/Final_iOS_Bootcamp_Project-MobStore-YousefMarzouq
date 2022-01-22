@@ -1,15 +1,16 @@
 {
   "images" : [
     {
-      "filename" : "kisspng-logo-nokia-6-1-nokia-1-5-2-17-brand-5b7642eb484606.963929201534477035296.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Nokia_Brand@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Nokia_Brand@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

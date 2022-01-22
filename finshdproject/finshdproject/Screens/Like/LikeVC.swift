@@ -9,9 +9,7 @@ import UIKit
 import Firebase
 import SDWebImage
 
-class LikeVC: UIViewController,
-              UICollectionViewDelegate,
-              UICollectionViewDelegateFlowLayout {
+class LikeVC: UIViewController {
   
   
   // MARK: - Properties
@@ -61,34 +59,32 @@ class LikeVC: UIViewController,
     guard let userID = Auth.auth().currentUser?.uid else {
       return
     }
-    
-    
     db.collection("users").document(userID).collection("ProdectsFavorite").addSnapshotListener { snapsot, error in
       if error != nil {
       } else {
         self.productsLike.removeAll()
         for document in snapsot!.documents {
           let data = document.data()
-              let id = document.documentID
-              let prodects = Product(id: id,
-                                     image: data["image"] as! String,
-                                     info: data["info"] as! String,
-                                     price: data["price"] as! Double,
-                                     brand: data["brand"] as! String,
-                                     type: data["type"] as! String,
-                                     Offers: data["Offers"] as! Bool,
-                                     images: data["images"] as! Array,
-                                     isFavorite: data["isFavorite"] as! Bool)
-              if !self.productsLike.contains(where: { Prodects in
-                if Prodects.id == prodects.id {
-                  return true
-                } else {
-                  return false
-                }
-              }) {
-                self.productsLike.append(prodects)
-                self.likeCView.reloadData()
-              }
+          let id = document.documentID
+          let prodects = Product(id: id,
+                                 image: data["image"] as! String,
+                                 info: data["info"] as! String,
+                                 price: data["price"] as! Double,
+                                 brand: data["brand"] as! String,
+                                 type: data["type"] as! String,
+                                 Offers: data["Offers"] as! Bool,
+                                 images: data["images"] as! Array,
+                                 isFavorite: data["isFavorite"] as! Bool)
+          if !self.productsLike.contains(where: { Prodects in
+            if Prodects.id == prodects.id {
+              return true
+            } else {
+              return false
+            }
+          }) {
+            self.productsLike.append(prodects)
+            self.likeCView.reloadData()
+          }
         }
       }
     }
@@ -96,7 +92,6 @@ class LikeVC: UIViewController,
   
   
   func updateUI() {
-    print("~~ ggg \(self.productsLike.count)")
     if self.productsLike.count == 0 {
       self.likeImg.isHidden = false
       self.likeCView.isHidden = true
@@ -108,9 +103,14 @@ class LikeVC: UIViewController,
 }
 
 
-// MARK: - extension
+// MARK: - extensionCollectionView
 
-extension LikeVC: UICollectionViewDataSource {
+extension LikeVC: UICollectionViewDataSource ,
+                  UICollectionViewDelegate,
+                  UICollectionViewDelegateFlowLayout {
+  
+  
+  // MARK: - functionsCollectionView
   
   
   func collectionView(
@@ -121,8 +121,6 @@ extension LikeVC: UICollectionViewDataSource {
     return productsLike.count
   }
   
-  
-  // MARK: - functions
   
   func collectionView(
     _ collectionView: UICollectionView,
@@ -140,4 +138,5 @@ extension LikeVC: UICollectionViewDataSource {
     return cell
   }
 }
+
 

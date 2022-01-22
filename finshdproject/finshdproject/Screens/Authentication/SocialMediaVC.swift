@@ -31,7 +31,7 @@ class SocialMediaVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     hideKeyboardWhenTappedAround()
-    textLB.text = "Arrrrr7B Ya Men"
+    textLB.text = " Welcome to the Siri mobile app "
   }
   
   
@@ -78,13 +78,13 @@ class SocialMediaVC: UIViewController {
   }
   
   
-  @IBAction func location(_ sender: Any) {
+  @IBAction func location(_ sender: UIButton) {
+    let myWebsite = URL(string: "https://goo.gl/maps/74WLP7MuauCc4yNK8")
+    UIApplication.shared.openURL(myWebsite!)
   }
   
   
-  @IBAction func myrequests(_ sender: Any) {
-  }
-  
+
   
   @IBAction func singUPPassword(_ sender: Any) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)

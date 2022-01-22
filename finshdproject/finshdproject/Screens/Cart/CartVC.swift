@@ -9,9 +9,7 @@ import UIKit
 import Firebase
 import Metal
 
-class CartVC: UIViewController,
-              UICollectionViewDelegate,
-              UICollectionViewDataSource {
+class CartVC: UIViewController {
   
   // MARK: - Properties
   
@@ -38,6 +36,8 @@ class CartVC: UIViewController,
     super.viewDidLoad()
     shoppingCart.delegate = self
     shoppingCart.dataSource = self
+    
+    
   }
   
   
@@ -49,17 +49,22 @@ class CartVC: UIViewController,
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     getData()
+    updateUI()
   }
   
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let vc = segue.destination as? PurchaseInformationVC {
-      vc.arri3 = arrayShoppingcart
+      vc.customerrequests = arrayShoppingcart
     }
   }
   
   
   // MARK: - IBAction
+  
+  @IBAction func ContTobuyPreased (_ sender: UIButton) {
+    
+  }
   
   @IBAction func rmoveItm(_ sender: UIButton) {
     let index = sender.tag
@@ -68,7 +73,7 @@ class CartVC: UIViewController,
       return
     }
     
- db.collection("users").document(userID).collection("Carts").document(arrayShoppingcart[index].product.id).delete()
+    db.collection("users").document(userID).collection("Carts").document(arrayShoppingcart[index].product.id).delete()
     
     self.totlprice -= Double(self.arrayShoppingcart[index].count) * Double(self.arrayShoppingcart[index].product.price)
     self.totalPraic.text = "\(self.totlprice)"
@@ -77,10 +82,7 @@ class CartVC: UIViewController,
     
   }
   
-  
-  @IBAction func ContTobuyPreased (_ sender: UIButton) {
-    
-  }
+
   
   @IBAction func pluseButtonmPreased(_ sender: UIButton) {
     let cell = shoppingCart!.cellForItem(at: IndexPath(row: sender.tag, section: 0)) as! CartCollectionVCell
@@ -108,6 +110,22 @@ class CartVC: UIViewController,
   
   // MARK: - functions
   
+  func updateUI() {
+    if self.arrayShoppingcart.count == 0 {
+      Checkout.isHidden = true
+      totalsummation.isHidden = true
+      shoppingCart.isHidden = true
+      totalPraic.isHidden = true
+      heartpicture.isHidden = false
+    } else {
+      Checkout.isHidden = false
+      totalsummation.isHidden = false
+      shoppingCart.isHidden = false
+      totalPraic.isHidden = false
+      heartpicture.isHidden = true
+    }
+  }
+  
   func getData() {
     let db = Firestore.firestore()
     
@@ -126,7 +144,7 @@ class CartVC: UIViewController,
         self.totalPraic.text = "\(self.totlprice)"
         self.arrayShoppingcart.removeAll()
         for snapsot in document {
-
+          
           let data = snapsot.data()
           
           let prodect = Product(id: data["id"] as! String,
@@ -148,13 +166,23 @@ class CartVC: UIViewController,
       }
     }
   }
+}
+
+
+// MARK: - extensionCollectionView
+
+
+extension CartVC : UICollectionViewDelegate,
+                   UICollectionViewDataSource {
+  
+  
+  // MARK: - functions collectionView
   
   
   func collectionView(_ collectionView: UICollectionView,
                       numberOfItemsInSection section: Int) -> Int {
     return arrayShoppingcart.count
   }
-  
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CaSho", for: indexPath) as! CartCollectionVCell
@@ -167,11 +195,5 @@ class CartVC: UIViewController,
     cell.labelDitels.text = arrayShoppingcart[indexPath.row].product.info
     cell.labelPricShoCr.text = "\(arrayShoppingcart[indexPath.row].product.price)"
     return cell
-  }
-  
-  
-  func collectionView(_ collectionView: UICollectionView,
-                      shouldSelectItemAt indexPath: IndexPath) -> Bool {
-    return true
   }
 }

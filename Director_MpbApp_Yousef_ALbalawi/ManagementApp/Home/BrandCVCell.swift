@@ -10,7 +10,7 @@ import UIKit
 class BrandCollectionViewCell: UICollectionViewCell {
   
 
-  @IBOutlet weak var brand: UILabel!
+  @IBOutlet weak var brandLabel: UILabel!
   
   
 }

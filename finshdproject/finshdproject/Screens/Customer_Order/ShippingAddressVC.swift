@@ -50,7 +50,8 @@ class ShippingAddressVC: UIViewController ,
   @IBAction func selectionButtonPreased(_ sender: UIButton) {
     let latitude = manger.location!.coordinate.latitude
     let longitude = manger.location!.coordinate.longitude
-    NotificationCenter.default.post(name: Notification.Name("shippingAddress"), object: nil, userInfo: ["latitude":Double(latitude), "longitude":Double(longitude)])
+    NotificationCenter.default.post(name: Notification.Name("shippingAddress"),
+                                    object: nil, userInfo: ["latitude":Double(latitude), "longitude":Double(longitude)])
     ciusBT("")
   }
   

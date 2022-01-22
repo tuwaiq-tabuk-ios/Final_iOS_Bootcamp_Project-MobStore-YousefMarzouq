@@ -8,69 +8,33 @@
 import UIKit
 import Firebase
 
-class Page5VC: UIViewController,
-               UICollectionViewDelegate,
-               UICollectionViewDataSource {
+class CustomerOrderS: UIViewController {
   
   
   // MARK: - Properties
   
   var DocumentReference: CollectionReference!
-  var arrayOrderS : [Order] = [Order]()
+  var customerOrderS : [Order] = [Order]()
   var selectedOrder:Order!
   
   // MARK: - IBOutlet
   
-  @IBOutlet weak var collectionPage5: UICollectionView!
+  @IBOutlet weak var collectionCustomerOrderS: UICollectionView!
   
   
   // MARK: - Life Cycle
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    collectionPage5.delegate = self
-    collectionPage5.dataSource = self
+    collectionCustomerOrderS.delegate = self
+    collectionCustomerOrderS.dataSource = self
     getData()
   }
-
+  
   
   // MARK: - functions
+
   
-  func collectionView(_ collectionView: UICollectionView,
-                      numberOfItemsInSection section: Int) -> Int {
-    return arrayOrderS.count
-  }
-  
-  
-  func collectionView(_ collectionView: UICollectionView,
-                      cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cll = collectionPage5.dequeueReusableCell(withReuseIdentifier: "collectionPage5", for: indexPath) as! Page5CollectionViewCell
-    cll.imgItm5.sd_setImage(with: URL(string: arrayOrderS[indexPath.row].orders[0].product.image))
-    cll.loucitonCoustmer.text = "\(arrayOrderS[indexPath.row].billingAddress[0]) \(arrayOrderS[indexPath.row].billingAddress[1])"
-    cll.namburPhone.text = arrayOrderS [indexPath.row].customerPhone
-    cll.nameCastmer.text = arrayOrderS[indexPath.row].customerName
-    cll.nameOFitme.text =  arrayOrderS[indexPath.row].orders[indexPath.row].product.info
-    cll.praicOFitme.text = "\(arrayOrderS[indexPath.row].totalAmount) SR"
-    return cll
-  }
-  
-  
-  func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-    selectedOrder = arrayOrderS[indexPath.row]
-    return true
-  }
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    switch segue.identifier {
-    case "showOrders":
-        
-      if let vc = segue.destination as? OrderVC {
-        vc.order = selectedOrder
-      }
-    default:
-      print("else")
-    }
-  }
   
   func getData() {
     let db = Firestore.firestore()
@@ -78,9 +42,9 @@ class Page5VC: UIViewController,
     DocumentReference.addSnapshotListener { snapshot, error in
       if error != nil {
       } else {
-        self.arrayOrderS.removeAll()
-        self.collectionPage5.reloadData()
-
+        self.customerOrderS.removeAll()
+        self.collectionCustomerOrderS.reloadData()
+        
         for document in snapshot!.documents {
           let data = document.data()
           if document.documentID != "ordersCount" {
@@ -126,14 +90,68 @@ class Page5VC: UIViewController,
                                      shippingAddress: data["shippingAddress"] as! Array,
                                      totalAmount:data["totalAmount"] as! String,
                                      orders:carts)
-                self.arrayOrderS.append(products)
-                print(self.arrayOrderS[0].orders[0].product.info)
-                self.collectionPage5.reloadData()
+                self.customerOrderS.append(products)
+                print(self.customerOrderS[0].orders[0].product.info)
+                self.collectionCustomerOrderS.reloadData()
               }
             }
           }
         }
       }
+    }
+  }
+}
+
+
+// MARK: - extensionCollectionView
+
+
+extension CustomerOrderS : UICollectionViewDelegate,
+                           UICollectionViewDataSource {
+  
+  
+  // MARK: - functionscollectionView
+  
+  
+  func collectionView(_ collectionView: UICollectionView,
+                      numberOfItemsInSection section: Int) -> Int {
+    return customerOrderS.count
+  }
+  
+  
+  func collectionView(_ collectionView: UICollectionView,
+                      cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cll = collectionCustomerOrderS.dequeueReusableCell(withReuseIdentifier: "collectionPage5", for: indexPath) as! Page5CollectionViewCell
+    cll.imgItm.sd_setImage(with: URL(string: customerOrderS[indexPath.row].orders[0].product.image))
+    
+    cll.loucitonCoustmer.text = "\(customerOrderS[indexPath.row].billingAddress[0]) \(customerOrderS[indexPath.row].billingAddress[1])"
+    
+    
+    
+    cll.namburPhone.text = customerOrderS [indexPath.row].customerPhone
+    cll.nameCastmer.text = customerOrderS[indexPath.row].customerName
+    cll.nameOFitme.text =  customerOrderS[indexPath.row].orders[0].product.info
+    cll.praicOFitme.text = "\(customerOrderS[indexPath.row].totalAmount) SR"
+    return cll
+  }
+  
+  
+  func collectionView(_ collectionView: UICollectionView,
+                      shouldSelectItemAt indexPath: IndexPath) -> Bool {
+    selectedOrder = customerOrderS[indexPath.row]
+    return true
+  }
+  
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    switch segue.identifier {
+    case "showOrders":
+      
+      if let vc = segue.destination as? OrderVC {
+        vc.order = selectedOrder
+      }
+    default:
+      print("else")
     }
   }
 }

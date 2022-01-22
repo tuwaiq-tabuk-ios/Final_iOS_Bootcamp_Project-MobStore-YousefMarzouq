@@ -1,15 +1,16 @@
 {
   "images" : [
     {
-      "filename" : "pngegg-4.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Card_Game@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Card_Game@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

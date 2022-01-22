@@ -9,14 +9,12 @@ import UIKit
 import Firebase
 import SDWebImage
 
-class ViewController: UIViewController ,
-                      UICollectionViewDelegate,
-                      UICollectionViewDataSource {
+class HomeVC: UIViewController {
   
   
   
-  @IBOutlet weak var collall: UICollectionView!
-  @IBOutlet weak var brandColl: UICollectionView!
+  @IBOutlet weak var collectionHome: UICollectionView!
+  @IBOutlet weak var collectionBrand: UICollectionView!
   
   
   var dataCollection:CollectionReference!
@@ -30,10 +28,10 @@ class ViewController: UIViewController ,
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    collall.delegate = self
-    collall.dataSource = self
-    brandColl.delegate = self
-    brandColl.dataSource = self
+    collectionHome.delegate = self
+    collectionHome.dataSource = self
+    collectionBrand.delegate = self
+    collectionBrand.dataSource = self
     filterData = arrProdects
     let db = Firestore.firestore()
     dataCollection = db.collection("Prodects")
@@ -52,7 +50,7 @@ class ViewController: UIViewController ,
     let db = Firestore.firestore()
     db.collection("Prodects").document(filterData[index].id).delete()
     filterData.remove(at: ind!)
-    collall.reloadData()
+    collectionHome.reloadData()
   }
   
   
@@ -84,50 +82,51 @@ class ViewController: UIViewController ,
           }
           self.filterData = self.arrProdects
         }
-        self.collall.reloadData()
-        self.brandColl.reloadData()
+        self.collectionHome.reloadData()
+        self.collectionBrand.reloadData()
       }
     }
   }
+}
+
+
+// MARK: - extensionCollectionView
+
+
+extension HomeVC : UICollectionViewDelegate,
+                   UICollectionViewDataSource {
   
   
-  func collectionView(_ collectionView: UICollectionView,
-                      numberOfItemsInSection section: Int) -> Int {
-    if collectionView == brandColl {
-      return arrBrand.count
-    } else {
-      return filterData.count
-    }
-  }
-  
+  // MARK: - functionsCollectionView
   func collectionView(_ collectionView: UICollectionView,
                       cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    if collectionView == collall {
-      let cll = collall.dequeueReusableCell(withReuseIdentifier: "collall",
-                                            for: indexPath) as! CollectionViewCell
+    if collectionView == collectionHome {
+      let cll = collectionHome.dequeueReusableCell(withReuseIdentifier: "collall",
+                                                   for: indexPath) as! CollectionViewCell
       if filterData.count != 0 {
         cll.img.sd_setImage(with: URL(string: filterData[indexPath.row].image),
                             placeholderImage: UIImage(named: ""))
-        cll.btinfo.text = filterData[indexPath.row].info
-        cll.btPric.text = "\(filterData[indexPath.row].price) SR"
-        cll.dletBT.tag = indexPath.row
+        cll.infoLabel.text = filterData[indexPath.row].info
+        cll.pricLabel.text = "\(filterData[indexPath.row].price) SR"
+        cll.dletButton.tag = indexPath.row
       } else {
         cll.img.sd_setImage(with: URL(string: arrProdects[indexPath.row].image),
                             placeholderImage: UIImage(named: ""))
-        cll.btinfo.text = arrProdects[indexPath.row].info
-        cll.btPric.text = "\(arrProdects[indexPath.row].price) SR"
+        cll.infoLabel.text = arrProdects[indexPath.row].info
+        cll.pricLabel.text = "\(arrProdects[indexPath.row].price) SR"
       }
       return cll
     } else {
-      let cll = brandColl.dequeueReusableCell(withReuseIdentifier: "brandColl", for: indexPath) as! BrandCollectionViewCell
-      cll.brand.text = arrBrand[indexPath.row]
+      let cll = collectionBrand.dequeueReusableCell(withReuseIdentifier: "brandColl", for: indexPath) as! BrandCollectionViewCell
+      cll.brandLabel.text = arrBrand[indexPath.row]
       return cll
     }
   }
   
+  
   func collectionView(_ collectionView: UICollectionView,
                       shouldSelectItemAt indexPath: IndexPath) -> Bool {
-    if collectionView == collall {
+    if collectionView == collectionHome {
       selectedPreodect = filterData[indexPath.row]
       var editVC = EditItme()
       if let arrController = self.tabBarController?.viewControllers {
@@ -149,10 +148,19 @@ class ViewController: UIViewController ,
       } else {
         filterData = arrProdects
       }
-      self.collall.reloadData()
+      self.collectionHome.reloadData()
       print("~~ \(filterData.count)")
     }
     return true
   }
+  
+  
+  func collectionView(_ collectionView: UICollectionView,
+                      numberOfItemsInSection section: Int) -> Int {
+    if collectionHome == collectionBrand {
+      return arrBrand.count
+    } else {
+      return filterData.count
+    }
+  }
 }
-
