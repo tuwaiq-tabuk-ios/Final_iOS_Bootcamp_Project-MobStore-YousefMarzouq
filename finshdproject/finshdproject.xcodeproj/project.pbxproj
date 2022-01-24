@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B28E8B2279C4EA6008D147B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B28E8B1279C4EA6008D147B /* Constants.swift */; };
 		CA01B6DD2781D07F0022439D /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA01B6DC2781D07F0022439D /* CardViewController.swift */; };
 		CA16C1132768B147000EC012 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA16C1112768B147000EC012 /* Main.storyboard */; };
 		CA16C1152768B149000EC012 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA16C1142768B149000EC012 /* Assets.xcassets */; };
@@ -53,6 +54,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B28E8B1279C4EA6008D147B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CA01B6DC2781D07F0022439D /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		CA16C1082768B147000EC012 /* finshdproject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = finshdproject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA16C1122768B147000EC012 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 		CA16C14D2769D42C000EC012 /* BrandHeadersCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandHeadersCVCell.swift; sourceTree = "<group>"; };
 		CA226EFA277491E00035FF6D /* likeCollectionVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = likeCollectionVCell.swift; sourceTree = "<group>"; };
 		CA226EFC277491FC0035FF6D /* LikeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeVC.swift; sourceTree = "<group>"; };
+		CA45E0E5279CEC4B00404E9E /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
 		CA5CFB3B2771BC9F000F6B03 /* CartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartVC.swift; sourceTree = "<group>"; };
 		CA5CFB3D2771BCDB000F6B03 /* CartCollectionVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCollectionVCell.swift; sourceTree = "<group>"; };
 		CA5F1C6D277865AF00E8DF4E /* Loader1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Loader1.gif; sourceTree = "<group>"; };
@@ -111,9 +114,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6B28E8B0279C4E8C008D147B /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				6B28E8B1279C4EA6008D147B /* Constants.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		CA16C0FF2768B147000EC012 = {
 			isa = PBXGroup;
 			children = (
+				6B28E8B0279C4E8C008D147B /* Common */,
 				CA16C10A2768B147000EC012 /* finshdproject */,
 			);
 			sourceTree = "<group>";
@@ -256,6 +268,7 @@
 		CAB21A4D2779CBD10088C6D6 /* Purchase information page */ = {
 			isa = PBXGroup;
 			children = (
+				CAB21A4E2779CC1C0088C6D6 /* PurchaseInformationVC.swift */,
 				CAB21A522779CC920088C6D6 /* PurchaseInformationCellVC.swift */,
 				CAB21A542779E42B0088C6D6 /* PurchaseInformationCellVCTablewCell.swift */,
 			);
@@ -273,7 +286,6 @@
 		CADD889B2780C3D8003FBC12 /* Customer_Order */ = {
 			isa = PBXGroup;
 			children = (
-				CAB21A4E2779CC1C0088C6D6 /* PurchaseInformationVC.swift */,
 				CADD889E2780C4EB003FBC12 /* ShippingAddressVC.swift */,
 				CADD889C2780C4CC003FBC12 /* billingAddressVC.swift */,
 				CA01B6DC2781D07F0022439D /* CardViewController.swift */,
@@ -335,13 +347,14 @@
 					};
 				};
 			};
-			buildConfigurationList = CA16C1032768B147000EC012 /* Build configuration list for PBXProject "MobStore" */;
+			buildConfigurationList = CA16C1032768B147000EC012 /* Build configuration list for PBXProject "finshdproject" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ar,
 			);
 			mainGroup = CA16C0FF2768B147000EC012;
 			packageReferences = (
@@ -378,6 +391,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA9613F8276EA52500386935 /* LoginVC.swift in Sources */,
+				6B28E8B2279C4EA6008D147B /* Constants.swift in Sources */,
 				CAB21A4F2779CC1C0088C6D6 /* PurchaseInformationVC.swift in Sources */,
 				CA16C1482768B1B4000EC012 /* Product.swift in Sources */,
 				CADD889D2780C4CC003FBC12 /* billingAddressVC.swift in Sources */,
@@ -420,6 +434,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				CA16C1122768B147000EC012 /* Base */,
+				CA45E0E5279CEC4B00404E9E /* ar */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -439,6 +454,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -500,6 +516,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -594,7 +611,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CA16C1032768B147000EC012 /* Build configuration list for PBXProject "MobStore" */ = {
+		CA16C1032768B147000EC012 /* Build configuration list for PBXProject "finshdproject" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CA16C11A2768B149000EC012 /* Debug */,

@@ -13,14 +13,14 @@ class DisplayProductsVC: UIViewController {
   
   // MARK: - Properties
   
-  var selectedProdect:Product!
-  var arrayAllPhone:[Product]!
-  var selectedType:String!
-  var selectedBrand:String!
-  var page:String!
-  var arraySeleced:[Product]! = [Product]()
-  var arrayBrand:[String] = ["All"]
-  var filterData:[Product]!
+  var selectedProdect: Product!
+  var arrayAllPhone: [Product]!
+  var selectedType: String!
+  var selectedBrand: String!
+  var page: String!
+  var arraySeleced: [Product]! = [Product]()
+  var arrayBrand: [String] = ["All"]
+  var filterData: [Product]!
   
   
   // MARK: - IBOutlet
@@ -33,8 +33,10 @@ class DisplayProductsVC: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     collcshinPhoneCell.delegate = self
     collcshinPhoneCell.dataSource = self
+    
     brandHeaders.delegate = self
     brandHeaders.dataSource = self
     
@@ -45,6 +47,7 @@ class DisplayProductsVC: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    
     arraySeleced.removeAll()
     arrayAllPhone.forEach { Prodectse in
       if page == "Type" {
@@ -102,9 +105,11 @@ class DisplayProductsVC: UIViewController {
   }
   
   
+  
   // MARK: - IBAction
   
   @IBAction func likeButtonPreased(_ sender: UIButton) {
+    
     let index = sender.tag
     let db = Firestore.firestore()
     
@@ -115,12 +120,16 @@ class DisplayProductsVC: UIViewController {
     
     if arraySeleced[index].isFavorite {
       sender.setImage(UIImage(systemName: "suit.heart"), for: .normal)
+      
       if let index1 = arrayAllPhone.firstIndex(of: arraySeleced[index]) {
         arrayAllPhone[index1].isFavorite = false
         arraySeleced[index].isFavorite = false
       }
+      
       db.collection("users").document(userID).collection("ProdectsFavorite").document(arraySeleced[index].id).delete()
+      
     } else {
+      
       if let index1 = arrayAllPhone.firstIndex(of: arraySeleced[index]) {
         arrayAllPhone[index1].isFavorite = true
         arraySeleced[index].isFavorite = true
@@ -128,24 +137,28 @@ class DisplayProductsVC: UIViewController {
       sender.setImage(UIImage(systemName: "suit.heart.fill"),
                       for: .normal)
       
-      db.collection("users").document(userID).collection("ProdectsFavorite").document(self.arraySeleced[index].id).setData(
-        ["id": self.arraySeleced[index].id,
-         "image": self.arraySeleced[index].image,
-         "info": self.arraySeleced[index].info,
-         "price": self.arraySeleced[index].price,
-         "brand":self.arraySeleced[index].brand,
-         "type":self.arraySeleced[index].type,
-         "Offers":self.arraySeleced[index].Offers,
-         "images":self.arraySeleced[index].images,
-         "isFavorite":self.arraySeleced[index].isFavorite]) { error in
-           if error != nil {
-             print("Error add : \(String(describing: error?.localizedDescription))")
-           } else {
+      db.collection("users").document(userID)
+        .collection("ProdectsFavorite")
+        .document(self.arraySeleced[index].id).setData(
+          ["id": self.arraySeleced[index].id,
+           "image": self.arraySeleced[index].image,
+           "info": self.arraySeleced[index].info,
+           "price": self.arraySeleced[index].price,
+           "brand":self.arraySeleced[index].brand,
+           "type":self.arraySeleced[index].type,
+           "Offers":self.arraySeleced[index].Offers,
+           "images":self.arraySeleced[index].images,
+           "isFavorite":self.arraySeleced[index].isFavorite]) { error in
              
+             if error != nil {
+               print("Error add : \(String(describing: error?.localizedDescription))")
+               
+             } else {
+             }
            }
-         }
     }
-  }
+  }    // likeButtonPreased
+  
   
   func alert() {
     
@@ -167,16 +180,21 @@ class DisplayProductsVC: UIViewController {
   
   
   @IBAction func tollyForPayPreased(_ sender: UIButton) {
+    
     sender.setImage(UIImage(systemName: "cart.fill"),
                     for: .normal)
+    
     let index = sender.tag
+    
     let db = Firestore.firestore()
     guard let userID = Auth.auth().currentUser?.uid else {
       alert()
       return
     }
     
-    let document = db.collection("users").document(userID).collection("Carts").document(arraySeleced[index].id)
+    let document = db
+      .collection("users").document(userID)
+      .collection("Carts").document(arraySeleced[index].id)
     
     document.setData([
       "id":arraySeleced[index].id,
@@ -205,8 +223,10 @@ extension DisplayProductsVC: UICollectionViewDelegate,
   
   func collectionView(_ collectionView: UICollectionView,
                       numberOfItemsInSection section: Int) -> Int {
+    
     if collectionView == collcshinPhoneCell {
       return filterData.count
+      
     } else {
       return arrayBrand.count
     }
@@ -216,31 +236,37 @@ extension DisplayProductsVC: UICollectionViewDelegate,
   func collectionView(_ collectionView: UICollectionView,
                       cellForItemAt indexPath: IndexPath
   ) -> UICollectionViewCell {
+    
     if collectionView == collcshinPhoneCell {
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhoneDitels",
-                                                    for: indexPath) as! PhoneDetailsCVCell
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhoneDitels",for: indexPath) as! PhoneDetailsCVCell
+      
       var data:Product!
+      
       if filterData.count != 0 {
         data = filterData[indexPath.row]
+        
       } else {
         data = arraySeleced[indexPath.row]
       }
       cell.likeButton.tag = indexPath.row
       cell.cartButton.tag = indexPath.row
+      
       if data.isFavorite {
         cell.likeButton.setImage(UIImage(systemName: "suit.heart.fill"),
                                  for: .normal)
+        
       } else {
         cell.likeButton.setImage(UIImage(systemName: "suit.heart"),
                                  for: .normal)
       }
+      
       cell.Setupcell(photo: data.image,
                      price: data.price,
                      DisCrbsion:data.info )
       return cell
+      
     } else {
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "brandHeader",
-                                                    for: indexPath) as! BrandHeadersCVCell
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "brandHeader",for: indexPath) as! BrandHeadersCVCell
       cell.name.text = arrayBrand[indexPath.row]
       return cell
     }
@@ -251,6 +277,7 @@ extension DisplayProductsVC: UICollectionViewDelegate,
                       shouldSelectItemAt indexPath: IndexPath) -> Bool {
     if collectionView == collcshinPhoneCell {
       selectedProdect = arraySeleced[indexPath.row]
+      
     } else {
       selectedBrand = arrayBrand[indexPath.row]
       if selectedBrand != "All" {
@@ -261,7 +288,8 @@ extension DisplayProductsVC: UICollectionViewDelegate,
           }
         } else {
           filterData = selectedBrand.isEmpty ? arraySeleced : arraySeleced.filter{ (item: Product) -> Bool in
-            return item.brand.range(of: selectedBrand, options: .caseInsensitive,
+            return item.brand.range(of: selectedBrand,
+                                    options: .caseInsensitive,
                                     range: nil,
                                     locale: nil) != nil
           }
@@ -279,7 +307,7 @@ extension DisplayProductsVC: UICollectionViewDelegate,
   override func prepare(for segue: UIStoryboardSegue,
                         sender: Any?) {
     if let vc = segue.destination as? EndTransactionVC {
-      vc.carts = selectedProdect
+      vc.product = selectedProdect
     }
   }
 }

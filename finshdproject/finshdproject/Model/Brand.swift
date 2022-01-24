@@ -9,6 +9,6 @@ import Foundation
 import UIKit
 
 struct Brand {
-  let image:UIImage
-  let name:String
+  let image: UIImage
+  let name: String
 }

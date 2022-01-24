@@ -15,7 +15,7 @@ class billingAddressVC: UIViewController ,
   
   var manger = CLLocationManager()
   
- 
+  
   // MARK: -IBOutlet
   
   @IBOutlet weak var mapVC: MKMapView!
@@ -25,12 +25,14 @@ class billingAddressVC: UIViewController ,
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     hideKeyboardWhenTappedAround()
   }
   
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
+    
     manger.desiredAccuracy = kCLLocationAccuracyBest
     manger.delegate = self
     manger.requestWhenInUseAuthorization()
@@ -41,25 +43,27 @@ class billingAddressVC: UIViewController ,
   // MARK: - IBAction
   
   @IBAction func buttonAdd(_ sender: UIButton) {
+    
     let latitude = manger.location!.coordinate.latitude
     let longitude = manger.location!.coordinate.longitude
     NotificationCenter.default.post(name: Notification.Name("billingAddress"),
                                     object: nil,
                                     userInfo: ["latitude":Double(latitude), "longitude":Double(longitude) ])
-    clus("")
+    close("")
   }
   
   
-  @IBAction func clus(_ sender: Any) {
+  @IBAction func close(_ sender: Any) {
     dismiss(animated: true,
             completion: nil);
   }
   
   
   // MARK: - functions
-
+  
   func locationManager(_ manager: CLLocationManager,
                        didUpdateLocations locations: [CLLocation]) {
+    
     if let location = locations.first {
       manger.accuracyAuthorization
       render(location)
@@ -68,14 +72,18 @@ class billingAddressVC: UIViewController ,
   
   
   func render (_ location:CLLocation) {
+    
     let span = MKCoordinateSpan(latitudeDelta: 0.1,
                                 longitudeDelta: 0.1)
+    
     let Coordinat = CLLocationCoordinate2D(latitude: location.coordinate.latitude,
                                            longitude: location.coordinate.longitude)
-    let rehion = MKCoordinateRegion (center: Coordinat,
+    
+    let region = MKCoordinateRegion (center: Coordinat,
                                      span: span)
-    mapVC.setRegion(rehion,
+    mapVC.setRegion(region,
                     animated: true)
+    
     let pin = MKPointAnnotation ()
     pin.coordinate = Coordinat
     mapVC.addAnnotation(pin)

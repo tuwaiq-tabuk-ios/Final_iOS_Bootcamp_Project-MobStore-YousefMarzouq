@@ -15,10 +15,10 @@ class EditItme: UIViewController  {
   
   // MARK: - Properties
   
-  var prodect:Product?
+  var prodect: Product?
   var prodectImage = false
-  var ID:String!
-  var imagesEdit:[UIImage] = [UIImage]()
+  var ID: String!
+  var imagesEdit: [UIImage] = [UIImage]()
   var carntindX = 0
   let pickerTayp = UIPickerView()
   var pickerarryTayp = ["Tablet","Phone","Accessories","CardGame"]
@@ -43,13 +43,16 @@ class EditItme: UIViewController  {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     let toolbar = UIToolbar ()
     toolbar.sizeToFit()
+    
     let dane = UIBarButtonItem(title: "Done",
                                style: .plain,
                                target: self,
                                action: #selector(clus))
     toolbar.setItems([dane], animated: true)
+    
     taypTextField.inputView = pickerTayp
     pickerTayp.delegate = self
     pickerTayp.dataSource = self
@@ -61,17 +64,20 @@ class EditItme: UIViewController  {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+   
     getData()
   }
   
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
+   
     getData()
   }
   
   
   @objc func clus () {
+   
     taypTextField.text = pickerarryTayp[carntindX]
     view.endEditing(true)
   }
@@ -80,47 +86,74 @@ class EditItme: UIViewController  {
   // MARK: - IBAction
   
   @IBAction func imagHeadEdit(_ sender: Any) {
+    
     prodectImage = true
+    
     addFoto ()
   }
   @IBAction func imagsArryEdit(_ sender: Any) {
+   
     prodectImage = false
+    
     addFoto ()
   }
   @IBAction func deleteButtonTapped(_ sender: UIButton) {
+    
     imagesEdit.remove(at: sender.tag)
+   
     CollectionEdit.reloadData()
   }
   @IBAction func editButtonTapped(_ sender: Any) {
+    
     editDatabase()
   }
   
   
   func getData() {
+   
     productImage.sd_setImage(with: URL(string: prodect?.image ?? ""),
                              placeholderImage: UIImage(named: ""))
+    
     countItmeTextField.text = "0"
+   
     brandTextField.text = prodect?.brand
+    
     infoTextField.text = prodect?.info
+   
     praiceTextField.text = "\(prodect?.price ?? 0)"
+    
     infoLabel.text = infoTextField.text
+    
     priceLabel.text = praiceTextField.text
+    
     countLabel.text = "5"
+   
     brandLabel.text = brandTextField.text
+    
     taypTextField.text = prodect?.type
+    
     ID = prodect?.id
+    
     self.imagesEdit.removeAll()
+   
     if prodect?.images.count ?? 0 > 0 {
+      
+      
       for image in prodect!.images {
+       
         let imageView = UIImageView()
         imageView.sd_setImage(with: URL(string: image)) { image, error,
           cache, url in
+         
           self.imagesEdit.append(image!)
+          
           self.CollectionEdit.reloadData()
         }
       }
     }
+   
     CollectionEdit.reloadData()
+   
     DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
       self.prodect = nil
     }
@@ -128,54 +161,78 @@ class EditItme: UIViewController  {
   
   
   func editDatabase() {
+   
     let db = Firestore.firestore()
+    
     let storeage = Storage.storage()
+   
     let documentID = ID!
+   
     let uploadMetadata = StorageMetadata()
     uploadMetadata.contentType = "image/jpeg"
-    db.collection("Prodects").document(documentID).setData([
+    db
+      .collection("Prodects").document(documentID).setData([
       "info": self.infoTextField.text! ,
       "price": Double(self.praiceTextField.text!) ?? 0,
       "brand": self.brandLabel.text!,
       "type":self.taypTextField.text!,
       "count":Int(self.countLabel.text!)
     ], merge: true)
+    
     var imageID = ""
+    
     if imageID == "" {
       imageID = UUID().uuidString
     }
+   
     let storeageRF = storeage.reference().child(documentID).child(imageID)
+   
     let imageData = productImage.image?.jpegData(compressionQuality: 0.5)
-    storeageRF.putData(imageData!, metadata: uploadMetadata) { metadata, error in
+    storeageRF.putData(imageData!,
+                       metadata: uploadMetadata) { metadata, error in
       if error != nil {
+     
       } else {
         storeageRF.downloadURL { url, error in
+        
           if error != nil {
+         
           } else {
-            db.collection("Prodects").document(documentID).setData([
+            db
+              .collection("Prodects").document(documentID).setData([
               "image": url!.absoluteString
             ], merge: true)
           }
         }
       }
     }
+  
     var imagesData = [Data]()
+    
+    
     for image in imagesEdit {
       let data = image.jpegData(compressionQuality: 0.5)
       imagesData.append(data!)
     }
+    
     var imagesURL = [String]()
+    
+    
     for data in imagesData {
       imageID = UUID().uuidString
+     
       let storeageRF = storeage.reference().child(documentID).child(imageID)
       storeageRF.putData(data, metadata: uploadMetadata) { metadata, error in
         if error != nil {
+       
         } else {
           storeageRF.downloadURL { url, error in
             if error != nil {
+           
             } else {
               imagesURL.append(url!.absoluteString)
-              db.collection("Prodects").document(documentID).setData([
+              db
+                .collection("Prodects").document(documentID).setData([
                 "images": imagesURL
               ], merge: true)
             }
@@ -190,13 +247,16 @@ class EditItme: UIViewController  {
     let alert = UIAlertController(title: "Take Poto From",
                                   message: nil,
                                   preferredStyle: .actionSheet)
+   
     alert.addAction(UIAlertAction(title: "Camera",
                                   style: .default,
                                   handler: { action in self.getimage(type: .camera)}))
+    
     alert.addAction(UIAlertAction(title: "photo Library",
                                   style: .default,
                                   handler: { action in self.getimage(type: .photoLibrary
                                   )}))
+    
     alert.addAction(UIAlertAction(title: "cancel",
                                   style: .cancel,
                                   handler: nil))
@@ -207,13 +267,17 @@ class EditItme: UIViewController  {
   
   
   func getimage(type:UIImagePickerController.SourceType){
+    
     var configuration = PHPickerConfiguration()
+    
     if prodectImage {
       configuration.selectionLimit = 1
+   
     } else {
       configuration.selectionLimit = 5
     }
     configuration.filter = .images
+   
     let photoPicker = PHPickerViewController(configuration: configuration)
     photoPicker.delegate = self
     present(photoPicker, animated: true, completion: nil)
@@ -232,11 +296,16 @@ extension EditItme : PHPickerViewControllerDelegate ,
   
   func picker(_ picker: PHPickerViewController,
               didFinishPicking results: [PHPickerResult]) {
+    
     dismiss(animated: true,
             completion: nil)
+    
     if prodectImage {
+      
       if let result = results.first, result.itemProvider.canLoadObject(ofClass: UIImage.self) {
-        result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+        result
+          .itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+        
           if let image = image as? UIImage {
             DispatchQueue.main.async {
               self.productImage.image = image
@@ -244,10 +313,15 @@ extension EditItme : PHPickerViewControllerDelegate ,
           }
         }
       }
+    
     }else {
+     
+      
       for result in results {
-        result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
-          if let image = image as? UIImage {
+        result
+          .itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+          
+            if let image = image as? UIImage {
             DispatchQueue.main.async {
               self.imagesEdit.append(image)
               self.CollectionEdit.reloadData()
@@ -262,6 +336,7 @@ extension EditItme : PHPickerViewControllerDelegate ,
   
   func pickerView(_ pickerView: UIPickerView,
                   numberOfRowsInComponent component: Int) -> Int {
+    
     return pickerarryTayp.count
   }
   
@@ -269,6 +344,7 @@ extension EditItme : PHPickerViewControllerDelegate ,
   func pickerView(_ pickerView: UIPickerView,
                   titleForRow row: Int,
                   forComponent component: Int) -> String? {
+    
     return pickerarryTayp[row]
   }
   
@@ -276,18 +352,22 @@ extension EditItme : PHPickerViewControllerDelegate ,
   func pickerView(_ pickerView: UIPickerView,
                   didSelectRow row: Int,
                   inComponent component: Int) {
+    
     carntindX = row
+    
     taypTextField.text = pickerarryTayp[row]
   }
   
   
   override func touchesBegan(_ touches: Set<UITouch>,
                              with event: UIEvent?) {
+    
     view.endEditing(true)
   }
   
   
   func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    
     return 1
   }
 }
@@ -303,6 +383,7 @@ extension EditItme :  UICollectionViewDelegate ,
   
   func collectionView(_ collectionView: UICollectionView,
                       numberOfItemsInSection section: Int) -> Int {
+    
     return imagesEdit.count ?? 0
   }
   
@@ -312,8 +393,11 @@ extension EditItme :  UICollectionViewDelegate ,
   ) -> UICollectionViewCell {
     let cllEdit = CollectionEdit.dequeueReusableCell(withReuseIdentifier: "P3",
                                                      for: indexPath) as! EditItmeCollectionViewCell
+  
     cllEdit.deleteButton.tag = indexPath.row
+    
     cllEdit.imgEdit.image = imagesEdit[indexPath.row]
+    
     return cllEdit
   }
 }

@@ -10,25 +10,28 @@ import UIKit
 class CardViewController: UIViewController {
   
   
- 
+  
   // MARK: - Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
   }
   
- 
+  
   // MARK: - IBAction
   
   @IBAction func clousPaeg(_ sender: Any) {
+    
     dismiss(animated: true,
             completion: nil);
   }
   
   
   @IBAction func addNewCard(_ sender: UIButton) {
+    
     let storyboard = UIStoryboard(name: "Main",
                                   bundle: nil)
+    
     let vc = storyboard.instantiateViewController(identifier: "Card")
     vc.modalPresentationStyle = .overFullScreen
     present(vc,
@@ -37,6 +40,7 @@ class CardViewController: UIViewController {
   
   
   @IBAction func cardAddClus(_ sender: Any) {
+    
     dismiss(animated: true,
             completion: nil);
   }

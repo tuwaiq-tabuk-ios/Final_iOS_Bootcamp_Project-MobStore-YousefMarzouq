@@ -17,11 +17,11 @@ class HomeVC: UIViewController {
   
   // MARK: - Properties
   
-  var homeProdects:[Product] = products
-  var homeProdectsInOffer:[Product] = []
-  var selectedBrand:String!
-  var selectedPreodect:Product!
-  var timer:Timer?
+  var homeProdects: [Product] = products
+  var homeProdectsInOffer: [Product] = []
+  var selectedBrand: String!
+  var selectedPreodect: Product!
+  var timer: Timer?
   var currentCellIndix = 0
   var fbCollection: CollectionReference!
   
@@ -66,11 +66,15 @@ class HomeVC: UIViewController {
     super.viewDidLoad()
     
     hideKeyboardWhenTappedAround()
+    
     collectionView.delegate = self
     collectionView.dataSource = self
+    
     let db = Firestore.firestore()
     fbCollection = db.collection("Prodects")
+    
     getData()
+    
     startTimer()
   }
   
@@ -88,13 +92,13 @@ class HomeVC: UIViewController {
           let data = document.data()
           let id = document.documentID
           products.append( Product(id:id,
-                                   image: data["image"] as! String,
+                                   image: data["image"] as? String ?? "",
                                    info: data["info"] as! String,
                                    price: data["price"] as! Double,
                                    brand: data["brand"] as! String,
                                    type: data["type"] as! String,
                                    Offers: data["Offers"] as! Bool,
-                                   images: data["images"] as! Array,
+                                   images: data["images"] as? Array ?? [""],
                                    isFavorite: data["isFavorite"] as! Bool))
         }
         self.homeProdects = Product.getProducts()
@@ -102,14 +106,14 @@ class HomeVC: UIViewController {
         self.homeProdects.forEach { Prodectse in
           if (Prodectse.Offers) {
             self.homeProdectsInOffer.append(Product(id: Prodectse.id,
-                                            image: Prodectse.image,
-                                            info: Prodectse.info,
-                                            price: Prodectse.price,
-                                            brand: Prodectse.brand,
-                                            type: Prodectse.type,
-                                            Offers: Prodectse.Offers,
-                                            images: Prodectse.images,
-                                            isFavorite: Prodectse.isFavorite))
+                                                    image: Prodectse.image,
+                                                    info: Prodectse.info,
+                                                    price: Prodectse.price,
+                                                    brand: Prodectse.brand,
+                                                    type: Prodectse.type,
+                                                    Offers: Prodectse.Offers,
+                                                    images: Prodectse.images,
+                                                    isFavorite: Prodectse.isFavorite))
           }
         }
         self.brandCollectionView2.reloadData()
@@ -119,6 +123,7 @@ class HomeVC: UIViewController {
   
   
   func startTimer () {
+    
     timer = Timer.scheduledTimer(timeInterval: 2.5,
                                  target: self,
                                  selector: #selector(moveToNextIndix),
@@ -128,18 +133,23 @@ class HomeVC: UIViewController {
   
   
   @objc func moveToNextIndix () {
+    
     if currentCellIndix < arrayProducPhotos.count - 1 {
       currentCellIndix += 1
+      
     }else {
       currentCellIndix = 0
     }
     collectionView.scrollToItem(at: IndexPath(item: currentCellIndix,
                                               section: 0), at: .centeredHorizontally,
                                 animated: true)  }
-
   
-  override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
+  
+  override func prepare(for segue: UIStoryboardSegue,
+                        sender: Any?) {
+    
     switch segue.identifier {
+      
     case "showPhone":
       if let vc = segue.destination as? DisplayProductsVC {
         vc.arrayAllPhone = homeProdects
@@ -190,7 +200,7 @@ class HomeVC: UIViewController {
       
     case "showDeatil2":
       if let vc = segue.destination as? EndTransactionVC {
-        vc.carts = selectedPreodect
+        vc.product = selectedPreodect
       }
       
     default:
@@ -219,20 +229,26 @@ extension HomeVC: UICollectionViewDelegate,
   func collectionView(_ collectionView: UICollectionView,
                       cellForItemAt indexPath: IndexPath
   ) -> UICollectionViewCell {
+    
     if (collectionView == brandCollectionView) {
+      
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "brandCell",
                                                     for: indexPath ) as! BrandShowAllCVCell
-      cell.brandImagee.image = brandOuter[indexPath.row].image
       
+      cell.brandImagee.image = brandOuter[indexPath.row].image
       return cell
+      
     } else if (collectionView == brandCollectionView2) {
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "prodectCell",
-                                                    for: indexPath ) as! ProductsCVCell
+     
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "prodectCell",for: indexPath ) as! ProductsCVCell
+      
       cell.Setupcell(photo: homeProdectsInOffer[indexPath.row].image,
                      price: homeProdectsInOffer[indexPath.row].price,
                      DisCrbsion: homeProdectsInOffer[indexPath.row].info)
       return cell
+      
     } else {
+      
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCollectionViewCell",
                                                     for: indexPath ) as! HomeVCCell
       cell.img.image = arrayProducPhotos[indexPath.row]
@@ -243,10 +259,13 @@ extension HomeVC: UICollectionViewDelegate,
   
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    
     if (collectionView == brandCollectionView){
       return 30
+    
     } else if (collectionView == brandCollectionView2){
       return 20
+   
     } else {
       return 0
     }
@@ -256,10 +275,13 @@ extension HomeVC: UICollectionViewDelegate,
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout,
                       minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    
     if (collectionView == brandCollectionView){
       return 30
+    
     } else if (collectionView == brandCollectionView2){
       return 20
+    
     } else {
       return 0
     }
@@ -271,8 +293,10 @@ extension HomeVC: UICollectionViewDelegate,
   ) -> Int {
     if (collectionView == brandCollectionView) {
       return brandOuter.count
+      
     }else  if (collectionView == brandCollectionView2) {
       return homeProdectsInOffer.count
+      
     } else {
       return arrayProducPhotos.count
     }
@@ -284,9 +308,11 @@ extension HomeVC: UICollectionViewDelegate,
     layout collectionViewLayout: UICollectionViewLayout,
     sizeForItemAt indexPath: IndexPath
   ) -> CGSize {
+    
     if (collectionView == brandCollectionView) {
       if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
         return layout.itemSize
+        
       } else {
         return .zero
       }
@@ -302,7 +328,9 @@ extension HomeVC: UICollectionViewDelegate,
   
   func configureSize(numOfHorizontsalCells:CGFloat,
                      marginBetweenCells:CGFloat) {
+    
     print("\n \(#function)")
+    
     let layout = UICollectionViewFlowLayout()
     let totalMarginBetweenCells:CGFloat = marginBetweenCells * (numOfHorizontsalCells - 1)
     let marginPerCell: CGFloat = totalMarginBetweenCells / numOfHorizontsalCells
@@ -314,22 +342,19 @@ extension HomeVC: UICollectionViewDelegate,
     layout.minimumInteritemSpacing = marginPerCell
     layout.estimatedItemSize = .zero
     layout.itemSize = CGSize(width: cellWidth, height: cellHight)
-    brandCollectionView.isPagingEnabled = true
-    
-    
   }
   
   
   func collectionView(_ collectionView: UICollectionView,
                       shouldSelectItemAt indexPath: IndexPath) -> Bool {
+    
     if (collectionView == brandCollectionView){
       selectedBrand = brandOuter[indexPath.row].name
+      
     } else if (collectionView == brandCollectionView2) {
       selectedPreodect = homeProdectsInOffer[indexPath.row]
     }
     return true
   }
-  
-  
 }
 

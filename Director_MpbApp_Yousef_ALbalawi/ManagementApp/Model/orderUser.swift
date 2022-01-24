@@ -11,9 +11,6 @@
 import Foundation
 
 
-
-
-
 struct Cart {
   let product:Product
   var counts:Int
