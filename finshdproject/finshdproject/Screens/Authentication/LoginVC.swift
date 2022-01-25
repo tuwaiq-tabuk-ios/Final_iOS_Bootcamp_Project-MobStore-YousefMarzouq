@@ -39,7 +39,7 @@ class LoginVC: UIViewController {
     }  }
   
   
-  @IBAction func closPegePassword(_ sender: Any) {
+  @IBAction func closePegePassword(_ sender: Any) {
     dismiss(animated: true, completion: nil);
   }
   
@@ -59,9 +59,14 @@ class LoginVC: UIViewController {
   
   
   @IBAction func singUpPassword(_ sender: Any) {
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    
+    let storyboard = UIStoryboard(name: "Main",
+                                  bundle: nil)
+    
     let vc = storyboard.instantiateViewController(identifier: "SingUp")
+    
     vc.modalPresentationStyle = .overFullScreen
+   
     let parentVC = presentingViewController
     dismiss(animated: true) {
       parentVC!.present(vc, animated: true)

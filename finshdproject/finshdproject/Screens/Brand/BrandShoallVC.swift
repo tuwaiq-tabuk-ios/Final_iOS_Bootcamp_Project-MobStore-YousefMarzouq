@@ -7,15 +7,14 @@
 
 import UIKit
 
-class BrandShoallVC: UIViewController
-{
+class BrandShoallVC: UIViewController {
   
   
   // MARK: - Properties
   
   var brandShoall = [Phone] ()
-  var arrayProdects:[Product] = Product.getProducts()
-  var selectedBrand:String!
+  var arrayProdects: [Product] = Product.getProducts()
+  var selectedBrand: String!
   
   
   // MARK: - IBOutlet
@@ -27,7 +26,9 @@ class BrandShoallVC: UIViewController
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     hideKeyboardWhenTappedAround()
+    
     collchinBrandView.delegate = self
     collchinBrandView.dataSource = self
     
@@ -60,7 +61,9 @@ class BrandShoallVC: UIViewController
   
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
     switch segue.identifier {
+      
     case "showProdect":
       if let vc = segue.destination as? DisplayProductsVC {
         vc.arrayAllPhone = arrayProdects
@@ -87,14 +90,17 @@ extension BrandShoallVC :  UICollectionViewDelegate,
   
   func collectionView(_ collectionView: UICollectionView,
                       numberOfItemsInSection section: Int) -> Int {
+    
     return brandShoall.count
   }
   
   
   func collectionView(_ collectionView: UICollectionView,
                       cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Brandd",
                                                   for: indexPath) as! BrandVCCell
+    
     let data = brandShoall[indexPath.row]
     cell.imageBrand.image = data.photo
     return cell
@@ -103,6 +109,7 @@ extension BrandShoallVC :  UICollectionViewDelegate,
   
   func collectionView(_ collectionView: UICollectionView,
                       shouldSelectItemAt indexPath: IndexPath) -> Bool {
+    
     selectedBrand = brandShoall[indexPath.row].brand
     return true
   }
@@ -113,8 +120,10 @@ extension BrandShoallVC :  UICollectionViewDelegate,
     layout collectionViewLayout: UICollectionViewLayout,
     sizeForItemAt indexPath: IndexPath
   ) -> CGSize {
+    
     if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
       return layout.itemSize
+      
     } else {
       return .zero
     }
@@ -123,6 +132,7 @@ extension BrandShoallVC :  UICollectionViewDelegate,
   
   func configureSize(numOfHorizontsalCells:CGFloat,
                      marginBetweenCells:CGFloat) {
+    
     print("\n \(#function)")
     let layout = UICollectionViewFlowLayout()
     let totalMarginBetweenCells:CGFloat = marginBetweenCells * (numOfHorizontsalCells - 1)

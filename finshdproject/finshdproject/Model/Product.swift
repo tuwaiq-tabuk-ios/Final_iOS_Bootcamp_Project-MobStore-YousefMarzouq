@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-var products:[Product] = [Product]()
+var products: [Product] = [Product]()
 
 class Product:Equatable {
   static func == (lhs: Product, rhs: Product) -> Bool {
@@ -25,25 +25,25 @@ class Product:Equatable {
   
   
   
-  let id:String
-  let image:String
-  let info:String
-  let price:Double
-  let brand:String
-  let type:String
-  let Offers:Bool
-  let images:[String]
-  var isFavorite:Bool
+  let id: String
+  let image: String
+  let info: String
+  let price: Double
+  let brand: String
+  let type: String
+  let Offers: Bool
+  let images: [String]
+  var isFavorite: Bool
   
   
-  init(id:String,image:String,
-       info:String,
-       price:Double,
-       brand:String,
-       type:String,
-       Offers:Bool,
-       images:[String],
-       isFavorite:Bool) {
+  init(id: String,image: String,
+       info: String,
+       price: Double,
+       brand: String,
+       type: String,
+       Offers: Bool,
+       images: [String],
+       isFavorite: Bool) {
     self.id = id
     self.image = image
     self.info = info

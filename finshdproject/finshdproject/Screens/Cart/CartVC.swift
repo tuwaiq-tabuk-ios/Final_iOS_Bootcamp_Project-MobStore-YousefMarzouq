@@ -13,10 +13,10 @@ class CartVC: UIViewController {
   
   // MARK: - Properties
   
-  var totlprice:Double = 0
-  var arrayShoppingcart:[Cart]! = [Cart]()
+  var totlprice: Double = 0
+  var arrayShoppingcart: [Cart]! = [Cart]()
   var DocumentReference: CollectionReference!
-  var selectBrand:String!
+  var selectBrand: String!
   
   
   // MARK: - IBOutlet
@@ -34,10 +34,9 @@ class CartVC: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     shoppingCart.delegate = self
     shoppingCart.dataSource = self
-    
-    
   }
   
   
@@ -48,6 +47,7 @@ class CartVC: UIViewController {
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
+   
     getData()
     updateUI()
   }
@@ -55,7 +55,8 @@ class CartVC: UIViewController {
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let vc = segue.destination as? PurchaseInformationVC {
-      vc.customerrequests = arrayShoppingcart
+      
+      vc.carts = arrayShoppingcart
     }
   }
   
@@ -67,13 +68,15 @@ class CartVC: UIViewController {
   }
   
   @IBAction func rmoveItm(_ sender: UIButton) {
+  
     let index = sender.tag
     let db = Firestore.firestore()
     guard let userID = Auth.auth().currentUser?.uid else {
       return
     }
     
-    db.collection("users").document(userID).collection("Carts").document(arrayShoppingcart[index].product.id).delete()
+    db
+      .collection("users").document(userID).collection("Carts").document(arrayShoppingcart[index].product.id).delete()
     
     self.totlprice -= Double(self.arrayShoppingcart[index].count) * Double(self.arrayShoppingcart[index].product.price)
     self.totalPraic.text = "\(self.totlprice)"
@@ -85,6 +88,7 @@ class CartVC: UIViewController {
 
   
   @IBAction func pluseButtonmPreased(_ sender: UIButton) {
+   
     let cell = shoppingCart!.cellForItem(at: IndexPath(row: sender.tag, section: 0)) as! CartCollectionVCell
     var conter = Int(cell.conttiCrSho.text!)
     conter! += 1
@@ -96,7 +100,9 @@ class CartVC: UIViewController {
   
   
   @IBAction func minusButtonPreased(_ sender: UIButton) {
-    let cell = shoppingCart!.cellForItem(at: IndexPath(row: sender.tag, section: 0)) as! CartCollectionVCell
+   
+    let cell = shoppingCart!.cellForItem(at: IndexPath(row: sender.tag,
+                                                       section: 0)) as! CartCollectionVCell
     var conter = Int(cell.conttiCrSho.text!)
     if conter != 0 {
       conter! -= 1
@@ -111,12 +117,14 @@ class CartVC: UIViewController {
   // MARK: - functions
   
   func updateUI() {
+  
     if self.arrayShoppingcart.count == 0 {
       Checkout.isHidden = true
       totalsummation.isHidden = true
       shoppingCart.isHidden = true
       totalPraic.isHidden = true
       heartpicture.isHidden = false
+  
     } else {
       Checkout.isHidden = false
       totalsummation.isHidden = false
@@ -127,6 +135,7 @@ class CartVC: UIViewController {
   }
   
   func getData() {
+  
     let db = Firestore.firestore()
     
     guard let userID = Auth.auth().currentUser?.uid else {
@@ -134,8 +143,11 @@ class CartVC: UIViewController {
     }
     
     
-    db.collection("users").document(userID).collection("Carts").addSnapshotListener { snapshot, error in
+    db
+      .collection("users").document(userID)
+      .collection("Carts").addSnapshotListener { snapshot, error in
       if error != nil {
+     
       } else {
         guard let document = snapshot?.documents else {
           return
@@ -162,7 +174,6 @@ class CartVC: UIViewController {
           self.totalPraic.text = "\(self.totlprice)"
         }
         self.shoppingCart.reloadData()
-        
       }
     }
   }

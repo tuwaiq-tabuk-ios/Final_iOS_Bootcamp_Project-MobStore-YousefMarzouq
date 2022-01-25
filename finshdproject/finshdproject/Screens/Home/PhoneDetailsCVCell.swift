@@ -23,9 +23,10 @@ class PhoneDetailsCVCell: UICollectionViewCell {
   
   // MARK: - functions
   
-  func Setupcell (photo:String ,
-                  price:Double,
-                  DisCrbsion:String){
+  func Setupcell (photo: String ,
+                  price: Double,
+                  DisCrbsion: String){
+   
     let animatedImage = SDAnimatedImage(contentsOfFile: "\(Bundle.main.bundlePath)/Loader1.gif")
     imgCllPhone.sd_setImage(with: URL(string: photo),
                             placeholderImage: animatedImage)

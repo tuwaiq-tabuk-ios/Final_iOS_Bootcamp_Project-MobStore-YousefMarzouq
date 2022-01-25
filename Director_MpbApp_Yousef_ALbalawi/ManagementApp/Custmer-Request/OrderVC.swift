@@ -11,13 +11,24 @@ import SDWebImage
 class OrderVC: UIViewController {
   
   
+  
+  // MARK: - Properties
+  
+  var order: Order!
+  
+  
+  
+  // MARK: - IBOutlets
+  
   @IBOutlet weak var customerName: UILabel!
   @IBOutlet weak var customerPhone: UILabel!
   @IBOutlet weak var orderNumber: UILabel!
   @IBOutlet weak var orderState: UILabel!
   @IBOutlet weak var totalAmount: UILabel!
   
-  var order: Order!
+  
+  
+  // MARK: - Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -42,15 +53,18 @@ class OrderVC: UIViewController {
     
     if canOpenGoogelMaps {
       UIApplication.shared.openURL(URL(string:"comgooglemapsurl://maps.google.com/?q=@\(order.shippingAddress[0]),\(order.shippingAddress[1])")!)
+      
     } else {
       UIApplication.shared.openURL(URL(string:"https://maps.google.com/?q=@\(order.shippingAddress[0]),\(order.shippingAddress[1])")!)
     }
     
     // open Apple Maps
+    
     let canOpenAppleMaps = UIApplication.shared.openURL(URL(string:"maps://maps?q=\(order.shippingAddress[0]),\(order.shippingAddress[1])")!)
     
     if canOpenAppleMaps {
       UIApplication.shared.openURL(URL(string:"maps://maps?q=\(order.shippingAddress[0]),\(order.shippingAddress[1])")!)
+      
     } else {
       UIApplication.shared.openURL(URL(string:"https://maps.apple.com/maps?q=\(order.shippingAddress[0]),\(order.shippingAddress[1])")!)
     }
@@ -74,25 +88,31 @@ extension OrderVC : UICollectionViewDelegate,
   
   func collectionView(_ collectionView: UICollectionView,
                       numberOfItemsInSection section: Int) -> Int {
+    
     return order.orders.count
   }
   
   
   func collectionView(_ collectionView: UICollectionView,
                       cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OrderCell",
                                                   for: indexPath) as! OrderCell
+    
     let product = order.orders[indexPath.row].product
+    
     cell.productImage.sd_setImage(with: URL(string: product.image),
                                   placeholderImage: UIImage())
+    
     cell.productBrand.text = product.brand
+    
     cell.productInfo.text = product.info
+    
     cell.productAmount.text = "\(order.orders[indexPath.row].counts)"
+    
     let price = Double(order.orders[indexPath.row].counts) * product.price
     cell.productPrice.text = " \(price) SR"
     
     return cell
   }
-  
-  
 }

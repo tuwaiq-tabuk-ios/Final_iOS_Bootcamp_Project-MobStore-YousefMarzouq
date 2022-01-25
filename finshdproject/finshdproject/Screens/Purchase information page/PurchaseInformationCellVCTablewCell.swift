@@ -27,7 +27,7 @@ class PurchaseInformationCellVCTablewCell: UITableViewCell {
   
   override func setSelected(_ selected: Bool,
                             animated: Bool) {
-    super.setSelected(selected,
+   super.setSelected(selected,
                       animated: animated)
   }
 }
