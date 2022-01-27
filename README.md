@@ -29,8 +29,11 @@ All segments of society who are interested in electronics
 ## home video
 
 
-https://user-images.githubus<img width="639" alt="Screen Shot 1443-06-24 at 10 17 47 AM" src="https://user-images.githubusercontent.com/91871669/151310101-f23d6549-9948-456d-9651-5e67f162bda3.png">
-ercontent.com/91871669/151309147-43a339e9-343c-421a-8c14-317350df2412.mp4
+
+https://user-images.githubusercontent.com/91871669/151311468-192bb518-86bf-44d9-840f-bdb832035880.mp4
+
+
+
 
 
 ## photo
