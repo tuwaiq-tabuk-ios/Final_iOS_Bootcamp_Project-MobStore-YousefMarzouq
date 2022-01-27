@@ -24,3 +24,10 @@ All segments of society who are interested in electronics
 ● The user will be able to create an acount and save his/her location, see previous or current orders.
 ● The user will be able to modify his/her profile informations.
 
+
+
+## home video
+
+
+https://user-images.githubusercontent.com/91871669/151309147-43a339e9-343c-421a-8c14-317350df2412.mp4
+
