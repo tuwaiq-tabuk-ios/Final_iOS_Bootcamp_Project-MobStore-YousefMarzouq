@@ -29,5 +29,39 @@ All segments of society who are interested in electronics
 ## home video
 
 
-https://user-images.githubusercontent.com/91871669/151309147-43a339e9-343c-421a-8c14-317350df2412.mp4
+https://user-images.githubus<img width="639" alt="Screen Shot 1443-06-24 at 10 17 47 AM" src="https://user-images.githubusercontent.com/91871669/151310101-f23d6549-9948-456d-9651-5e67f162bda3.png">
+ercontent.com/91871669/151309147-43a339e9-343c-421a-8c14-317350df2412.mp4
+
+
+## photo
+
+1 -
+
+![Uploading Screen Shot 1443-06-24 at 10.17.47 AM.png…]()
+
+
+
+2 -
+
+<img width="602" alt="Screen Shot 1443-06-24 at 10 17 27 AM" src="https://user-images.githubusercontent.com/91871669/151310235-1f52f6d6-6267-4d71-bbd5-e3adc0ed9de5.png">
+
+
+3 - Show  all
+
+
+<img width="600" alt="Screen Shot 1443-06-24 at 10 17 11 AM" src="https://user-images.githubusercontent.com/91871669/151310577-6d468b99-3d80-4cce-bb7e-15c9af9a8360.png">
+
+ 
+ 4- Social Media
+ 
+ <img width="625" alt="Screen Shot 1443-06-24 at 10 14 27 AM" src="https://user-images.githubusercontent.com/91871669/151310718-99a420e7-d740-431e-b139-d99c833a6bac.png">
+
+ 
+ 
+ 
+
+
+
+
+
 
